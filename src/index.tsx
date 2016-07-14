@@ -2,14 +2,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { createStore } from "redux";
 import { Provider, connect } from "react-redux";
-
-type AppState = {
-    username: string
-}
-
-type HelloProps = {
-    todos: AppState
-};
+import { Hello, HelloProps } from './components/Hello';
+import { AppState } from './types';
 
 const initialState: AppState = {
     username: 'Andrea'
@@ -21,25 +15,20 @@ function reducer(state = initialState, action: any) {
 
 let store = createStore(reducer);
 
-function Hello(props: HelloProps) {
-    return <h1>{props.todos.username}</h1>;
-}
-
-function mapDispatchToProps(dispatch: any) {
-    // Every time the state is updated the props are recalculated
+let MyInput = connect((state: AppState) => {
     return {};
-}
-
-function mapStateToProps(state: AppState): HelloProps {
-    // Every time the state is updated the props are recalculated
-    return {todos: state};
-};
-
-let App = connect(mapStateToProps, mapDispatchToProps)(Hello);
+}, (dispatch) => {
+    return {
+        changeHandler: (e: any) => console.log(e.target.value)
+    };
+})((props) => <input onBlur={props.changeHandler} type="text" />);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <div>
+            <Hello />
+            <MyInput />
+        </div>
     </Provider>,
     document.getElementById("example")
 );

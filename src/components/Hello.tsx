@@ -1,9 +1,23 @@
 import * as React from "react";
+import { AppState } from '../types';
+import { connect } from "react-redux";
 
-export interface HelloProps { compiler: string; framework: string; }
+export interface HelloProps {
+    todos: AppState
+};
 
-export class Hello extends React.Component<HelloProps, {}> {
-    render() {
-        return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
-    }
+const component = function(props: HelloProps) {
+    return <h1>{props.todos.username}</h1>;
 }
+
+function mapDispatchToProps(dispatch: any) {
+    // Every time the state is updated the props are recalculated
+    return {};
+}
+
+function mapStateToProps(state: AppState): HelloProps {
+    // Every time the state is updated the props are recalculated
+    return {todos: state};
+};
+
+export const Hello = connect(mapStateToProps, mapDispatchToProps)(component);
