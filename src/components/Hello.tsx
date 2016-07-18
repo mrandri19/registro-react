@@ -2,12 +2,12 @@ import * as React from "react";
 import { AppState } from '../types';
 import { connect } from "react-redux";
 
-export interface HelloProps {
-    todos: AppState
+interface Props {
+    name: string
 };
 
-const component = function(props: HelloProps) {
-    return <h1>{props.todos.username}</h1>;
+const component = function(props: Props) {
+    return <h1>{props.name}</h1>;
 }
 
 function mapDispatchToProps(dispatch: any) {
@@ -15,9 +15,9 @@ function mapDispatchToProps(dispatch: any) {
     return {};
 }
 
-function mapStateToProps(state: AppState): HelloProps {
+function mapStateToProps(state: AppState): Props {
     // Every time the state is updated the props are recalculated
-    return {todos: state};
+    return {name: state.username};
 };
 
 export const Hello = connect(mapStateToProps, mapDispatchToProps)(component);

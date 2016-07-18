@@ -2,7 +2,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { createStore } from "redux";
 import { Provider, connect } from "react-redux";
-import { Hello, HelloProps } from './components/Hello';
+import { Hello } from './components/Hello';
+import { Input } from './components/Input';
 import { AppState } from './types';
 
 const initialState: AppState = {
@@ -15,19 +16,11 @@ function reducer(state = initialState, action: any) {
 
 let store = createStore(reducer);
 
-let MyInput = connect((state: AppState) => {
-    return {};
-}, (dispatch) => {
-    return {
-        changeHandler: (e: any) => console.log(e.target.value)
-    };
-})((props) => <input onBlur={props.changeHandler} type="text" />);
-
 ReactDOM.render(
     <Provider store={store}>
         <div>
             <Hello />
-            <MyInput />
+            <Input />
         </div>
     </Provider>,
     document.getElementById("example")
