@@ -9,9 +9,11 @@
   "author": "Andrea Cognolato <andrecogno@hotmail.it> (https://github.com/mrandri19)",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.13.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
+    "react-router": "^2.6.0",
     "redux": "^3.5.2"
   },
   "devDependencies": {
