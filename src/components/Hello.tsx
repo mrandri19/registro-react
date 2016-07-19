@@ -7,7 +7,10 @@ interface Props {
 };
 
 const component = function(props: Props) {
-    return <h3>{'Hello, please login'}</h3>;
+    return (<div>
+        <h3>{'Hello'}</h3>
+        <p>The menu will be here</p>
+    </div>);
 }
 
 function mapDispatchToProps(dispatch: any) {
