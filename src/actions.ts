@@ -4,7 +4,7 @@ export function login_request_received(reqStatus: number): LOGIN_REQUEST_RECEIVE
     return {
         type: 'LOGIN_REQUEST_RECEIVED',
         reqStatus: reqStatus
-    }
+    };
 }
 
 export function submit_form(username: string, password: string): SUBMIT_FORM {
@@ -12,5 +12,5 @@ export function submit_form(username: string, password: string): SUBMIT_FORM {
         type: 'SUBMIT_FORM',
         username: username,
         password: password
-    }
+    };
 }

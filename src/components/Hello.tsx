@@ -3,7 +3,7 @@ import { AppState } from '../types';
 import { connect } from "react-redux";
 
 interface Props {
-    name: string
+    name: string;
 };
 
 const component = function(props: Props) {
@@ -11,7 +11,7 @@ const component = function(props: Props) {
         <h3>{'Hello'}</h3>
         <p>The menu will be here, this is the home</p>
     </div>);
-}
+};
 
 function mapDispatchToProps(dispatch: any) {
     // Every time the state is updated the props are recalculated

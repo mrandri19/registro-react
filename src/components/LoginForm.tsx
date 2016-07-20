@@ -7,9 +7,9 @@ import { submit_form } from '../actions';
 import { AppState, SUBMIT_FORM } from '../types';
 
 interface Props {
-    handleSubmit: (e: Event) => any,
-    logged: boolean,
-    router: any
+    handleSubmit: (e: Event) => any;
+    logged: boolean;
+    router: any;
 }
 
 class Component extends React.Component<Props, {}> {
@@ -22,10 +22,9 @@ class Component extends React.Component<Props, {}> {
             <input id="password" type="password"/>
             <input type="submit" value="Login"/>
 
-           <p>{this.props.logged ? this.props.router.push('/'): null}</p>
+           <p>{this.props.logged ? this.props.router.push('/') : null}</p>
         </form>);
     }
-    
 }
 
 function mapDispatchToProps(dispatch: any) {
@@ -37,12 +36,12 @@ function mapDispatchToProps(dispatch: any) {
 
             dispatch(submit_form(username, password));
             // TODO: implement form validation
-            //this.props.router.push('/');
+            // this.props.router.push('/');
         }
-    }
+    };
 }
 
-function mapStateToProps(state:AppState) {
+function mapStateToProps(state: AppState) {
     return {
         logged: state.logged
     };

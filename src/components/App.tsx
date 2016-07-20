@@ -8,8 +8,8 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 
 interface Props {
-    children: any,
-    logged: boolean
+    children: any;
+    logged: boolean;
 }
 
 const component = function(props: Props) {
@@ -21,7 +21,7 @@ const component = function(props: Props) {
         {props.children}
         <Footer />
     </div>);
-}
+};
 
 function mapDispatchToProps(dispatch: any) {
     return {};

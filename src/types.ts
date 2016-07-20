@@ -8,15 +8,15 @@ export type AppState = {
 }
 
 export interface SUBMIT_FORM {
-    type: 'SUBMIT_FORM',
-    username: string,
-    password: string
+    type: 'SUBMIT_FORM';
+    username: string;
+    password: string;
 }
 
 const xx = 'daw';
 
 export interface LOGIN_REQUEST_RECEIVED {
-    type: 'LOGIN_REQUEST_RECEIVED',
+    type: 'LOGIN_REQUEST_RECEIVED';
     reqStatus: number;
 }
 
