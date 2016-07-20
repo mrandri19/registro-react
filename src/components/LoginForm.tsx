@@ -35,7 +35,10 @@ function mapDispatchToProps(dispatch: any) {
                 const action: SUBMIT_FORM = {type: 'SUBMIT_FORM', username: username, password: password}
                 dispatch(action);
                 console.log(this.props.router.push('/'));
+            } else {
+                console.log('Username and/or password wrong');
             }
+            // TODO: implement form validation
         }
     }
 }

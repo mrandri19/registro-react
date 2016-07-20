@@ -6,27 +6,46 @@ import { Provider, connect } from "react-redux";
 
 import { merge } from "lodash";
 
+import { login_request_received } from './actions';
 import { Hello } from './components/Hello';
 import { LoginForm } from './components/LoginForm';
 import { Marks } from './components/Marks';
 import { App } from './components/App';
 
-import { AppState, AppActions, SUBMIT_FORM, DAW } from './types';
+import { AppState, AppActions, SUBMIT_FORM, LOGIN_REQUEST_RECEIVED } from './types';
 
 const initialState: AppState = {
     username: 'Andrea',
+    loginInProgess: false,
     logged: false
 }
 
 function reducer(state = initialState, action: AppActions): AppState {
     switch (action.type) {
         case 'SUBMIT_FORM':
+            // Get the data
             const { username, password } = action as SUBMIT_FORM;
 
-            return merge({}, state, {logged: true});
+            // Make the request
+            const req = new XMLHttpRequest();
+            const url = "https://api.daniele.ml/login";
+            req.open('POST', url, true);
 
-        case 'DAW':
-            console.log((action as DAW).name);
+            // TODO: make builder
+            const params = "login=S1122860H&password=ca38855b";
+            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+            req.onreadystatechange = () => {
+                if(req.readyState == 4) {
+                    store.dispatch(login_request_received(req.status));
+                }
+            };
+
+            req.send(params);
+            return merge({}, state, {loginInProgress: true});
+
+        case 'LOGIN_REQUEST_RECEIVED':
+            console.log((action as LOGIN_REQUEST_RECEIVED).reqStatus);
             return state;
 
         default:
