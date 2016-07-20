@@ -20,7 +20,7 @@ function mapDispatchToProps(dispatch: any) {
 
 function mapStateToProps(state: AppState): Props {
     // Every time the state is updated the props are recalculated
-    return {name: state.username};
+    return {name: state.username };
 };
 
 export const Hello = connect(mapStateToProps, mapDispatchToProps)(component);

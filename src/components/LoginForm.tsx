@@ -1,32 +1,41 @@
 'use strict';
 import * as React from "react";
-import { AppState, SUBMIT_FORM } from '../types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+
+import { AppState, SUBMIT_FORM } from '../types';
 
 interface Props {
     handleSubmit: (e: Event) => any
 }
 
-const component = function(props: Props) {
-    return (
-        <form onSubmit={props.handleSubmit}>
+class Component extends React.Component<Props, {}> {
+    render() {
+        return (
+        <form onSubmit={this.props.handleSubmit.bind(this)}>
             <label htmlFor="username">Username</label>
             <input id="username" placeholder="Username" type="text"/>
             <label htmlFor="password">Password</label>
             <input id="password" type="password"/>
             <input type="submit" value="Login"/>
         </form>);
+    }
+    
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
-        handleSubmit: (e: Event) => {
+        handleSubmit: function(e: Event) {
             e.preventDefault();
             const username = (document.getElementById('username') as HTMLInputElement).value;
             const password = (document.getElementById('password') as HTMLInputElement).value;
-            const action: SUBMIT_FORM = {type: 'SUBMIT_FORM', username: username, password: password}
+            if (username === "andrea" && password === "daw") {
+                console.log('User logged');
 
-            dispatch(action);
+                const action: SUBMIT_FORM = {type: 'SUBMIT_FORM', username: username, password: password}
+                dispatch(action);
+                console.log(this.props.router.push('/'));
+            }
         }
     }
 }
@@ -35,4 +44,4 @@ function mapStateToProps(state:AppState) {
     return {};
 }
 
-export const Input = connect(mapStateToProps, mapDispatchToProps)(component);
+export const LoginForm = connect(mapStateToProps, mapDispatchToProps)(withRouter(Component));

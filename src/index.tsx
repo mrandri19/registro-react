@@ -7,7 +7,10 @@ import { Provider, connect } from "react-redux";
 import { merge } from "lodash";
 
 import { Hello } from './components/Hello';
-import { Input } from './components/Input';
+import { LoginForm } from './components/LoginForm';
+import { Marks } from './components/Marks';
+import { App } from './components/App';
+
 import { AppState, AppActions, SUBMIT_FORM, DAW } from './types';
 
 const initialState: AppState = {
@@ -19,8 +22,7 @@ function reducer(state = initialState, action: AppActions): AppState {
     switch (action.type) {
         case 'SUBMIT_FORM':
             const { username, password } = action as SUBMIT_FORM;
-            console.log('username:', username, 'password:', password);
-            
+
             return merge({}, state, {logged: true});
 
         case 'DAW':
@@ -34,47 +36,19 @@ function reducer(state = initialState, action: AppActions): AppState {
 
 const store = createStore(reducer);
 
-function Navbar() {
-    return (<nav>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="marks">Marks</Link></li>
-            </ul>
-        </nav>);
-}
-
-function Footer() {
-    return (<footer>
-        Built with ♥ by <a href="#">Andrea Cognolato</a> and <a href="#">Daniele Monteleone</a>
-    </footer>);
-}
-
-function App(props: any) {
-    return (<div>
-        <h1>App</h1>
-        <Navbar />
-        {props.children}
-        <Footer />
-    </div>);
-}
-
 function Login(props:any) {
     return (<div>
         <h1>Please login</h1>
-        <Input />
+        <LoginForm />
     </div>);
 }
 
-function Marks(props:any) {
-    return (<h3>Your marks</h3>);
-}
-
 function checkAuth(nextState: any, replace: any) {
-    console.log(nextState);
-    replace({
-        pathname: '/login',
-    })
-    return;
+    if(!store.getState().logged) {
+        replace({
+            pathname: 'login',
+        });
+    }
 }
 
 ReactDOM.render(
