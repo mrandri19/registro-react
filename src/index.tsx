@@ -17,7 +17,8 @@ import { AppState, AppActions, SUBMIT_FORM, LOGIN_REQUEST_RECEIVED } from './typ
 const initialState: AppState = {
     username: 'Andrea',
     loginInProgess: false,
-    logged: false
+    logged: false,
+    logError: ""
 }
 
 function reducer(state = initialState, action: AppActions): AppState {
@@ -31,8 +32,12 @@ function reducer(state = initialState, action: AppActions): AppState {
             const url = "https://api.daniele.ml/login";
             req.open('POST', url, true);
 
-            // TODO: make builder
-            const params = "login=S1122860H&password=ca38855b";
+            if(username === "" || password === "") {
+                return merge({}, state, {logError: "Please insert a username and/or password"});
+            }
+
+            // S1122860H
+            const params = `login=${username}&password=${password}`;
             req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
             req.onreadystatechange = () => {
@@ -45,8 +50,20 @@ function reducer(state = initialState, action: AppActions): AppState {
             return merge({}, state, {loginInProgress: true});
 
         case 'LOGIN_REQUEST_RECEIVED':
-            console.log((action as LOGIN_REQUEST_RECEIVED).reqStatus);
-            return state;
+            let reqStatus = (action as LOGIN_REQUEST_RECEIVED).reqStatus;
+            if(reqStatus === 200) {
+                console.log('login successful');
+                return merge({}, state, { logged: true, loginInProgess: false});
+            } else if(reqStatus === 403) {
+                console.log('login failed, 403');
+                return merge({}, state, {logError: "Login failed", loginInProgess: false});
+            } else if(reqStatus === 401) {
+                console.log('login failed, 401');
+                return merge({}, state, {logError: "Login failed", loginInProgess: false});
+            } else if(reqStatus === 500) {
+                console.log('Server error');
+                return merge({}, state, {logError: "Server Error", loginInProgess: false});
+            }
 
         default:
             return state;
@@ -57,7 +74,7 @@ const store = createStore(reducer);
 
 function Login(props:any) {
     return (<div>
-        <h1>Please login</h1>
+        <h2>Please login</h2>
         <LoginForm />
     </div>);
 }

@@ -9,7 +9,7 @@ interface Props {
 const component = function(props: Props) {
     return (<div>
         <h3>{'Hello'}</h3>
-        <p>The menu will be here</p>
+        <p>The menu will be here, this is the home</p>
     </div>);
 }
 

@@ -3,7 +3,8 @@ import * as actions from './actions';
 export type AppState = {
     username: string,
     logged: boolean
-    loginInProgess: boolean
+    loginInProgess: boolean,
+    logError: string
 }
 
 export interface SUBMIT_FORM {
