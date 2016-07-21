@@ -14,18 +14,15 @@ interface Props {
 }
 
 const component = function(props: Props) {
-    return (<div className="row">
-        <div className="col s12">
-            <header>
-                <h1>App</h1>
-                <Navbar />
-            </header>
-            { props.loginInProgress ? <Spinner /> : null }
-            <p>Logged: { props.logged ? 'true' : 'false' }</p>
-            {props.children}
+    return (
+        <div>
+            <Navbar />
+            <main className="container">
+                { props.loginInProgress ? <Spinner /> : null }
+                {props.children}
+            </main>
             <Footer />
-        </div>
-    </div>);
+        </div>);
 };
 
 function mapDispatchToProps(dispatch: any) {

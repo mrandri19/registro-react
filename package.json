@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "static-test-server": "node server.js",
-    "build-prod": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors"
+    "build-prod": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors",
+    "test-server": "webpack-dev-server"
   },
   "author": "Andrea Cognolato <andrecogno@hotmail.it> (https://github.com/mrandri19)",
   "license": "ISC",

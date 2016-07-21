@@ -14,7 +14,7 @@ interface Props {
 
 class Component extends React.Component<Props, {}> {
     componentWillUpdate(nextProps: Props, nextState: Object) {
-        if(nextProps.logged) {
+        if (nextProps.logged) {
             this.props.router.push('/');
         }
     }
