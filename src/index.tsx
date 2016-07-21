@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { createStore } from "redux";
-import { Provider, connect } from "react-redux";
+import { Provider } from "react-redux";
 
 import { merge } from "lodash";
 
@@ -56,14 +56,11 @@ function reducer(state = initialState, action: AppActions): AppState {
             let reqStatus = (action as LOGIN_REQUEST_RECEIVED).reqStatus;
             if (reqStatus === 200) {
                 console.log('login successful');
-                return merge({}, state, { logged: true, loginInProgess: false});
+                return merge({}, state, { logError: "", logged: true, loginInProgress: false});
             } else if (reqStatus === 403) {
                 console.log('login failed, 403');
                 return merge({}, state, {logError: "Login failed", loginInProgress: false});
             } else if (reqStatus === 401) {
-                console.log(state);
-                console.log(merge({}, state, {logError: "Login failed", loginInProgress: false}));
-
                 console.log('login failed, 401');
                 return merge({}, state, {logError: "Login failed", loginInProgress: false});
             } else if (reqStatus === 500) {
@@ -103,5 +100,5 @@ ReactDOM.render(
             </Route>
         </Router>
     </Provider>,
-    document.getElementById("example")
+    document.getElementById("root")
 );

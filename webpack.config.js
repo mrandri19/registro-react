@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 module.exports = {
   entry: "./src/index.tsx",
   output: {
@@ -11,6 +12,14 @@ module.exports = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
   },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      }
+    })
+  ],
 
   module: {
     loaders: [

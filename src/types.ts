@@ -1,5 +1,3 @@
-import * as actions from './actions';
-
 export type AppState = {
     username: string,
     logged: boolean
@@ -12,8 +10,6 @@ export interface SUBMIT_FORM {
     username: string;
     password: string;
 }
-
-const xx = 'daw';
 
 export interface LOGIN_REQUEST_RECEIVED {
     type: 'LOGIN_REQUEST_RECEIVED';

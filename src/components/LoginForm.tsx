@@ -1,28 +1,35 @@
-'use strict';
 import * as React from "react";
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { submit_form } from '../actions';
-import { AppState, SUBMIT_FORM } from '../types';
+import { AppState } from '../types';
 
 interface Props {
     handleSubmit: (e: Event) => any;
     logged: boolean;
     router: any;
+    logError: string;
 }
 
 class Component extends React.Component<Props, {}> {
+    componentWillUpdate(nextProps: Props, nextState: Object) {
+        if(nextProps.logged) {
+            this.props.router.push('/');
+        }
+    }
     render() {
         return (
         <form onSubmit={this.props.handleSubmit.bind(this)}>
+            <p>{this.props.logError}</p>
+
             <label htmlFor="username">Username</label>
             <input id="username" placeholder="Username" type="text"/>
+
             <label htmlFor="password">Password</label>
             <input id="password" type="password"/>
-            <input type="submit" value="Login"/>
 
-           <p>{this.props.logged ? this.props.router.push('/') : null}</p>
+            <input className="btn waves-effect waves-light" type="submit" value="Login"/>
         </form>);
     }
 }
@@ -36,14 +43,14 @@ function mapDispatchToProps(dispatch: any) {
 
             dispatch(submit_form(username, password));
             // TODO: implement form validation
-            // this.props.router.push('/');
         }
     };
 }
 
 function mapStateToProps(state: AppState) {
     return {
-        logged: state.logged
+        logged: state.logged,
+        logError: state.logError
     };
 }
 
