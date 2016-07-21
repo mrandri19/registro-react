@@ -19,7 +19,7 @@ import { AppState,
 
 const initialState: AppState = {
     username: 'Andrea',
-    loginInProgess: false,
+    loginInProgress: false,
     logged: false,
     logError: ""
 };
@@ -59,13 +59,16 @@ function reducer(state = initialState, action: AppActions): AppState {
                 return merge({}, state, { logged: true, loginInProgess: false});
             } else if (reqStatus === 403) {
                 console.log('login failed, 403');
-                return merge({}, state, {logError: "Login failed", loginInProgess: false});
+                return merge({}, state, {logError: "Login failed", loginInProgress: false});
             } else if (reqStatus === 401) {
+                console.log(state);
+                console.log(merge({}, state, {logError: "Login failed", loginInProgress: false}));
+
                 console.log('login failed, 401');
-                return merge({}, state, {logError: "Login failed", loginInProgess: false});
+                return merge({}, state, {logError: "Login failed", loginInProgress: false});
             } else if (reqStatus === 500) {
                 console.log('Server error');
-                return merge({}, state, {logError: "Server Error", loginInProgess: false});
+                return merge({}, state, {logError: "Server Error", loginInProgress: false});
             }
 
         default:
@@ -73,7 +76,7 @@ function reducer(state = initialState, action: AppActions): AppState {
     }
 };
 
-const store = createStore(reducer);
+const store = createStore(reducer, (window as any).devToolsExtension && (window as any).devToolsExtension());
 
 function Login(props: any) {
     return (<div>

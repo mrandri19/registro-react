@@ -3,7 +3,7 @@ import * as actions from './actions';
 export type AppState = {
     username: string,
     logged: boolean
-    loginInProgess: boolean,
+    loginInProgress: boolean,
     logError: string
 }
 
