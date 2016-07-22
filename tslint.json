@@ -12,7 +12,6 @@
             true,
             "check-space"
         ],
-        "max-line-length": [true, 90],
         "indent": [
             true,
             "spaces"

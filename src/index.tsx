@@ -30,7 +30,7 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 <IndexRoute component={Hello} onEnter={checkAuth}/>
                 <Route path="marks" component={Marks} onEnter={checkAuth}></Route>
-                <Route path="login" component={Login}></Route>
+                <Route path="login" component={Login}></Route>// TODO: Implement persistence
             </Route>
         </Router>
     </Provider>,

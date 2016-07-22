@@ -5,12 +5,9 @@ import { AppState } from '../types';
 
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { Spinner } from './Spinner';
 
 interface Props {
     children: any;
-    logged: boolean;
-    loginInProgress: boolean;
 }
 
 const component = function(props: Props) {
@@ -19,8 +16,7 @@ const component = function(props: Props) {
             <Navbar />
             <main>
                 <div className="container">
-                    { props.loginInProgress ? <Spinner /> : null }
-                    {props.children}
+                    { props.children }
                 </div>
             </main>
             <Footer />
@@ -32,10 +28,7 @@ function mapDispatchToProps(dispatch: any) {
 }
 
 function mapStateToProps(state: AppState) {
-    return {
-        logged: state.logged,
-        loginInProgress: state.loginInProgress
-    };
+    return {};
 }
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(component);

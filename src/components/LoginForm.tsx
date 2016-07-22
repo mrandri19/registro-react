@@ -4,12 +4,14 @@ import { withRouter } from 'react-router';
 
 import { submit_form } from '../actions';
 import { AppState } from '../types';
+import { Spinner } from './Spinner';
 
 interface Props {
     handleSubmit: (e: Event) => any;
     logged: boolean;
     router: any;
     logError: string;
+    loginInProgress: boolean;
 }
 
 class Component extends React.Component<Props, {}> {
@@ -20,17 +22,20 @@ class Component extends React.Component<Props, {}> {
     }
     render() {
         return (
-        <form onSubmit={this.props.handleSubmit.bind(this)}>
-            <p>{this.props.logError}</p>
+        <div>
+            { this.props.loginInProgress ? <Spinner /> : null }
+            <form onSubmit={this.props.handleSubmit.bind(this)}>
+                <p>{this.props.logError}</p>
 
-            <label htmlFor="username">Username</label>
-            <input id="username" placeholder="Username" type="text"/>
+                <label htmlFor="username">Username</label>
+                <input id="username" placeholder="Username" type="text"/>
 
-            <label htmlFor="password">Password</label>
-            <input id="password" type="password"/>
+                <label htmlFor="password">Password</label>
+                <input id="password" type="password"/>
 
-            <input className="btn waves-effect waves-light" type="submit" value="Login"/>
-        </form>);
+                <input className="btn waves-effect waves-light" type="submit" value="Login"/>
+            </form>
+        </div>);
     }
 }
 
@@ -50,7 +55,8 @@ function mapDispatchToProps(dispatch: any) {
 function mapStateToProps(state: AppState) {
     return {
         logged: state.logged,
-        logError: state.logError
+        logError: state.logError,
+        loginInProgress: state.loginInProgress
     };
 }
 
