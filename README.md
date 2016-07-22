@@ -6,7 +6,8 @@
 4. open `index.d.ts`
 5. go to line `480`
 6. Add the following code `export function withRouter(p: any): any`
-7. `webpack -p`
+7. `typings install dt~react-router/history --global`
+8. `webpack -p`
 
 ## Developing
 To develop it `webpack-dev-server` is recomended
