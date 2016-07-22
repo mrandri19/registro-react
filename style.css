@@ -1,9 +1,21 @@
-footer {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
-#footer {
-    background-color: #616161;
+main {
+    flex: 1;
+}
+
+footer.page-footer {
+    color: #f5f2f0;
+    background-color: #5c5757;
+}
+
+footer.page-footer a {
+    color: #f5f2f0;
+}
+footer.page-footer a:hover {
+    color: deepskyblue;
 }

@@ -15,11 +15,13 @@ interface Props {
 
 const component = function(props: Props) {
     return (
-        <div>
+        <div className="wrapper">
             <Navbar />
-            <main className="container">
-                { props.loginInProgress ? <Spinner /> : null }
-                {props.children}
+            <main>
+                <div className="container">
+                    { props.loginInProgress ? <Spinner /> : null }
+                    {props.children}
+                </div>
             </main>
             <Footer />
         </div>);

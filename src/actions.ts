@@ -14,3 +14,9 @@ export function submit_form(username: string, password: string): SUBMIT_FORM {
         password: password
     };
 }
+
+export function get_marks() {
+    return {
+        type: 'GET_MARKS'
+    };
+}

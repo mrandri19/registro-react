@@ -16,4 +16,8 @@ export interface LOGIN_REQUEST_RECEIVED {
     reqStatus: number;
 }
 
-export type AppActions = SUBMIT_FORM | LOGIN_REQUEST_RECEIVED;
+export interface GET_MARKS {
+    type: 'GET_MARKS';
+}
+
+export type AppActions = SUBMIT_FORM | LOGIN_REQUEST_RECEIVED | GET_MARKS;
