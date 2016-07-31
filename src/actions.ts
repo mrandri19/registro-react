@@ -1,4 +1,11 @@
-import { LOGIN_REQUEST_RECEIVED, SUBMIT_FORM, MARKS_REQUEST_RECEIVED } from './types';
+import { 
+    LOGIN_REQUEST_RECEIVED,
+    SUBMIT_FORM,
+    MARKS_REQUEST_RECEIVED,
+    LOGOUT,
+    GET_MARKS,
+    REMEMBER_LOGIN
+ } from './types';
 
 export function login_request_received(reqStatus: number): LOGIN_REQUEST_RECEIVED {
     return {
@@ -15,7 +22,7 @@ export function submit_form(username: string, password: string): SUBMIT_FORM {
     };
 }
 
-export function get_marks() {
+export function get_marks(): GET_MARKS {
     return {
         type: 'GET_MARKS'
     };
@@ -27,4 +34,17 @@ export function marks_request_received(status: number, data: string): MARKS_REQU
         reqStatus: status,
         reqData: data
     };
+}
+
+export function logout(): LOGOUT {
+    return {
+        type: 'LOGOUT'
+    };
+}
+
+export function remember_login(logged: boolean): REMEMBER_LOGIN {
+    return {
+        type: 'REMEMBER_LOGIN',
+        logged: logged
+    }
 }

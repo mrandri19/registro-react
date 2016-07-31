@@ -45,7 +45,18 @@ export interface MARKS_REQUEST_RECEIVED {
     reqData: string;
 }
 
+export interface LOGOUT {
+    type: 'LOGOUT';
+}
+
+export interface REMEMBER_LOGIN {
+    type: 'REMEMBER_LOGIN';
+    logged: boolean;
+}
+
 export type AppActions = SUBMIT_FORM
                          | LOGIN_REQUEST_RECEIVED
                          | GET_MARKS
-                         | MARKS_REQUEST_RECEIVED;
+                         | MARKS_REQUEST_RECEIVED
+                         | LOGOUT
+                         | REMEMBER_LOGIN;

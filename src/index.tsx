@@ -4,27 +4,20 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from "react-redux";
 
 import { Hello } from './components/Hello';
-import { LoginForm } from './components/LoginForm';
 import { Marks } from './components/Marks';
+import { Login } from './components/Login';
 import { App } from './components/App';
 import { store } from './reducer';
-import { AppStorage, LOGGED_KEY } from './appStorage';
+import * as actions from './actions';
 
-function Login(props: any) {
-    return (<div>
-        <h2>Please login</h2>
-        <LoginForm />
-    </div>);
+function logout(nextState: any, replace: any) {
+    if(store.getState().logged) {
+        store.dispatch(actions.logout());
+    }
 }
 
-/**
- * Redirect to login route if neither AppState.logged nor 
- * LocalStorage.getItem('logged') are true
- */
 function checkAuth(nextState: any, replace: any) {
-    const savedLogin = AppStorage.getItem(LOGGED_KEY) === "true";
-    const alreadyLogged = store.getState().logged;
-    if (!(savedLogin || alreadyLogged)) {
+    if (!store.getState().logged) {
         replace({
             pathname: 'login',
         });
@@ -37,7 +30,8 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 <IndexRoute component={Hello} onEnter={checkAuth}/>
                 <Route path="marks" component={Marks} onEnter={checkAuth}></Route>
-                <Route path="login" component={Login}></Route>// TODO: Implement persistence
+                <Route path="login" component={Login}></Route>
+                <Route path="logout" component={Login} onEnter={logout}></Route>
             </Route>
         </Router>
     </Provider>,
