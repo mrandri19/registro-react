@@ -19,7 +19,6 @@ export type AppState = {
     logError: string,
     marks: {
         reqInProgress: boolean,
-        // TODO: make a model
         data: Array<Subject>,
         reqError: string
     }

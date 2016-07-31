@@ -17,6 +17,7 @@ function Login(props: any) {
 }
 
 function checkAuth(nextState: any, replace: any) {
+    // TODO: implement persistence
     if (!store.getState().logged) {
         replace({
             pathname: 'login',

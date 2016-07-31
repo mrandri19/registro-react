@@ -1,6 +1,8 @@
 import { merge } from "lodash";
 import { createStore } from "redux";
+
 import { Subject } from './types';
+import * as config from './config';
 
 import { AppState,
     AppActions,
@@ -32,12 +34,17 @@ export function reducer(state = initialState, action: AppActions): AppState {
                 const { username, password } = action as SUBMIT_FORM;
 
                 const req = new XMLHttpRequest();
-                const url = "https://api.daniele.ml/login";
+                const url = config.api_url + "/login";
                 req.open('POST', url, true);
                 req.withCredentials = true;
 
                 if (username === "" || password === "") {
                     return merge({}, state, {logError: "Please insert a username and/or password"});
+                }
+
+                // TODO: temporary backdoor
+                if (username === "d" && password === "d") {
+                    return merge({}, state, {logged: true});
                 }
 
                 const params = `login=${username}&password=${password}`;
@@ -68,7 +75,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case 'GET_MARKS':
             {
                 const req = new XMLHttpRequest();
-                const url = "https://api.daniele.ml/marks";
+                const url = config.api_url + "/marks";
 
                 req.open('GET', url, true);
                 req.withCredentials = true;
