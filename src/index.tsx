@@ -8,6 +8,7 @@ import { LoginForm } from './components/LoginForm';
 import { Marks } from './components/Marks';
 import { App } from './components/App';
 import { store } from './reducer';
+import { AppStorage, LOGGED_KEY } from './appStorage';
 
 function Login(props: any) {
     return (<div>
@@ -16,9 +17,14 @@ function Login(props: any) {
     </div>);
 }
 
+/**
+ * Redirect to login route if neither AppState.logged nor 
+ * LocalStorage.getItem('logged') are true
+ */
 function checkAuth(nextState: any, replace: any) {
-    // TODO: implement persistence
-    if (!store.getState().logged) {
+    const savedLogin = AppStorage.getItem(LOGGED_KEY) === "true";
+    const alreadyLogged = store.getState().logged;
+    if (!(savedLogin || alreadyLogged)) {
         replace({
             pathname: 'login',
         });

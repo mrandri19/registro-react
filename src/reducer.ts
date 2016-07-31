@@ -3,6 +3,7 @@ import { createStore } from "redux";
 
 import { Subject } from './types';
 import * as config from './config';
+import { AppStorage, LOGGED_KEY } from './appStorage';
 
 import { AppState,
     AppActions,
@@ -33,19 +34,21 @@ export function reducer(state = initialState, action: AppActions): AppState {
             {
                 const { username, password } = action as SUBMIT_FORM;
 
-                const req = new XMLHttpRequest();
-                const url = config.api_url + "/login";
-                req.open('POST', url, true);
-                req.withCredentials = true;
-
                 if (username === "" || password === "") {
                     return merge({}, state, {logError: "Please insert a username and/or password"});
                 }
 
                 // TODO: temporary backdoor
                 if (username === "d" && password === "d") {
+                    AppStorage.setItem(LOGGED_KEY, 'true');
                     return merge({}, state, {logged: true});
                 }
+
+                // Api request
+                const req = new XMLHttpRequest();
+                const url = config.api_url + "/login";
+                req.open('POST', url, true);
+                req.withCredentials = true;
 
                 const params = `login=${username}&password=${password}`;
                 req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -57,12 +60,13 @@ export function reducer(state = initialState, action: AppActions): AppState {
                 };
 
                 req.send(params);
+                return merge({}, state, {loginInProgress: true});
             }
-            return merge({}, state, {loginInProgress: true});
 
         case 'LOGIN_REQUEST_RECEIVED':
             let reqStatus = (action as LOGIN_REQUEST_RECEIVED).reqStatus;
             if (reqStatus === 200) {
+                AppStorage.setItem(LOGGED_KEY, 'true');
                 return merge({}, state, { logError: "", logged: true, loginInProgress: false});
             } else if (reqStatus === 403) {
                 return merge({}, state, {logError: "Login failed", loginInProgress: false});
