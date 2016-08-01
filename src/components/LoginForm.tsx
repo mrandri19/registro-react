@@ -1,10 +1,10 @@
 import * as React from "react";
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
-import { submit_form } from '../actions';
-import { AppState } from '../types';
-import { Spinner } from './Spinner';
+import { submit_form } from "../actions";
+import { AppState } from "../types";
+import { Spinner } from "./Spinner";
 
 interface Props {
     handleSubmit: (e: Event) => any;
@@ -17,7 +17,7 @@ interface Props {
 class Component extends React.Component<Props, {}> {
     componentWillUpdate(nextProps: Props, nextState: Object) {
         if (nextProps.logged) {
-            this.props.router.push('/');
+            this.props.router.push("/");
         }
     }
     render() {
@@ -43,8 +43,8 @@ function mapDispatchToProps(dispatch: any) {
     return {
         handleSubmit: function(e: Event) {
             e.preventDefault();
-            const username = (document.getElementById('username') as HTMLInputElement).value;
-            const password = (document.getElementById('password') as HTMLInputElement).value;
+            const username = (document.getElementById("username") as HTMLInputElement).value;
+            const password = (document.getElementById("password") as HTMLInputElement).value;
 
             dispatch(submit_form(username, password));
             // TODO: implement form validation

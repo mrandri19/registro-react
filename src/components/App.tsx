@@ -1,10 +1,10 @@
 import * as React from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { AppState } from '../types';
+import { AppState } from "../types";
 
-import { Navbar } from './Navbar';
-import { Footer } from './Footer';
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
 
 interface Props {
     children: any;

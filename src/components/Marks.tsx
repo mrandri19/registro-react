@@ -1,9 +1,9 @@
 import * as React from "react";
 
-import { AppState, Subject } from '../types';
+import { AppState, Subject } from "../types";
 import { connect } from "react-redux";
-import { get_marks } from '../actions';
-import { Spinner } from './Spinner';
+import { get_marks } from "../actions";
+import { Spinner } from "./Spinner";
 
 interface Props {
     onLoad: any;
@@ -16,11 +16,15 @@ class Component extends React.Component<Props, {}> {
     render() {
         let marks: Array<Subject> = null;
         let nodes: any = null;
-        if(this.props.data) {
+        if (this.props.data) {
+            let i = 0;
             marks = this.props.data;
-            nodes = marks.map(item => {
-                console.log(item.name);
-                return(<p>{item.name}</p>);
+            nodes = marks.map((item: Subject) => {
+                return(
+                    <div key={i++}>
+                        <p>{item.name}</p>
+                    </div>
+                    );
             });
         }
         return(

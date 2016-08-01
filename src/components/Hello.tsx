@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppState } from '../types';
+import { AppState } from "../types";
 import { connect } from "react-redux";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 const component = function(props: Props) {
     return (<div>
-        <h3>{'Hello'}</h3>
+        <h3>{"Hello"}</h3>
         <p>The menu will be here, this is the home</p>
     </div>);
 };

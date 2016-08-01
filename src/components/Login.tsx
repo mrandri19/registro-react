@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { LoginForm } from './LoginForm';
+import { LoginForm } from "./LoginForm";
 
 export function Login(props: any) {
     return (<div>
