@@ -1,38 +1,32 @@
 import * as React from "react";
 
-import { AppState, Subject } from "../types";
+import * as types from "../types";
 import { connect } from "react-redux";
 import { get_marks } from "../actions";
 import { Spinner } from "./Spinner";
+import { Subject } from "./Subject";
 
 interface Props {
     onLoad: any;
     reqInProgress: boolean;
-    data: Array<Subject>;
+    data?: Array<types.Subject>;
     reqError: string;
 };
 
 class Component extends React.Component<Props, {}> {
     render() {
-        let marks: Array<Subject> = null;
-        let nodes: any = null;
-        if (this.props.data) {
-            let i = 0;
-            marks = this.props.data;
-            nodes = marks.map((item: Subject) => {
-                return(
-                    <div key={i++}>
-                        <p>{item.name}</p>
-                    </div>
-                    );
-            });
-        }
         return(
             <div>
                 <h3>Your marks</h3>
                 { this.props.reqError ? <p>{this.props.reqError}</p> : null }
                 { this.props.reqInProgress ? <Spinner /> : null }
-                { nodes }
+                <table className="striped">
+                    <tbody>
+                        { this.props.data ? this.props.data.map(subj => {
+                            return (<Subject key={subj.name} data={subj}></Subject>);
+                        }) : null }
+                    </tbody>
+                </table>
             </div>
             );
     }
@@ -52,7 +46,7 @@ function mapDispatchToProps(dispatch: any) {
     };
 }
 
-function mapStateToProps(state: AppState): any {
+function mapStateToProps(state: types.AppState): any {
     // Every time the state is updated the props are recalculated
     return {
         reqInProgress: state.marks.reqInProgress,

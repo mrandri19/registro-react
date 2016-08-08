@@ -73,10 +73,11 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case "LOGIN_REQUEST_RECEIVED":
             let reqStatus = (action as LOGIN_REQUEST_RECEIVED).reqStatus;
             if (reqStatus === 200) {
+                // TODO: this may not work
                 AppStorage.setItem(LOGGED_KEY, "true");
                 return merge({}, state, { logError: "", logged: true, loginInProgress: false});
             } else if (reqStatus === 401) {
-                return merge({}, state, {logError: "Login failed", loginInProgress: false});
+                return merge({}, state, {logError: "Login failed, possible api changes", loginInProgress: false});
             } else if (reqStatus === 500) {
                 return merge({}, state, {logError: "Server Error", loginInProgress: false});
             } else {
@@ -110,7 +111,9 @@ export function reducer(state = initialState, action: AppActions): AppState {
                     } catch (e) {
                         return merge({}, state, { marks: {reqInProgress: false, reqError: "Error parsing data"}});
                     }
-                    return merge({}, state, { marks: {reqInProgress: false, data: parsedData}});
+                    return merge({}, state, { marks: {reqInProgress: false, data: parsedData, reqError: ""}});
+                } else if(reqStatus === 403) {
+                    return merge({}, state, { marks: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
                 } else {
                     return merge({}, state, { marks: {reqInProgress: false, reqError: "Error fetching data"}});
                 }
