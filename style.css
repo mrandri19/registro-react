@@ -24,3 +24,11 @@ footer.page-footer a:hover {
 #logout {
     float: left;
 }
+
+.grade_ok {
+    background-color: #4caf50;
+}
+
+.grade_not_ok {
+    background-color: #ef5350;
+}

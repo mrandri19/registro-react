@@ -20,7 +20,7 @@ class Component extends React.Component<Props, {}> {
                 <h3>Your marks</h3>
                 { this.props.reqError ? <p>{this.props.reqError}</p> : null }
                 { this.props.reqInProgress ? <Spinner /> : null }
-                <table className="striped">
+                <table className="striped responsive-table">
                     <tbody>
                         { this.props.data ? this.props.data.map(subj => {
                             return (<Subject key={subj.name} data={subj}></Subject>);
