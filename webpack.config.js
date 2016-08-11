@@ -1,8 +1,12 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   entry: "./src/index.tsx",
   output: {
-    filename: "./dist/bundle.js",
+    path: "dist",
+    filename: "bundle.js",
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -14,11 +18,32 @@ module.exports = {
   },
 
   plugins: [
+    // Redux needs this to compile with its optimizations
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': '"production"'
       }
-    })
+    }),
+    new HtmlWebpackPlugin({
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true
+      },
+      hash: true,
+      filename: "index.html",
+      template: 'src/index.ejs',
+      inject: false,
+      environment: (process.env.NODE_ENV || "development")
+    }),
+    new CopyWebpackPlugin([
+        {from: "node_modules/react-mdl/extra/material.min.css"},
+        {from: "style.css"},
+        {from: "node_modules/react/dist/react.js"},
+        {from: "node_modules/react/dist/react.min.js"},
+        {from: "node_modules/react-dom/dist/react-dom.js"},
+        {from: "node_modules/react-dom/dist/react-dom.min.js"},
+        {from: "node_modules/react-mdl/extra/material.min.js"},
+      ])
   ],
 
   module: {
@@ -47,6 +72,8 @@ module.exports = {
     "react": "React",
     "react-dom": "ReactDOM"
   },
+
+  // Redirects 404 to index.html, used with webpack-dev-server
   devServer: {
     historyApiFallback: true
   }

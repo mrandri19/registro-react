@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hello React!</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="material.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="root"></div>
+
+        <% if (htmlWebpackPlugin.options.environment == "development") { %>
+            <script src="react.js"></script>
+            <script src="react-dom.js"></script>
+        <% } %>
+
+        <% if (htmlWebpackPlugin.options.environment == "production") { %>
+            <script src="react.min.js"></script>
+            <script src="react-dom.min.js"></script>
+        <% } %>
+
+        <!-- Main -->
+        <!-- Compiled and minified JavaScript -->
+        <script src="material.min.js"></script>
+
+        <!-- The bundle.js file will be auto injected by HTMLWebpackPlugin -->
+        <script src="<%= htmlWebpackPlugin.files.js %>"></script>
+    </body>
+</html>

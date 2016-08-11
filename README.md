@@ -13,10 +13,8 @@
 To develop it `webpack-dev-server` is recomended
 
 ## Npm scripts
-```json
-"scripts": {
-    "static-test-server": "node server.js",
-    "build-prod": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors",
-    "test-server": "webpack-dev-server"
-}
+- build-dev
+- server-dev
+- build-prod
+- server-prod
 ```
