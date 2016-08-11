@@ -1,10 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Layout, Drawer, Navigation, Content } from "react-mdl";
 
 import { AppState } from "../types";
 
 import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import { MyFooter } from "./Footer";
 
 interface Props {
     children: any;
@@ -12,15 +13,22 @@ interface Props {
 
 const component = function(props: Props) {
     return (
-        <div className="wrapper">
+        <Layout fixedHeader>
             <Navbar />
-            <main>
-                <div className="container">
-                    { props.children }
-                </div>
-            </main>
-            <Footer />
-        </div>);
+            <Drawer title="TitleDAW">
+                <Navigation>
+                    <a href="">Link</a>
+                    <a href="">Link</a>
+                    <a href="">Link</a>
+                    <a href="">Link</a>
+                </Navigation>
+            </Drawer>
+            <Content>
+                {props.children}
+            </Content>
+            <MyFooter />
+        </Layout>
+        );
 };
 
 function mapDispatchToProps(dispatch: any) {

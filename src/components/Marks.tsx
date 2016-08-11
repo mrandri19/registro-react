@@ -3,8 +3,8 @@ import * as React from "react";
 import * as types from "../types";
 import { connect } from "react-redux";
 import { get_marks } from "../actions";
-import { Spinner } from "./Spinner";
-import { Subject } from "./Subject";
+import { Spinner } from "react-mdl";
+import { Subject } from './Subject';
 
 interface Props {
     onLoad: any;

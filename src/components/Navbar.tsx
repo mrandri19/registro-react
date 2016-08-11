@@ -1,12 +1,14 @@
 import * as React from "react";
 import { Link } from "react-router";
+import { Header, Navigation } from "react-mdl";
 
 export function Navbar() {
-    return (<nav>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="marks">Marks</Link></li>
-                <li id="logout"><Link to="logout">Logout</Link></li>
-            </ul>
-        </nav>);
+    return (<Header title="Registro Elettronico">
+                <Navigation>
+                    <Link to="/">Home</Link>
+                    <Link to="marks">Marks</Link>
+                    <Link to="logout">Logout</Link>
+                </Navigation>
+            </Header>);
 }
+

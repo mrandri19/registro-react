@@ -1,10 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import { Spinner, CardText, Textfield } from "react-mdl";
 
 import { submit_form } from "../actions";
 import { AppState } from "../types";
-import { Spinner } from "./Spinner";
 
 interface Props {
     handleSubmit: (e: Event) => any;
@@ -22,20 +22,23 @@ class Component extends React.Component<Props, {}> {
     }
     render() {
         return (
-        <div>
+        <CardText>
             { this.props.loginInProgress ? <Spinner /> : null }
-            <form onSubmit={this.props.handleSubmit.bind(this)}>
+            <form action="#" onSubmit={this.props.handleSubmit.bind(this)}>
                 <p>{this.props.logError}</p>
 
-                <label htmlFor="username">Username</label>
-                <input id="username" placeholder="Username" type="text"/>
+                <Textfield label="Username" id="username">
+                </Textfield>
+                <Textfield label="Password" type="password" id="password"></Textfield>
 
-                <label htmlFor="password">Password</label>
-                <input id="password" type="password"/>
-
-                <input className="btn waves-effect waves-light" type="submit" value="Login"/>
+                <button
+                    className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                    type="submit"
+                    value="Login">
+                    Log in
+                </button>
             </form>
-        </div>);
+        </CardText>);
     }
 }
 

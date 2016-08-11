@@ -1,28 +1,9 @@
-/* Sticky footer hack */
-.wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+#login {
+    margin: auto;
 }
 
-main {
-    flex: 1;
-}
-
-footer.page-footer {
-    color: #f5f2f0;
-    background-color: #5c5757;
-}
-
-footer.page-footer a {
-    color: #f5f2f0;
-}
-footer.page-footer a:hover {
-    color: deepskyblue;
-}
-
-#logout {
-    float: left;
+.mdl-layout__content {
+	padding: 24px;
 }
 
 .grade_ok {
@@ -31,4 +12,8 @@ footer.page-footer a:hover {
 
 .grade_not_ok {
     background-color: #ef5350;
+}
+
+#footer {
+    padding: 8px 8px 0px 8px;
 }
