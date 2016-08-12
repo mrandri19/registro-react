@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router";
 import { Layout, Drawer, Navigation, Content } from "react-mdl";
 
 import { AppState } from "../types";
@@ -15,12 +16,11 @@ const component = function(props: Props) {
     return (
         <Layout fixedHeader>
             <Navbar />
-            <Drawer title="TitleDAW">
+            <Drawer title="Registro Elettronico">
                 <Navigation>
-                    <a href="">Link</a>
-                    <a href="">Link</a>
-                    <a href="">Link</a>
-                    <a href="">Link</a>
+                    <Link to="/">Home</Link>
+                    <Link to="marks">Marks</Link>
+                    <Link to="logout">Logout</Link>
                 </Navigation>
             </Drawer>
             <Content>

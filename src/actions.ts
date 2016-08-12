@@ -5,7 +5,7 @@ import {
     LOGOUT,
     GET_MARKS,
     REMEMBER_LOGIN
- } from "./types";
+} from "./types";
 
 export function login_request_received(reqStatus: number): LOGIN_REQUEST_RECEIVED {
     return {
