@@ -3,6 +3,7 @@ import { createStore } from "redux";
 
 import { Subject } from "./types";
 import * as config from "./config";
+import * as ApiWrapper from "./apiWrapper";
 
 import { AppState,
     AppActions,
@@ -51,22 +52,10 @@ export function reducer(state = initialState, action: AppActions): AppState {
                     return merge({}, state, {logged: true});
                 }
 
-                // Api request
-                const req = new XMLHttpRequest();
-                const url = config.api_url + "/login";
-                req.open("POST", url, true);
-                req.withCredentials = true;
+                ApiWrapper.login(username, password, key, (status: number) => {
+                    store.dispatch(login_request_received(status));
+                })
 
-                const params = `login=${username}&password=${password}&key=${key}`;
-                req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                req.onreadystatechange = () => {
-                    if (req.readyState === 4) {
-                        store.dispatch(login_request_received(req.status));
-                    }
-                };
-
-                req.send(params);
                 return merge({}, state, {loginInProgress: true});
             }
 
@@ -85,19 +74,9 @@ export function reducer(state = initialState, action: AppActions): AppState {
 
         case "GET_MARKS":
             {
-                const req = new XMLHttpRequest();
-                const url = config.api_url + "/marks";
-
-                req.open("GET", url, true);
-                req.withCredentials = true;
-
-                req.onreadystatechange = () => {
-                        if (req.readyState === 4) {
-                            store.dispatch(marks_request_received(req.status, req.response));
-                        }
-                };
-
-                req.send();
+                ApiWrapper.marks((status, response) => {
+                    store.dispatch(marks_request_received(status, response));
+                })
                 return merge({}, state, { marks: {reqInProgress: true}});
             }
         case "MARKS_REQUEST_RECEIVED":
