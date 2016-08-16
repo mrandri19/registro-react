@@ -28,5 +28,21 @@
 
         <!-- The bundle.js file will be auto injected by HTMLWebpackPlugin -->
         <script src="<%= htmlWebpackPlugin.files.js %>"></script>
+
+        <script>
+            function log(str) {
+                console.log('[Client]', str);
+            }
+            if('serviceWorker' in window.navigator) {
+                window.navigator.serviceWorker.register('sw.js')
+                .then(reg => {
+                    log('Registration successful');
+                }).catch(err => {
+                    log('Failed registration with err:', err);
+                });
+            } else {
+                log('No serviceWorker in window.navigator');
+            }
+        </script>
     </body>
 </html>

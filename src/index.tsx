@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Router, Route, IndexRoute, browserHistory } from "react-router";
+import { Router, Route, IndexRoute, browserHistory, Redirect } from "react-router";
 import { Provider } from "react-redux";
 
 import { Hello } from "./components/Hello";
@@ -32,6 +32,7 @@ ReactDOM.render(
                 <Route path="marks" component={Marks} onEnter={checkAuth}></Route>
                 <Route path="login" component={Login}></Route>
                 <Route path="logout" component={Login} onEnter={logout}></Route>
+                <Redirect from="logout" to="login"/>
             </Route>
         </Router>
     </Provider>,
