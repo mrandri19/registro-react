@@ -9,11 +9,8 @@ import { Login } from "./components/Login";
 import { App } from "./components/App";
 import { storeFactory, reducer } from "./reducer";
 import * as actions from "./actions";
-import * as apiWrapper from "./apiWrapper";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
 
-// Setting up the store and its reducer, using dependecy injection
-// for the reducer
 let appStore = storeFactory(reducer);
 
 // Setting up the localStorage and checking if the user is already logged
