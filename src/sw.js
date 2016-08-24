@@ -43,11 +43,15 @@ this.addEventListener('fetch', event => {
 	// ```
 	event.respondWith(
 		caches.match(event.request).then(resp => {
-			return resp || fetch(event.request).then(r => {
-				log(event.request.url);
-				log('wasn\'t found in the cache so thus fetched');
-				return r;
-			});
+			return resp || fetch(event.request)
+				.then(r => {
+					log(event.request.url);
+					log('wasn\'t found in the cache so thus fetched');
+					return r;
+				})
+				.catch(e => {
+					log('Error:', e);
+				});
 		})
 	);
 });

@@ -3,7 +3,7 @@ import * as React from "react";
 import * as types from "../types";
 import { connect } from "react-redux";
 import { get_marks } from "../actions";
-import { Spinner, Card, CardTitle, CardText } from "react-mdl";
+import { Spinner, Card, CardTitle, CardText, DataTable, TableHeader } from "react-mdl";
 import { Subject } from './Subject';
 
 interface Props {
@@ -16,18 +16,14 @@ interface Props {
 class Component extends React.Component<Props, {}> {
     render() {
         return(
-            <Card shadow={2}>
+            <Card shadow={2} id="marks">
                 <CardTitle>Marks</CardTitle>
                 <CardText>
                     { this.props.reqError ? <p>{this.props.reqError}</p> : null }
                     { this.props.reqInProgress ? <Spinner /> : null }
-                    <table className="striped responsive-table">
-                        <tbody>
-                            { this.props.data ? this.props.data.map(subj => {
-                                return (<Subject key={subj.name} data={subj}></Subject>);
-                            }) : null }
-                        </tbody>
-                    </table>    
+                    <Card shadow={2} className="marks">
+                        <CardTitle>Matematica <span style={{"float": "right"}}>Media: 9.00</span></CardTitle>
+                    </Card>
                 </CardText>
             </Card>
             );

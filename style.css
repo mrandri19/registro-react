@@ -2,6 +2,15 @@
     margin: auto;
 }
 
+.marks {
+	min-height: 100%;
+}
+
+#marks {
+	margin: auto 10%;
+	width: initial;
+}
+
 .mdl-layout__content {
 	padding: 24px;
 }

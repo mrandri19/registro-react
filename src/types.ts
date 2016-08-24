@@ -3,6 +3,20 @@ export type Subject = {
     marks: Array<Mark>
 }
 
+export interface SET_LOGGED {
+    type: "SET_LOGGED";
+    logged: boolean;
+}
+
+export interface LOGIN_REQUEST_SENT {
+    type: "LOGIN_REQUEST_SENT";
+}
+
+export interface FORM_ERROR {
+    type: "FORM_ERROR";
+    error: string;
+}
+
 export type Mark = {
     date: string,
     desc: string,
@@ -32,7 +46,6 @@ export interface SUBMIT_FORM {
 
 export interface LOGIN_REQUEST_RECEIVED {
     type: 'LOGIN_REQUEST_RECEIVED';
-    reqStatus: number;
 }
 
 export interface GET_MARKS {
@@ -54,9 +67,10 @@ export interface REMEMBER_LOGIN {
     logged: boolean;
 }
 
-export type AppActions = SUBMIT_FORM
-                         | LOGIN_REQUEST_RECEIVED
+export type AppActions = LOGIN_REQUEST_RECEIVED
                          | GET_MARKS
                          | MARKS_REQUEST_RECEIVED
                          | LOGOUT
-                         | REMEMBER_LOGIN;
+                         | REMEMBER_LOGIN
+                         | FORM_ERROR
+                         | SET_LOGGED;

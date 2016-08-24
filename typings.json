@@ -5,6 +5,7 @@
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-mdl": "registry:dt/react-mdl#0.0.0+20160425154501",
     "react-redux": "registry:dt/react-redux#4.4.0+20160703120921",
-    "react-router": "registry:dt/react-router#2.0.0+20160621215300"
+    "react-router": "registry:dt/react-router#2.0.0+20160621215300",
+    "redux-thunk": "registry:dt/redux-thunk#2.1.0+20160703120921"
   }
 }
