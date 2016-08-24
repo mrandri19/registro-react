@@ -3,8 +3,7 @@ import * as React from "react";
 import * as types from "../types";
 import { connect } from "react-redux";
 import { get_marks } from "../actions";
-import { Spinner, Card, CardTitle, CardText, DataTable, TableHeader } from "react-mdl";
-import { Subject } from './Subject';
+import { Spinner, Card, CardTitle, CardText } from "react-mdl";
 
 interface Props {
     onLoad: any;
@@ -21,9 +20,12 @@ class Component extends React.Component<Props, {}> {
                 <CardText>
                     { this.props.reqError ? <p>{this.props.reqError}</p> : null }
                     { this.props.reqInProgress ? <Spinner /> : null }
-                    <Card shadow={2} className="marks">
-                        <CardTitle>Matematica <span style={{"float": "right"}}>Media: 9.00</span></CardTitle>
-                    </Card>
+                    { this.props.data ? this.props.data.map(sub => {
+                        return (<Card shadow={2} key={sub.name} className="marks">
+                            <CardTitle>{sub.name}</CardTitle>
+                        </Card>);
+                    }) : null}
+
                 </CardText>
             </Card>
             );

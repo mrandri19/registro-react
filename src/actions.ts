@@ -4,12 +4,11 @@ import {
     LOGIN_REQUEST_SENT,
     MARKS_REQUEST_RECEIVED,
     LOGOUT,
-    GET_MARKS,
     REMEMBER_LOGIN,
-    FORM_ERROR
+    FORM_ERROR,
+    SET_LOGGED
 } from "./types";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
-
 
 export function login_request_received(): LOGIN_REQUEST_RECEIVED {
     return {
@@ -65,9 +64,19 @@ export function login_request_sent(): LOGIN_REQUEST_SENT {
     };
 }
 
-export function get_marks(): GET_MARKS {
+export function get_marks(): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(marks_request_sent());
+        ApiWrapper.marks((status, response) => {
+            dispatch(marks_request_received(status, response));
+        });
+        return;
+    };
+}
+
+function marks_request_sent() {
     return {
-        type: "GET_MARKS"
+        type: "MARKS_REQUEST_SENT"
     };
 }
 
