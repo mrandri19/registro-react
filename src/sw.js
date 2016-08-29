@@ -7,10 +7,13 @@ this.addEventListener('install', event => {
 	// Add to cache a file. The file will be GETed by the sw
 	event.waitUntil(caches.open('v1').then(cache => {
 		return cache.addAll([
-			'/',
+			'index.html',
+			'bundle.js',
 			'style.css',
 			"material.min.css",
 			"material.min.js",
+			'react-dom.min.js',
+			'react.min.js'
 		]);
 	}));
 
@@ -27,22 +30,11 @@ this.addEventListener('activate', event => {
 });
 
 this.addEventListener('fetch', event => {
-	log('Intercepted a fetch request', event.request);
-
-	// This code responds with a cached response if the request
-	// has "https://cached.com/" as url
-	// ```js
-	// if(event.request.url === "https://cached.com/") {
-	// 	log( 'requesting a cached information');
-	// 	let res = caches.match('file.json');
-	// 	event.respondWith(res);
-	// } else {
-	// 	log( 'requesting an uncached information, fetching it');
-	// 	event.respondWith(fetch(event.request));
-	// }
-	// ```
 	event.respondWith(
 		caches.match(event.request).then(resp => {
+			if (event.request.url === "http://localhost:8080/login") {
+				return caches.match("http://localhost:8080/");
+			}
 			return resp || fetch(event.request)
 				.then(r => {
 					log(event.request.url);

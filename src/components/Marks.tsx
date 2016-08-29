@@ -3,7 +3,10 @@ import * as React from "react";
 import * as types from "../types";
 import { connect } from "react-redux";
 import { get_marks } from "../actions";
-import { Spinner, Card, CardTitle, CardText } from "react-mdl";
+import { Spinner, Card, CardTitle, Grid, Cell } from "react-mdl";
+
+import { SubjectCard } from "./SubjectCard";
+import { grade_to_float } from "../utils/grade_to_float";
 
 interface Props {
     onLoad: any;
@@ -15,19 +18,23 @@ interface Props {
 class Component extends React.Component<Props, {}> {
     render() {
         return(
-            <Card shadow={2} id="marks">
-                <CardTitle>Marks</CardTitle>
-                <CardText>
+            <div className="subjects">
                     { this.props.reqError ? <p>{this.props.reqError}</p> : null }
                     { this.props.reqInProgress ? <Spinner /> : null }
-                    { this.props.data ? this.props.data.map(sub => {
-                        return (<Card shadow={2} key={sub.name} className="marks">
-                            <CardTitle>{sub.name}</CardTitle>
-                        </Card>);
-                    }) : null}
-
-                </CardText>
-            </Card>
+                    <Grid>
+                        { this.props.data ? this.props.data.map(sub => {
+                            let mean = sub.marks.reduce((acc, mark) => acc + grade_to_float(mark.mark), 0) / sub.marks.length;
+                            return (
+                                <Cell col={3} phone={12} tablet={4} key={sub.name}>
+                                    <SubjectCard
+                                        name={sub.name}
+                                        mean={mean}
+                                    />
+                                </Cell>
+                            );
+                        }) : null}
+                    </Grid>
+            </div>
             );
     }
     componentDidMount() {

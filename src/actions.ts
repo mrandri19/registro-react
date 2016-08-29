@@ -50,8 +50,12 @@ export function submit_form(username: string, password: string): (dispatch: any)
                 dispatch(login_request_received());
             } else if (status === 500) {
                 dispatch(form_error("Server error"));
+                dispatch(set_logged(false));
+                dispatch(login_request_received());
             } else {
-                dispatch("Unknown error");
+                dispatch(form_error("Unknown error"));
+                dispatch(set_logged(false));
+                dispatch(login_request_received());
             }
         });
         return;

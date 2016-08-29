@@ -25,12 +25,23 @@ class Component extends React.Component<Props, {}> {
         <CardText>
             { this.props.loginInProgress ? <Spinner /> : null }
             <form action="#" onSubmit={this.props.handleSubmit.bind(this)}>
-                <p>{this.props.logError}</p>
+                <p className="loginFormErrors" >{this.props.logError}</p>
 
-                <Textfield label="Username" id="username">
-                </Textfield>
-                <Textfield label="Password" type="password" id="password"></Textfield>
+                <Textfield
+                    floatingLabel
+                    required={true}
+                    label="Username"
+                    type="text"
+                    id="username"
+                />
 
+                <Textfield
+                    floatingLabel
+                    required={true}
+                    label="Password"
+                    type="password"
+                    id="password"
+                />
                 <button
                     className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
                     type="submit"

@@ -26,7 +26,6 @@ const component = function(props: Props) {
             <Content>
                 {props.children}
             </Content>
-            <MyFooter />
         </Layout>
         );
 };

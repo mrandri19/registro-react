@@ -2,17 +2,18 @@
     margin: auto;
 }
 
-.marks {
-	min-height: 100%;
+.subject {
+    min-height: 4em;
+    max-width: 500px;
+    width: 100%;
 }
 
-#marks {
-	margin: auto 10%;
-	width: initial;
+.subjects {
+    padding: 0%;
 }
 
 .mdl-layout__content {
-	padding: 24px;
+    background: #F5F5F5;
 }
 
 .grade_ok {
@@ -25,4 +26,16 @@
 
 #footer {
     padding: 8px 8px 0px 8px;
+}
+
+.loginFormErrors {
+    color: red;
+}
+
+.subject > .mdl-card__title {
+    display: block;
+}
+
+svg {
+    float: right;
 }

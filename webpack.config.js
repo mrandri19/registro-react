@@ -39,6 +39,7 @@ module.exports = {
         {from: "node_modules/react-mdl/extra/material.min.css"},
         {from: "style.css"},
         {from: "src/sw.js"},
+        {from: "manifest.json"},
         {from: "node_modules/react/dist/react.js"},
         {from: "node_modules/react/dist/react.min.js"},
         {from: "node_modules/react-dom/dist/react-dom.js"},
