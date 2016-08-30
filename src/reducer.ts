@@ -71,6 +71,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
                     }
                 }
             case "LOGOUT":
+                console.log('logging out');
                 AppStorage.setItem(LOGGED_KEY, "false");
                 return merge({}, state, {logged: false});
             case "REMEMBER_LOGIN":

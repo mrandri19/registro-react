@@ -43,8 +43,6 @@ ReactDOM.render(
             <Route path="/" component={App}>
                 <IndexRoute component={Hello} onEnter={checkAuth}/>
 
-                <Redirect from="logout" to="login"/>
-
                 <Route path="/marks/:subject" component={SubjectPage}></Route>
                 <Route path="/marks" component={Marks} onEnter={checkAuth}></Route>
                 <Route path="login" component={Login}></Route>
