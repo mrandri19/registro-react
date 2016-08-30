@@ -14,7 +14,6 @@ interface Props {
 export function SubjectCard(props: Props) {
     let mark_degrees = (props.mean / 10) * 360;
     let color = (props.mean >= 6) ? "green" : "red";
-    console.log(props);
     return (
         <Card shadow={2} className="subject">
             <CardTitle>
@@ -23,6 +22,7 @@ export function SubjectCard(props: Props) {
                     <circle cx="50" cy="50" r="40" fill="transparent"/>
                     <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke="transparent"/>
                     <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke={color} strokeDasharray="251.2" strokeDashoffset={to_svg_degrees(mark_degrees)}/>
+                    <text x="35" y="50" fill="black" fontSize="20">{props.mean.toFixed(2)}</text>
                 </svg>
             </CardTitle>
         </Card>

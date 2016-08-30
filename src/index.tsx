@@ -7,6 +7,7 @@ import { Hello } from "./components/Hello";
 import { Marks } from "./components/Marks";
 import { Login } from "./components/Login";
 import { App } from "./components/App";
+import { SubjectPage } from "./components/SubjectPage";
 import { storeFactory, reducer } from "./reducer";
 import * as actions from "./actions";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
@@ -41,10 +42,18 @@ ReactDOM.render(
         <Router history={browserHistory}>
             <Route path="/" component={App}>
                 <IndexRoute component={Hello} onEnter={checkAuth}/>
-                <Route path="marks" component={Marks} onEnter={checkAuth}></Route>
+
+                <Redirect from="logout" to="login"/>
+
+                <Route path="/marks/:subject" component={SubjectPage}></Route>
+                <Route path="/marks" component={Marks} onEnter={checkAuth}></Route>
                 <Route path="login" component={Login}></Route>
                 <Route path="logout" component={Login} onEnter={logout}></Route>
-                <Redirect from="logout" to="login"/>
+
+                <Redirect from="index.html" to="/"/>
+                <Redirect from="index" to="/"/>
+
+                <Redirect from="*" to="login"/>
             </Route>
         </Router>
     </Provider>,

@@ -3,7 +3,7 @@ import * as React from "react";
 import * as types from "../types";
 import { connect } from "react-redux";
 import { get_marks } from "../actions";
-import { Spinner, Card, CardTitle, Grid, Cell } from "react-mdl";
+import { Spinner, Grid, Cell } from "react-mdl";
 
 import { SubjectCard } from "./SubjectCard";
 import { grade_to_float } from "../utils/grade_to_float";
@@ -23,7 +23,11 @@ class Component extends React.Component<Props, {}> {
                     { this.props.reqInProgress ? <Spinner /> : null }
                     <Grid>
                         { this.props.data ? this.props.data.map(sub => {
-                            let mean = sub.marks.reduce((acc, mark) => acc + grade_to_float(mark.mark), 0) / sub.marks.length;
+                            let mean = sub.marks
+                                .map(mark => grade_to_float(mark.mark))
+                                .filter(mark => mark !== undefined)
+                                .reduce((acc, mark) => acc + mark, 0) / sub.marks.length;
+
                             return (
                                 <Cell col={3} phone={12} tablet={4} key={sub.name}>
                                     <SubjectCard

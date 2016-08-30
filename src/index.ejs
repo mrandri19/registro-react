@@ -6,30 +6,30 @@
         <title>Hello React!</title>
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="material.min.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="manifest" href="manifest.json">
+        <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.siteUrl %>material.min.css">
+        <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.siteUrl %>style.css">
+        <link rel="manifest" href="<%= htmlWebpackPlugin.options.siteUrl %>manifest.json">
         <meta name="theme-color" content="#3f51b5">
     </head>
     <body>
         <div id="root"></div>
 
         <% if (htmlWebpackPlugin.options.environment == "development") { %>
-            <script src="react.js"></script>
-            <script src="react-dom.js"></script>
+            <script src="<%= htmlWebpackPlugin.options.siteUrl %>react.js"></script>
+            <script src="<%= htmlWebpackPlugin.options.siteUrl %>react-dom.js"></script>
         <% } %>
 
         <% if (htmlWebpackPlugin.options.environment == "production") { %>
-            <script src="react.min.js"></script>
-            <script src="react-dom.min.js"></script>
+            <script src="<%= htmlWebpackPlugin.options.siteUrl %>react.min.js"></script>
+            <script src="<%= htmlWebpackPlugin.options.siteUrl %>react-dom.min.js"></script>
         <% } %>
 
         <!-- Main -->
         <!-- Compiled and minified JavaScript -->
-        <script src="material.min.js"></script>
+        <script src="<%= htmlWebpackPlugin.options.siteUrl %>material.min.js"></script>
 
         <!-- The bundle.js file will be auto injected by HTMLWebpackPlugin -->
-        <script src="<%= htmlWebpackPlugin.files.js %>"></script>
+        <script src="<%= htmlWebpackPlugin.options.siteUrl + htmlWebpackPlugin.files.js %>"></script>
 
         <script>
             function log(str) {

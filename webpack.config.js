@@ -29,6 +29,7 @@ module.exports = {
         collapseWhitespace: true,
         removeComments: true
       },
+      siteUrl: "http://localhost:8080/",
       hash: true,
       filename: "index.html",
       template: 'src/index.ejs',
