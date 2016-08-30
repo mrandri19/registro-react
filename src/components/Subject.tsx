@@ -16,20 +16,23 @@ function grade_to_danger_level(mark_str: string) {
 
 interface Props {
     data: Subject;
-    key: string;
 }
 export function Subject(props: Props) {
     let i = 0;
     return(
-        <tr>
-            <td>{upcase_first(props.data.name)}</td>
-            {props.data.marks.map(mark => {
-                let danger_level = grade_to_danger_level(mark.mark);
-                return(
-                    <td className={danger_level} key={props.data.name + mark.mark + i++}>
-                        {mark.mark}
-                    </td>);
-            })}
-        </tr>
+        <table>
+            <tbody>
+                <tr>
+                    <td>{upcase_first(props.data.name)}</td>
+                    {props.data.marks.map(mark => {
+                        let danger_level = grade_to_danger_level(mark.mark);
+                        return(
+                            <td className={danger_level} key={props.data.name + mark.mark + i++}>
+                                {mark.mark}
+                            </td>);
+                    })}
+                </tr>
+            </tbody>
+        </table>
     );
 };
