@@ -1,5 +1,6 @@
 #login {
     margin: auto;
+    margin-top: 1em;
 }
 
 .subject {
@@ -43,4 +44,5 @@ svg {
 
 .subjectPage {
     margin: auto;
+    margin-top: 1em;
 }
