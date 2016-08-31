@@ -4,10 +4,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "server-prod": "cd dist; node ../server.js",
     "server-dev": "webpack-dev-server",
     "build-prod": "rm -r dist/;NODE_ENV=production webpack -p",
-    "build-dev": "rm -r dist/; webpack -d"
+    "build-dev": "rm -r dist/; webpack -d",
+    "clean": "rm -rf dist node_modules typings",
+    "deploy": "./deploy.sh"
   },
   "author": "Andrea Cognolato <andrecogno@hotmail.it> (https://github.com/mrandri19)",
   "license": "ISC",

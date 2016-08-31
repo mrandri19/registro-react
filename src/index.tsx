@@ -51,7 +51,7 @@ ReactDOM.render(
                 <Redirect from="index.html" to="/"/>
                 <Redirect from="index" to="/"/>
 
-                <Redirect from="*" to="login"/>
+                <Redirect from="*" to="/"/>
             </Route>
         </Router>
     </Provider>,

@@ -1,17 +1,17 @@
 const express = require('express');
-const app = express(); 
 const path = require('path');
 
-app.use(express.static('.'));
+const app = express();
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
-});
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
+// serve our static stuff like index.css
+app.use(express.static(path.join(__dirname, 'dist')));
+
+// send all requests to index.html so browserHistory in React Router works
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-const port = 8080; 
-app.listen(8080, function() {
-    console.log("server listening on port 8080");
+const PORT = 8080;
+app.listen(PORT, function() {
+  console.log('Production Express server running at localhost:' + PORT);
 });
