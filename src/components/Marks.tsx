@@ -9,7 +9,7 @@ import { SubjectCard } from "./SubjectCard";
 import { grade_to_float } from "../utils/grade_to_float";
 
 interface Props {
-    onLoad: any;
+    onLoad: () => void;
     reqInProgress: boolean;
     data?: Array<types.Subject>;
     reqError: string;
@@ -42,7 +42,10 @@ class Component extends React.Component<Props, {}> {
             );
     }
     componentDidMount() {
-        // TODO: cache marks
+        // Don't download if we already have the data
+        if (this.props.data != null) {
+            return;
+        }
         this.props.onLoad();
     }
 }

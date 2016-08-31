@@ -1,5 +1,5 @@
 import { merge } from "lodash";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { default as thunk } from "redux-thunk";
 
 import { AppStorage, LOGGED_KEY } from "./appStorage";
@@ -29,7 +29,7 @@ const initialState: AppState = {
 type Reducer = (state: AppState, action: AppActions) => AppState;
 
 export function storeFactory(reducer: Reducer) {
-    return createStore(reducer, applyMiddleware(thunk));
+    return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
 }
 
 

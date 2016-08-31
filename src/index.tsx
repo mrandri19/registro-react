@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, browserHistory, Redirect } from "react-router";
 import { Provider } from "react-redux";
 
+import { AppState } from "./types";
 import { Hello } from "./components/Hello";
 import { Marks } from "./components/Marks";
 import { Login } from "./components/Login";
@@ -24,13 +25,15 @@ if (AppStorage.getItem(LOGGED_KEY) == null) {
 }
 
 function logout(nextState: any, replace: any) {
-    if (appStore.getState().logged) {
+    const state  = appStore.getState() as AppState;
+    if (state.logged) {
         appStore.dispatch(actions.logout());
     }
 }
 
 function checkAuth(nextState: any, replace: any) {
-    if (!appStore.getState().logged) {
+    const state  = appStore.getState() as AppState;
+    if (!state.logged) {
         replace({
             pathname: "login",
         });
