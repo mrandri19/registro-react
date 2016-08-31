@@ -18,7 +18,6 @@ interface Props {
 
 class Component extends React.Component<Props, {}> {
     render() {
-        // HELP ME
         let subject: types.Subject;
         if (this.props.data) {
             subject = this.props.data.filter(subj => subj.name.replace(/\s+/g, "") === this.props.params.subject)[0];
@@ -27,7 +26,7 @@ class Component extends React.Component<Props, {}> {
         }
         return (
             <Card className="subjectPage" shadow={2}>
-                <CardTitle>
+                <CardTitle style={{color: "#fff", backgroundColor: "#3f51b5"}}>
                     {subject ? upcase_first(subject.name) : null}
                 </CardTitle>
                 <CardText>

@@ -1,7 +1,9 @@
 import * as React from "react";
+import { DataTable, TableHeader } from "react-mdl";
+
+
 import { Subject } from "../types";
 import { grade_to_float } from "../utils/grade_to_float";
-import { upcase_first } from "../utils/upcase_first";
 
 function grade_to_danger_level(mark_str: string) {
     let mark = grade_to_float(mark_str);
@@ -18,21 +20,25 @@ interface Props {
     data: Subject;
 }
 export function Subject(props: Props) {
-    let i = 0;
+    // subject.q can only be "q1" or "q3" so to use an arbitrary string we
+    // create a new one of type any
+    let marks = props.data.marks.map(sub => {
+        let newSub: any = sub;
+        let pre = (newSub.q === "q1");
+        newSub.q = (pre ? "Primo" : "Secondo");
+        return newSub;
+    });
+
     return(
-        <table>
-            <tbody>
-                <tr>
-                    <td>{upcase_first(props.data.name)}</td>
-                    {props.data.marks.map(mark => {
-                        let danger_level = grade_to_danger_level(mark.mark);
-                        return(
-                            <td className={danger_level} key={props.data.name + mark.mark + i++}>
-                                {mark.mark}
-                            </td>);
-                    })}
-                </tr>
-            </tbody>
-        </table>
+        <div>
+            <DataTable
+                shadow={2}
+                rows = {marks}
+            >
+                <TableHeader name="mark">Voto</TableHeader>
+                <TableHeader name="date">Data</TableHeader>
+                <TableHeader name="q">Quadrimestre</TableHeader>
+            </DataTable>
+        </div>
     );
 };
