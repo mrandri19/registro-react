@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DataTable, TableHeader } from "react-mdl";
+import { merge } from "lodash";
 
 
 import { Subject } from "../types";
@@ -22,8 +23,12 @@ interface Props {
 export function Subject(props: Props) {
     // subject.q can only be "q1" or "q3" so to use an arbitrary string we
     // create a new one of type any
+
+    // Could merge use too much memory?, hope it doesn't
+    // a better approach would be to mutate the props.data object and then
+    // check if q was already changed to "Primo" or "Secondo"
     let marks = props.data.marks.map(sub => {
-        let newSub: any = sub;
+        let newSub: any = merge({}, sub);
         let pre = (newSub.q === "q1");
         newSub.q = (pre ? "Primo" : "Secondo");
         return newSub;
