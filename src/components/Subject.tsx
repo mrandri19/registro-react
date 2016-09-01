@@ -6,17 +6,6 @@ import { merge } from "lodash";
 import { Subject } from "../types";
 import { grade_to_float } from "../utils/grade_to_float";
 
-function grade_to_danger_level(mark_str: string) {
-    let mark = grade_to_float(mark_str);
-    if (mark >= 6) {
-        return "grade_ok";
-    } else if (mark < 6) {
-        return "grade_not_ok";
-    } else {
-        return null;
-    }
-}
-
 interface Props {
     data: Subject;
 }
@@ -34,8 +23,25 @@ export function Subject(props: Props) {
         return newSub;
     });
 
+    // Hummm...
+    // I shouldn't have read RealWorldHaskell
+    let firstSemesterMean = props.data.marks
+        .filter(sub => sub.q === "q1" && !sub.ns) // && !sub.ns filters out the blue grades which shouldn't count
+        .map(mark => grade_to_float(mark.mark))
+        .filter(mark => mark !== undefined)
+        .reduce((acc, mark) => acc + mark, 0) / props.data.marks.filter(sub => sub.q === "q1" && !sub.ns).length;
+
+    let secondSemesterMean = props.data.marks
+        .filter(sub => sub.q === "q3" && !sub.ns)
+        .map(mark => grade_to_float(mark.mark))
+        .filter(mark => mark !== undefined)
+        .reduce((acc, mark) => acc + mark, 0) / props.data.marks.filter(sub => sub.q === "q3" && !sub.ns).length;
+
+
     return(
         <div>
+            <p>Media primo quadrimestre: <span><b>{firstSemesterMean.toFixed(2)}</b></span></p>
+            <p>Media secondo quadrimestre: <span><b>{secondSemesterMean.toFixed(2)}</b></span></p>
             <DataTable
                 shadow={2}
                 rows = {marks}
