@@ -12,7 +12,7 @@ import { AppState,
     FORM_ERROR,
     SET_LOGGED,
     COMMUNICATIONS_REQUEST_RECEIVED,
-    Communication 
+    Communication
  } from "./types";
 
 const initialState: AppState = {

@@ -8,6 +8,7 @@ import { Hello } from "./components/Hello";
 import { Marks } from "./components/Marks";
 import { Login } from "./components/Login";
 import { Communications } from "./components/Communications";
+import { CommunicationPage } from "./components/CommunicationPage";
 import { App } from "./components/App";
 import { SubjectPage } from "./components/SubjectPage";
 import { storeFactory, reducer } from "./reducer";
@@ -49,6 +50,7 @@ ReactDOM.render(
 
                 <Route path="/marks/:subject" component={SubjectPage}></Route>
                 <Route path="/marks" component={Marks} onEnter={checkAuth}></Route>
+                <Route path="/communications/:id" component={CommunicationPage} onEnter={checkAuth}></Route>
                 <Route path="/communications" component={Communications} onEnter={checkAuth}></Route>
 
                 <Route path="login" component={Login}></Route>
