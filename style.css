@@ -3,6 +3,11 @@
     margin-top: 1em;
 }
 
+#communications {
+    margin: auto 1em;
+    margin-bottom: 1em;
+}
+
 .subject {
     min-height: 4em;
     max-width: 500px;
@@ -14,6 +19,7 @@
 }
 
 .mdl-layout__content {
+    width: 100%;
     background: #F5F5F5;
 }
 
@@ -43,7 +49,18 @@ svg {
 
 
 .subjectPage {
-    margin: auto;
-    margin-top: 1em;
+    margin: auto 1em;
     margin-bottom: 1em;
+}
+
+.mdl-data-table {
+    table-layout:fixed;
+    width:100%; 
+}
+#ildiocano td, th {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
 }

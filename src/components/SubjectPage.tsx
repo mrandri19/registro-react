@@ -25,15 +25,11 @@ class Component extends React.Component<Props, {}> {
             subject = null;
         }
         return (
-            <Card className="subjectPage" shadow={2}>
-                <CardTitle style={{color: "#fff", backgroundColor: "#3f51b5"}}>
-                    {subject ? upcase_first(subject.name) : null}
-                </CardTitle>
-                <CardText>
+            <div className="subjectPage" shadow={2}>
+                    <h3>{subject ? upcase_first(subject.name) : null}</h3>
                     { this.props.reqInProgress ? <Spinner /> : null }
                     {subject ? <Subject data={subject}/> : null}
-                </CardText>
-            </Card>
+            </div>
         );
     }
     componentDidMount() {

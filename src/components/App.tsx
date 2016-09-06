@@ -19,8 +19,9 @@ const component = function(props: Props) {
             <Drawer title="Registro Elettronico">
                 <Navigation>
                     <Link to="/">Home</Link>
-                    <Link to="marks">Marks</Link>
-                    <Link to="logout">Logout</Link>
+                    <Link to="/marks">Marks</Link>
+                    <Link to="/communications">Communications</Link>
+                    <Link to="/logout">Logout</Link>
                 </Navigation>
             </Drawer>
             <Content>

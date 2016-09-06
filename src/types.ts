@@ -8,6 +8,13 @@ export interface SET_LOGGED {
     logged: boolean;
 }
 
+export interface Communication {
+  title: string;
+  type: string;
+  date: Date;
+  id: number;
+}
+
 export interface LOGIN_REQUEST_SENT {
     type: "LOGIN_REQUEST_SENT";
 }
@@ -33,7 +40,12 @@ export type AppState = {
     logError: string,
     marks: {
         reqInProgress: boolean,
-        data: Array<Subject>,
+        data?: Array<Subject>,
+        reqError: string
+    },
+    communications: {
+        reqInProgress: boolean,
+        data?: Array<Communication>,
         reqError: string
     }
 }
@@ -52,6 +64,12 @@ export interface GET_MARKS {
     type: 'GET_MARKS';
 }
 
+export interface COMMUNICATIONS_REQUEST_RECEIVED {
+    type: 'COMMUNICATIONS_REQUEST_RECEIVED';
+    reqStatus: number;
+    reqData: string;
+}
+
 export interface MARKS_REQUEST_RECEIVED {
     type: 'MARKS_REQUEST_RECEIVED';
     reqStatus: number;
@@ -67,10 +85,16 @@ export interface REMEMBER_LOGIN {
     logged: boolean;
 }
 
+export interface COMMUNICATIONS_REQUEST_SENT {
+    type: "COMMUNICATIONS_REQUEST_SENT";
+}
+
 export type AppActions = LOGIN_REQUEST_RECEIVED
                          | GET_MARKS
                          | MARKS_REQUEST_RECEIVED
                          | LOGOUT
                          | REMEMBER_LOGIN
                          | FORM_ERROR
-                         | SET_LOGGED;
+                         | SET_LOGGED
+                         | COMMUNICATIONS_REQUEST_SENT
+                         | COMMUNICATIONS_REQUEST_RECEIVED;

@@ -43,7 +43,7 @@ export function Subject(props: Props) {
             <p>Media primo quadrimestre: <span><b>{firstSemesterMean.toFixed(2)}</b></span></p>
             <p>Media secondo quadrimestre: <span><b>{secondSemesterMean.toFixed(2)}</b></span></p>
             <DataTable
-                shadow={2}
+                shadow={0}
                 rows = {marks}
             >
                 <TableHeader name="mark">Voto</TableHeader>

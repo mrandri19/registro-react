@@ -31,3 +31,19 @@ export function marks(onfinish: (status: number, response: string) => void) {
 
     req.send();
 }
+
+export function communications(onfinish: (status: number, response: string) => void) {
+    const req = new XMLHttpRequest();
+    const url = config.api_url + "/communications";
+
+    req.open("GET", url, true);
+    req.withCredentials = true;
+
+    req.onreadystatechange = () => {
+        if (req.readyState === 4) {
+            onfinish(req.status, req.response);
+        }
+    };
+
+    req.send();
+}

@@ -6,7 +6,9 @@ import {
     LOGOUT,
     REMEMBER_LOGIN,
     FORM_ERROR,
-    SET_LOGGED
+    SET_LOGGED,
+    COMMUNICATIONS_REQUEST_SENT,
+    COMMUNICATIONS_REQUEST_RECEIVED
 } from "./types";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
 
@@ -44,6 +46,7 @@ export function submit_form(username: string, password: string): (dispatch: any)
             if (status === 200) {
                 AppStorage.setItem(LOGGED_KEY, "true");
                 dispatch(set_logged(true));
+                dispatch(login_request_received());
             } else if (status === 401) {
                 dispatch(form_error("Login failed"));
                 dispatch(set_logged(false));
@@ -73,6 +76,31 @@ export function get_marks(): (dispatch: any) => void {
         dispatch(marks_request_sent());
         ApiWrapper.marks((status, response) => {
             dispatch(marks_request_received(status, response));
+        });
+        return;
+    };
+}
+
+function communications_request_sent(): COMMUNICATIONS_REQUEST_SENT {
+    return {
+        type: "COMMUNICATIONS_REQUEST_SENT"
+    };
+}
+
+function communications_request_received(status: number, data: string): COMMUNICATIONS_REQUEST_RECEIVED {
+    return {
+        type: "COMMUNICATIONS_REQUEST_RECEIVED",
+        reqStatus: status,
+        reqData: data
+    };
+}
+
+
+export function get_communications(): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(communications_request_sent());
+        ApiWrapper.communications((status, response) => {
+            dispatch(communications_request_received(status, response));
         });
         return;
     };

@@ -61,7 +61,6 @@ function mapDispatchToProps(dispatch: any) {
             const password = (document.getElementById("password") as HTMLInputElement).value;
 
             dispatch(submit_form(username, password));
-            // TODO: implement form validation
         }
     };
 }
