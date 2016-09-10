@@ -3,6 +3,11 @@
     margin-top: 1em;
 }
 
+#communication {
+    margin: auto 1em;
+    margin-bottom: 1em;
+}
+
 #communications {
     margin: auto 1em;
     margin-bottom: 1em;
@@ -57,7 +62,8 @@ svg {
     table-layout:fixed;
     width:100%; 
 }
-#ildiocano td, th {
+
+.dottedTable td, th {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;

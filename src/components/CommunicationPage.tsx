@@ -1,9 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import { Spinner } from "react-mdl";
 
 import { AppState, IPORCODIO } from "../types";
 import { get_communication } from "../actions";
+import * as config from "../config";
+
 
 interface Props {
     params: any;
@@ -13,21 +16,27 @@ interface Props {
 
 class Component extends React.Component<Props, {}> {
     render() {
+        let comm = this.props.data[this.props.params.id];
+        // TODO: implement spinner
         return(
-            <div>
-                <p>{"DIOCANO"}</p>
-                <p>{JSON.stringify(this.props.data[this.props.params.id])}</p>
+            <div id="communication">
+                { (comm === undefined) ? <Spinner /> :
+                    <div>
+                        <h3>{comm.longTitle}</h3>
+                        <p>{comm.desc}</p>
+                        { comm.attachment ?
+                        <a href={config.api_url + `/communication/${this.props.params.id}/download`}>
+                            Allegato
+                        </a> : null}
+                    </div>
+                }
             </div>
         );
     }
     componentDidMount() {
-        console.log(this.props.data);
-
-        // Don't download if we already have the data
-        if (this.props.data[this.props.params.id] !== undefined) {
-            return;
+        if (this.props.data[this.props.params.id] === undefined) {
+        return this.props.onLoad(this.props.params.id);
         }
-        this.props.onLoad(this.props.params.id);
     }
 }
 

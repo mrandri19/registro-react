@@ -25,7 +25,7 @@ class Component extends React.Component<Props, {}> {
                 { this.props.reqError ? <p>{this.props.reqError}</p> : null }
                 { this.props.reqInProgress ? <Spinner /> : null }
                 { this.props.data ? (
-                    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp dottedTable">
                         <thead>
                             <tr>
                                 <th
