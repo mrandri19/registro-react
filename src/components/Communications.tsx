@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { Spinner, DataTable, TableHeader } from "react-mdl";
+import { Spinner } from "react-mdl";
 import { AppState, Communication } from "../types";
 import { get_communications } from "../actions";
 import { withRouter } from "react-router";
@@ -14,14 +14,6 @@ interface Props {
     reqInProgress: boolean;
     reqError: string;
 }
-
-//                      <DataTable
-//                         id = "ildiocano"
-//                         shadow={2}
-//                         rows={this.props.data}
-//                     >
-//                        <TableHeader name="title">Title</TableHeader>
-//                      </DataTable>
 
 class Component extends React.Component<Props, {}> {
     render() {
@@ -64,7 +56,7 @@ class Component extends React.Component<Props, {}> {
         return () => {
             this.props.router.push(`/communications/${commID}`);
             return;
-        }
+        };
     }
     componentDidMount() {
         // Don't download if we already have the data

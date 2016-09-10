@@ -33,6 +33,13 @@ export type Mark = {
     type: string
 }
 
+
+export interface CommunicationDescription {
+  longTitle: string;
+  desc: string;
+  attachment: boolean;
+}
+
 export type AppState = {
     username: string,
     logged: boolean
@@ -46,8 +53,13 @@ export type AppState = {
     communications: {
         reqInProgress: boolean,
         data?: Array<Communication>,
-        reqError: string
+        reqError: string,
+        descriptions: IPORCODIO
     }
+}
+
+export interface IPORCODIO {
+    [key: string]: CommunicationDescription;
 }
 
 export interface SUBMIT_FORM {
@@ -89,6 +101,18 @@ export interface COMMUNICATIONS_REQUEST_SENT {
     type: "COMMUNICATIONS_REQUEST_SENT";
 }
 
+export interface COMMUNICATION_REQUEST_RECEIVED {
+    type: "COMMUNICATION_REQUEST_RECEIVED";
+    commID: string;
+    reqStatus: number;
+    reqData: any;
+}
+
+export interface COMMUNICATION_REQUEST_SENT {
+    type: "COMMUNICATION_REQUEST_SENT";
+    commID: string;
+}
+
 export type AppActions = LOGIN_REQUEST_RECEIVED
                          | GET_MARKS
                          | MARKS_REQUEST_RECEIVED
@@ -97,4 +121,6 @@ export type AppActions = LOGIN_REQUEST_RECEIVED
                          | FORM_ERROR
                          | SET_LOGGED
                          | COMMUNICATIONS_REQUEST_SENT
-                         | COMMUNICATIONS_REQUEST_RECEIVED;
+                         | COMMUNICATIONS_REQUEST_RECEIVED
+                         | COMMUNICATION_REQUEST_RECEIVED
+                         | COMMUNICATION_REQUEST_SENT;

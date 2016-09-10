@@ -12,6 +12,7 @@ import { AppState,
     FORM_ERROR,
     SET_LOGGED,
     COMMUNICATIONS_REQUEST_RECEIVED,
+    COMMUNICATION_REQUEST_RECEIVED,
     Communication
  } from "./types";
 
@@ -29,15 +30,16 @@ const initialState: AppState = {
     communications: {
         reqInProgress: false,
         data: null,
-        reqError: ""
+        reqError: "",
+        descriptions: {}
     }
 };
 
 type Reducer = (state: AppState, action: AppActions) => AppState;
 
 export function storeFactory(reducer: Reducer) {
-    // return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
-    return createStore(reducer, applyMiddleware(thunk));
+    return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
+    // return createStore(reducer, applyMiddleware(thunk));
 }
 
 
@@ -101,6 +103,29 @@ export function reducer(state = initialState, action: AppActions): AppState {
                         return merge({}, state, { communications: {reqInProgress: false, reqError: "Error fetching data"}});
                     }
                 }
+            case "COMMUNICATION_REQUEST_RECEIVED":
+                {
+                    let { reqData, commID, reqStatus } = action as COMMUNICATION_REQUEST_RECEIVED;
+                    if (reqStatus === 200) {
+                        let parsedData: Communication;
+                        let d: any = {};
+                        try {
+                            parsedData = JSON.parse(reqData);
+                            d[commID] = parsedData;
+                        } catch (e) {
+                            console.log("Failed to download", commID);
+                        }
+                        return merge({}, state, { communications: { descriptions: d }});
+                    } else if (reqStatus === 403) {
+                        // return merge({}, state, { communications: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
+                    } else {
+                        // TODO: implement failure
+                        // return merge({}, state, { communications: {reqInProgress: false, reqError: "Error fetching data"}});
+                    }
+                }
+            case "COMMUNICATION_REQUEST_SENT":
+                // TODO: implement spinner
+                return state;
             default:
                 return state;
         }

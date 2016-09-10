@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Card, CardTitle, CardText, Spinner } from "react-mdl";
+import { Spinner } from "react-mdl";
 
 
 import { Subject } from "./Subject";
@@ -25,7 +25,7 @@ class Component extends React.Component<Props, {}> {
             subject = null;
         }
         return (
-            <div className="subjectPage" shadow={2}>
+            <div className="subjectPage">
                     <h3>{subject ? upcase_first(subject.name) : null}</h3>
                     { this.props.reqInProgress ? <Spinner /> : null }
                     {subject ? <Subject data={subject}/> : null}

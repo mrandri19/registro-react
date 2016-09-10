@@ -47,3 +47,19 @@ export function communications(onfinish: (status: number, response: string) => v
 
     req.send();
 }
+
+export function communication(commID: string, onfinish: (status: number, response: string) => void) {
+    const req = new XMLHttpRequest();
+    const url = config.api_url + `/communication/${commID}/desc`;
+
+    req.open("GET", url, true);
+    req.withCredentials = true;
+
+    req.onreadystatechange = () => {
+        if (req.readyState === 4) {
+            onfinish(req.status, req.response);
+        }
+    };
+
+    req.send();
+}

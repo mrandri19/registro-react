@@ -8,7 +8,9 @@ import {
     FORM_ERROR,
     SET_LOGGED,
     COMMUNICATIONS_REQUEST_SENT,
-    COMMUNICATIONS_REQUEST_RECEIVED
+    COMMUNICATIONS_REQUEST_RECEIVED,
+    COMMUNICATION_REQUEST_RECEIVED,
+    COMMUNICATION_REQUEST_SENT
 } from "./types";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
 
@@ -42,13 +44,14 @@ export function submit_form(username: string, password: string): (dispatch: any)
 
         dispatch(login_request_sent());
 
+        // TODO: move logic to reducer, where it should be
         ApiWrapper.login(username, password, key, (status: number) => {
             if (status === 200) {
                 AppStorage.setItem(LOGGED_KEY, "true");
                 dispatch(set_logged(true));
                 dispatch(login_request_received());
             } else if (status === 401) {
-                dispatch(form_error("Login failed"));
+                dispatch(form_error("Nome utente/password sbagliati"));
                 dispatch(set_logged(false));
                 dispatch(login_request_received());
             } else if (status === 500) {
@@ -130,5 +133,32 @@ export function remember_login(logged: boolean): REMEMBER_LOGIN {
     return {
         type: "REMEMBER_LOGIN",
         logged: logged
+    };
+}
+
+export function get_communication(commID: string): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(communication_request_sent(commID));
+        ApiWrapper.communication(commID, (status, response) => {
+            dispatch(communication_request_received(commID, status, response));
+        });
+        return;
+    };
+}
+
+export function communication_request_sent(commID: string): COMMUNICATION_REQUEST_SENT {
+    return {
+        type: "COMMUNICATION_REQUEST_SENT",
+        commID: commID,
+    };
+}
+
+
+export function communication_request_received(commID: string, status: number, data: any): COMMUNICATION_REQUEST_RECEIVED {
+    return {
+        type: "COMMUNICATION_REQUEST_RECEIVED",
+        commID: commID,
+        reqStatus: status,
+        reqData: data
     };
 }

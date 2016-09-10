@@ -6,7 +6,6 @@ import { Layout, Drawer, Navigation, Content } from "react-mdl";
 import { AppState } from "../types";
 
 import { Navbar } from "./Navbar";
-import { MyFooter } from "./Footer";
 
 interface Props {
     children: any;
