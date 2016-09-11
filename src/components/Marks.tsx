@@ -7,6 +7,7 @@ import { Spinner, Grid, Cell } from "react-mdl";
 
 import { SubjectCard } from "./SubjectCard";
 import { grade_to_float } from "../utils/grade_to_float";
+import * as config from "../config";
 
 interface Props {
     onLoad: () => void;
@@ -23,10 +24,22 @@ class Component extends React.Component<Props, {}> {
                     { this.props.reqInProgress ? <Spinner /> : null }
                     <Grid>
                         { this.props.data ? this.props.data.map(sub => {
-                            let mean = sub.marks
-                                .map(mark => grade_to_float(mark.mark))
-                                .filter(mark => mark !== undefined)
-                                .reduce((acc, mark) => acc + mark, 0) / sub.marks.length;
+
+                            let mean: number;
+                            let year = (new Date()).getFullYear();
+                            if(year === config.school_start_year) {
+                                mean = sub.marks
+                                    .filter(sub => sub.q === "q1" && !sub.ns)
+                                    .map(mark => grade_to_float(mark.mark))
+                                    .filter(mark => mark !== undefined)
+                                    .reduce((acc, mark) => acc + mark, 0) / sub.marks.filter(sub => sub.q === "q1" && !sub.ns).length;
+                            } else {
+                                mean = sub.marks
+                                    .filter(sub => sub.q === "q3" && !sub.ns)
+                                    .map(mark => grade_to_float(mark.mark))
+                                    .filter(mark => mark !== undefined)
+                                    .reduce((acc, mark) => acc + mark, 0) / sub.marks.filter(sub => sub.q === "q3" && !sub.ns).length;
+                            }
 
                             return (
                                 <Cell col={3} phone={12} tablet={4} key={sub.name}>
