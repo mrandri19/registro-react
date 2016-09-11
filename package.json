@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "server-dev": "webpack-dev-server",
-    "build-prod": "rm -r dist/;NODE_ENV=production webpack -p",
+    "build-prod": "rm -r dist/;NODE_ENV=production webpack -p --config webpack.config.production.js",
     "build-dev": "rm -r dist/; webpack -d",
     "clean": "rm -rf dist node_modules typings",
     "deploy": "./deploy.sh"

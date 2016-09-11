@@ -4,7 +4,7 @@ import { merge } from "lodash";
 
 
 import { Subject } from "../types";
-import { grade_to_float } from "../utils/grade_to_float";
+import { calc_marks_mean } from "../utils/calc_marks_mean";
 
 interface Props {
     data: Subject;
@@ -22,21 +22,8 @@ export function Subject(props: Props) {
         newSub.q = (pre ? "Primo" : "Secondo");
         return newSub;
     });
-
-    // Hummm...
-    // I shouldn't have read RealWorldHaskell
-    let firstSemesterMean = props.data.marks
-        .filter(sub => sub.q === "q1" && !sub.ns) // && !sub.ns filters out the blue grades which shouldn't count
-        .map(mark => grade_to_float(mark.mark))
-        .filter(mark => mark !== undefined)
-        .reduce((acc, mark) => acc + mark, 0) / props.data.marks.filter(sub => sub.q === "q1" && !sub.ns).length;
-
-    let secondSemesterMean = props.data.marks
-        .filter(sub => sub.q === "q3" && !sub.ns)
-        .map(mark => grade_to_float(mark.mark))
-        .filter(mark => mark !== undefined)
-        .reduce((acc, mark) => acc + mark, 0) / props.data.marks.filter(sub => sub.q === "q3" && !sub.ns).length;
-
+    let firstSemesterMean = calc_marks_mean(props.data.marks.filter(sub => sub.q === "q1"));
+    let secondSemesterMean = calc_marks_mean(props.data.marks.filter(sub => sub.q === "q3"));
 
     return(
         <div>
