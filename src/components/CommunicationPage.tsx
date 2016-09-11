@@ -19,7 +19,7 @@ class Component extends React.Component<Props, {}> {
         let comm = this.props.data[this.props.params.id];
         // TODO: implement spinner
         return(
-            <div id="communication">
+            <div className="appPadding">
                 { (comm === undefined) ? <Spinner /> :
                     <div>
                         <h3>{comm.longTitle}</h3>

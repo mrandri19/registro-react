@@ -7,9 +7,10 @@ interface Props {
 };
 
 const component = function(props: Props) {
-    return (<div>
-        <h3>{"Hello"}</h3>
-        <p>The menu will be here, this is the home</p>
+    return (<div className="appPadding">
+        <h3>{"Benvenuto!"}</h3>
+        <p>La app e' ancora in fase beta.</p>
+        <p>Segnalaci i bug all'indirizzo: <a href="mailto:bugreport@registro.ml">bugreport@registro.ml</a></p>
     </div>);
 };
 

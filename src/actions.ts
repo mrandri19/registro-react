@@ -38,7 +38,7 @@ export function submit_form(username: string, password: string): (dispatch: any)
         const key = window.crypto.getRandomValues(new Uint32Array(1));
 
         if (username === "" || password === "") {
-            dispatch(form_error("Please insert a username and/or password"));
+            dispatch(form_error("Inserisci username/password per favore"));
             return;
         }
 
@@ -55,11 +55,11 @@ export function submit_form(username: string, password: string): (dispatch: any)
                 dispatch(set_logged(false));
                 dispatch(login_request_received());
             } else if (status === 500) {
-                dispatch(form_error("Server error"));
+                dispatch(form_error("Errore server"));
                 dispatch(set_logged(false));
                 dispatch(login_request_received());
             } else {
-                dispatch(form_error("Unknown error"));
+                dispatch(form_error("Errore sconosciuto"));
                 dispatch(set_logged(false));
                 dispatch(login_request_received());
             }

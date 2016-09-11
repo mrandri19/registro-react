@@ -1,16 +1,6 @@
-#login {
-    margin: auto;
+.appPadding {
+    margin: auto 1em;
     margin-top: 1em;
-}
-
-#communication {
-    margin: auto 1em;
-    margin-bottom: 1em;
-}
-
-#communications {
-    margin: auto 1em;
-    margin-bottom: 1em;
 }
 
 .subject {

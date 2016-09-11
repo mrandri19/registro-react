@@ -18,7 +18,7 @@ interface Props {
 class Component extends React.Component<Props, {}> {
     render() {
         return (
-            <div id="communications">
+            <div className="appPadding">
                 <h3>Comunicazioni</h3>
 
 

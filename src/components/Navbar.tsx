@@ -6,8 +6,8 @@ export function Navbar() {
     return (<Header title="Registro Elettronico">
                 <Navigation className="mdl-layout--large-screen-only">
                     <Link to="/">Home</Link>
-                    <Link to="/marks">Marks</Link>
-                    <Link to="/logout">Logout</Link>
+                    <Link to="/marks">Voti</Link>
+                    <Link to="/logout">Esci</Link>
                 </Navigation>
             </Header>);
 }
