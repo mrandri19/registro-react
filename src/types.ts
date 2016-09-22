@@ -55,6 +55,11 @@ export type AppState = {
         data?: Array<Communication>,
         reqError: string,
         descriptions: IPORCODIO
+    },
+    files: {
+        reqInProgress: boolean,
+        data?: Array<FileTeacher>,
+        reqError: string
     }
 }
 
@@ -113,6 +118,32 @@ export interface COMMUNICATION_REQUEST_SENT {
     commID: string;
 }
 
+export interface FileTeacher {
+  name: string;
+  folders: Folder[];
+}
+export interface Folder {
+  name: string;
+  last: string;
+  elements: File[];
+}
+export interface File {
+  id: string;
+  name: string;
+  type: string;
+  date: string;
+  cksum: string;
+}
+
+export interface FILES_REQUEST_RECEIVED {
+    type: "FILES_REQUEST_RECEIVED";
+    reqStatus: number;
+    reqData: any;
+}
+export interface FILES_REQUEST_SENT {
+    type: "FILES_REQUEST_SENT";
+}
+
 export type AppActions = LOGIN_REQUEST_RECEIVED
                          | GET_MARKS
                          | MARKS_REQUEST_RECEIVED
@@ -123,4 +154,5 @@ export type AppActions = LOGIN_REQUEST_RECEIVED
                          | COMMUNICATIONS_REQUEST_SENT
                          | COMMUNICATIONS_REQUEST_RECEIVED
                          | COMMUNICATION_REQUEST_RECEIVED
-                         | COMMUNICATION_REQUEST_SENT;
+                         | COMMUNICATION_REQUEST_SENT
+                         | FILES_REQUEST_RECEIVED;

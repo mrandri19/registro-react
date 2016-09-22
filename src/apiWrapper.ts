@@ -63,3 +63,19 @@ export function communication(commID: string, onfinish: (status: number, respons
 
     req.send();
 }
+
+export function files(onfinish: (status: number, response: string) => void) {
+    const req = new XMLHttpRequest();
+    const url = config.api_url + `/files`;
+
+    req.open("GET", url, true);
+    req.withCredentials = true;
+
+    req.onreadystatechange = () => {
+        if (req.readyState === 4) {
+            onfinish(req.status, req.response);
+        }
+    };
+
+    req.send();
+}

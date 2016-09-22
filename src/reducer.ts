@@ -13,7 +13,9 @@ import { AppState,
     SET_LOGGED,
     COMMUNICATIONS_REQUEST_RECEIVED,
     COMMUNICATION_REQUEST_RECEIVED,
-    Communication
+    FILES_REQUEST_RECEIVED,
+    Communication,
+    FileTeacher
  } from "./types";
 
 const initialState: AppState = {
@@ -32,6 +34,11 @@ const initialState: AppState = {
         data: null,
         reqError: "",
         descriptions: {}
+    },
+    files: {
+        reqInProgress: false,
+        data: null,
+        reqError: ""
     }
 };
 
@@ -126,6 +133,25 @@ export function reducer(state = initialState, action: AppActions): AppState {
             case "COMMUNICATION_REQUEST_SENT":
                 // TODO: implement spinner
                 return state;
+            case "FILES_REQUEST_SENT":
+                return merge({}, state, { files: { reqInProgress: true }});
+            case "FILES_REQUEST_RECEIVED":
+                {
+                    const { reqStatus, reqData } = action as FILES_REQUEST_RECEIVED;
+                    if (reqStatus === 200) {
+                        let parsedData: Array<FileTeacher>;
+                        try {
+                            parsedData = JSON.parse(reqData);
+                        } catch (e) {
+                            return merge({}, state, { files: {reqInProgress: false, reqError: "Error parsing data"}});
+                        }
+                        return merge({}, state, { files: {reqInProgress: false, data: parsedData, reqError: ""}});
+                    } else if (reqStatus === 403) {
+                        return merge({}, state, { files: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
+                    } else {
+                        return merge({}, state, { files: {reqInProgress: false, reqError: "Error fetching data"}});
+                    }
+                }
             default:
                 return state;
         }

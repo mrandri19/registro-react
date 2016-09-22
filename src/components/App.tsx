@@ -19,6 +19,7 @@ const component = function(props: Props) {
                 <Navigation>
                     <Link to="/">Home</Link>
                     <Link to="/marks">Voti</Link>
+                    <Link to="/files">Files</Link>
                     <Link to="/communications">Comunicazioni</Link>
                     <Link to="/logout">Esci</Link>
                 </Navigation>

@@ -10,7 +10,9 @@ import {
     COMMUNICATIONS_REQUEST_SENT,
     COMMUNICATIONS_REQUEST_RECEIVED,
     COMMUNICATION_REQUEST_RECEIVED,
-    COMMUNICATION_REQUEST_SENT
+    COMMUNICATION_REQUEST_SENT,
+    FILES_REQUEST_RECEIVED,
+    FILES_REQUEST_SENT
 } from "./types";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
 
@@ -158,6 +160,30 @@ export function communication_request_received(commID: string, status: number, d
     return {
         type: "COMMUNICATION_REQUEST_RECEIVED",
         commID: commID,
+        reqStatus: status,
+        reqData: data
+    };
+}
+
+export function get_files(): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(files_request_sent());
+        ApiWrapper.files((status, response) => {
+            dispatch(files_request_received(status, response));
+        });
+        return;
+    };
+};
+
+export function files_request_sent(): FILES_REQUEST_SENT {
+    return {
+        type: "FILES_REQUEST_SENT",
+    };
+}
+
+export function files_request_received(status: number, data: any): FILES_REQUEST_RECEIVED {
+    return {
+        type: "FILES_REQUEST_RECEIVED",
         reqStatus: status,
         reqData: data
     };
