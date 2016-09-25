@@ -18,7 +18,7 @@ interface Props {
 
 class Component extends React.Component<Props, {}> {
     render() {
-        let subject: types.Subject;
+        let subject: types.Subject | null;
         if (this.props.data) {
             subject = this.props.data.filter(subj => subj.name.replace(/\s+/g, "") === this.props.params.subject)[0];
         } else {

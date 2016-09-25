@@ -41,25 +41,25 @@ export interface CommunicationDescription {
 }
 
 export type AppState = {
-    username: string,
-    logged: boolean
-    loginInProgress: boolean,
-    logError: string,
+    username: string;
+    logged: boolean;
+    loginInProgress: boolean;
+    logError: string;
     marks: {
-        reqInProgress: boolean,
-        data?: Array<Subject>,
-        reqError: string
+        reqInProgress: boolean;
+        data: Array<Subject> | null;
+        reqError: string;
     },
     communications: {
-        reqInProgress: boolean,
-        data?: Array<Communication>,
-        reqError: string,
-        descriptions: IPORCODIO
+        reqInProgress: boolean;
+        data: Array<Communication> | null;
+        reqError: string;
+        descriptions: IPORCODIO;
     },
     files: {
-        reqInProgress: boolean,
-        data?: Array<FileTeacher>,
-        reqError: string
+        reqInProgress: boolean;
+        data: Array<FileTeacher> | null;
+        reqError: string;
     }
 }
 

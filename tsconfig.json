@@ -5,7 +5,11 @@
         "noImplicitAny": true,
         "module": "commonjs",
         "target": "es5",
-        "jsx": "react"
+        "jsx": "react",
+        "strictNullChecks": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true
     },
     "files": [
         "./typings/index.d.ts",
