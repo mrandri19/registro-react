@@ -14,6 +14,9 @@
     <body>
         <div id="root"></div>
 
+        <script src="https://cdn.ravenjs.com/3.7.0/raven.min.js"></script>
+        <script>Raven.config('https://0c3b6a3414ca483899d424009b8bc75a@sentry.io/101406').install()</script>
+
         <% if (htmlWebpackPlugin.options.environment == "development") { %>
             <script src="<%= htmlWebpackPlugin.options.siteUrl %>react.js"></script>
             <script src="<%= htmlWebpackPlugin.options.siteUrl %>react-dom.js"></script>
@@ -30,21 +33,5 @@
 
         <!-- The bundle.js file will be auto injected by HTMLWebpackPlugin -->
         <script src="<%= htmlWebpackPlugin.options.siteUrl + htmlWebpackPlugin.files.js %>"></script>
-
-        <script>
-            function log(str) {
-                console.log('[Client]', str);
-            }
-            if('serviceWorkerd' in window.navigator) {
-                window.navigator.serviceWorker.register('sw.js')
-                .then(reg => {
-                    log('Registration successful');
-                }).catch(err => {
-                    log('Failed registration with err:', err);
-                });
-            } else {
-                log('No serviceWorker in window.navigator');
-            }
-        </script>
     </body>
 </html>
