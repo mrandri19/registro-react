@@ -21,7 +21,8 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.6.0",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "typescript": "^2.0.3"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^3.0.1",

@@ -61,3 +61,20 @@ svg {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
 }
+
+.filesList {
+    padding: 0;
+}
+
+.filesList ul {
+    padding-left: 10px;
+}
+
+.filesList li {
+    list-style-type: none;
+}
+
+.expand-icon-position {
+    position: relative;
+    top: 4px;
+}

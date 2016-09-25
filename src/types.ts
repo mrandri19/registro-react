@@ -140,12 +140,19 @@ export interface FILES_REQUEST_RECEIVED {
     reqStatus: number;
     reqData: any;
 }
+
 export interface FILES_REQUEST_SENT {
     type: "FILES_REQUEST_SENT";
 }
 
+export interface MARKS_REQUEST_SENT {
+    type: "MARKS_REQUEST_SENT";
+}
+
 export type AppActions = LOGIN_REQUEST_RECEIVED
+                         | LOGIN_REQUEST_SENT
                          | GET_MARKS
+                         | MARKS_REQUEST_SENT
                          | MARKS_REQUEST_RECEIVED
                          | LOGOUT
                          | REMEMBER_LOGIN
@@ -155,4 +162,5 @@ export type AppActions = LOGIN_REQUEST_RECEIVED
                          | COMMUNICATIONS_REQUEST_RECEIVED
                          | COMMUNICATION_REQUEST_RECEIVED
                          | COMMUNICATION_REQUEST_SENT
+                         | FILES_REQUEST_SENT
                          | FILES_REQUEST_RECEIVED;

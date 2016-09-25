@@ -20,8 +20,8 @@ class Component extends React.Component<Props, {}> {
     render() {
         return(
             <div className="subjects">
-                    { this.props.reqError ? <p>{this.props.reqError}</p> : null }
-                    { this.props.reqInProgress ? <Spinner /> : null }
+                    { this.props.reqError ? <div className="appPadding"><p>{this.props.reqError}</p></div> : null }
+                    { this.props.reqInProgress ? <div className="appPadding"><Spinner /></div> : null }
                     <Grid>
                         { this.props.data ? this.props.data.map(sub => {
 
