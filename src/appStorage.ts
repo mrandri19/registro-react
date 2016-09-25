@@ -4,7 +4,7 @@
 // http://stackoverflow.com/questions/21159301/quotaexceedederror-dom-exception-22-an-attempt-was-made-to-add-something-to-st
 if (typeof localStorage === "object") {
     try {
-        localStorage.setItem("localStorage", 1);
+        localStorage.setItem("localStorage", "1");
         localStorage.removeItem("localStorage");
     } catch (e) {
         (Storage.prototype as any)._setItem = Storage.prototype.setItem;

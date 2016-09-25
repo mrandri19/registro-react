@@ -45,29 +45,40 @@ function checkAuth(nextState: any, replace: any) {
 
 let mountPoint = document.getElementById("root");
 
-mountPoint ? ReactDOM.render(
-    <Provider store={appStore}>
-        <Router history={browserHistory}>
-            <Route path="/" component={App}>
-                <IndexRoute component={Hello} onEnter={checkAuth}/>
+if (mountPoint) {
+    ReactDOM.render(
+        <Provider store={appStore}>
+            <Router history={browserHistory}>
+                <Route path="/" component={App}>
+                    <IndexRoute component={Hello} onEnter={checkAuth}/>
 
-                <Route path="/marks/:subject" component={SubjectPage}></Route>
-                <Route path="/marks" component={Marks} onEnter={checkAuth}></Route>
+                    <Route path="/marks/:subject" component={SubjectPage}></Route>
+                    <Route path="/marks" component={Marks} onEnter={checkAuth}></Route>
 
-                <Route path="/communications/:id" component={CommunicationPage} onEnter={checkAuth}></Route>
-                <Route path="/communications" component={Communications} onEnter={checkAuth}></Route>
+                    <Route path="/communications/:id" component={CommunicationPage} onEnter={checkAuth}></Route>
+                    <Route path="/communications" component={Communications} onEnter={checkAuth}></Route>
 
-                <Route path="/files" component={Files} onEnter={checkAuth}></Route>
+                    <Route path="/files" component={Files} onEnter={checkAuth}></Route>
 
-                <Route path="login" component={Login}></Route>
-                <Route path="logout" component={Login} onEnter={logout}></Route>
+                    <Route path="login" component={Login}></Route>
+                    <Route path="logout" component={Login} onEnter={logout}></Route>
 
-                <Redirect from="index.html" to="/"/>
-                <Redirect from="index" to="/"/>
+                    <Redirect from="index.html" to="/"/>
+                    <Redirect from="index" to="/"/>
 
-                <Redirect from="*" to="/"/>
-            </Route>
-        </Router>
-    </Provider>,
-    mountPoint
-) : console.log("Failed to mount");
+                    <Redirect from="*" to="/"/>
+                </Route>
+            </Router>
+        </Provider>,
+        mountPoint
+    );
+} else {
+    throw new Error("Failed to mount");
+}
+
+
+// Close drawer on click
+document.querySelector(".mdl-layout__drawer").addEventListener("click", function () {
+  document.querySelector(".mdl-layout__obfuscator").classList.remove("is-visible");
+  this.classList.remove("is-visible");
+}, false);
