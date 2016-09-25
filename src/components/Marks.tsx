@@ -18,33 +18,34 @@ interface Props {
 
 class Component extends React.Component<Props, {}> {
     render() {
-        return(
+        return (
             <div className="subjects">
-                    { this.props.reqError ? <div className="appPadding"><p>{this.props.reqError}</p></div> : null }
-                    { this.props.reqInProgress ? <div className="appPadding"><Spinner /></div> : null }
-                    <Grid>
-                        { this.props.data ? this.props.data.map(sub => {
+                <h3 style={{marginLeft: "1em"}}>Voti</h3>
+                { this.props.reqError ? <div className="appPadding"><p>{this.props.reqError}</p></div> : null }
+                { this.props.reqInProgress ? <div className="appPadding"><Spinner /></div> : null }
+                <Grid>
+                    { this.props.data ? this.props.data.map(sub => {
 
-                            let mean: number;
-                            let year = (new Date()).getFullYear();
-                            if(year === config.school_start_year) {
-                                mean = calc_marks_mean(sub.marks.filter(sub => sub.q === "q1"));
-                            } else {
-                                mean = calc_marks_mean(sub.marks.filter(sub => sub.q === "q3"));
-                            }
+                        let mean: number;
+                        let year = (new Date()).getFullYear();
+                        if (year === config.school_start_year) {
+                            mean = calc_marks_mean(sub.marks.filter(sub => sub.q === "q1"));
+                        } else {
+                            mean = calc_marks_mean(sub.marks.filter(sub => sub.q === "q3"));
+                        }
 
-                            return (
-                                <Cell col={3} phone={12} tablet={4} key={sub.name}>
-                                    <SubjectCard
-                                        name={sub.name}
-                                        mean={mean}
+                        return (
+                            <Cell col={3} phone={12} tablet={4} key={sub.name}>
+                                <SubjectCard
+                                    name={sub.name}
+                                    mean={mean}
                                     />
-                                </Cell>
-                            );
-                        }) : null}
-                    </Grid>
+                            </Cell>
+                        );
+                    }) : null}
+                </Grid>
             </div>
-            );
+        );
     }
     componentDidMount() {
         // Don't download if we already have the data
