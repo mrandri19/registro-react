@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { upcase_first } from "../utils/upcase_first";
 
 interface Props {
-    username: string;
+    username: string | null;
 };
 
 const component = function(props: Props) {
