@@ -1,6 +1,6 @@
 import * as config from "./config";
 
-export function login(username: string, password: string, key: ArrayBufferView, onfinish: (status: number) => void ) {
+export function login(username: string, password: string, key: ArrayBufferView, onfinish: (status: number, username: string) => void ) {
     const req = new XMLHttpRequest();
     const url = config.api_url + "/login";
     const params = `login=${username}&password=${password}&key=${key}`;
@@ -10,7 +10,7 @@ export function login(username: string, password: string, key: ArrayBufferView, 
     req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     req.onreadystatechange = () => {
         if (req.readyState === 4) {
-            onfinish(req.status);
+            onfinish(req.status, req.response);
         }
     };
     req.send(params);

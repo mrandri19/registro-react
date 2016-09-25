@@ -16,9 +16,10 @@ import {
 } from "./types";
 import { AppStorage, LOGGED_KEY } from "./appStorage";
 
-export function login_request_received(): LOGIN_REQUEST_RECEIVED {
+export function login_request_received(reqData: string): LOGIN_REQUEST_RECEIVED {
     return {
         type: "LOGIN_REQUEST_RECEIVED",
+        reqData: reqData
     };
 }
 
@@ -47,23 +48,23 @@ export function submit_form(username: string, password: string): (dispatch: any)
         dispatch(login_request_sent());
 
         // TODO: move logic to reducer, where it should be
-        ApiWrapper.login(username, password, key, (status: number) => {
+        ApiWrapper.login(username, password, key, (status: number, response: string) => {
             if (status === 200) {
                 AppStorage.setItem(LOGGED_KEY, "true");
                 dispatch(set_logged(true));
-                dispatch(login_request_received());
+                dispatch(login_request_received(response));
             } else if (status === 401) {
                 dispatch(form_error("Nome utente/password sbagliati"));
                 dispatch(set_logged(false));
-                dispatch(login_request_received());
+                dispatch(login_request_received(response));
             } else if (status === 500) {
                 dispatch(form_error("Errore server"));
                 dispatch(set_logged(false));
-                dispatch(login_request_received());
+                dispatch(login_request_received(response));
             } else {
                 dispatch(form_error("Errore sconosciuto"));
                 dispatch(set_logged(false));
-                dispatch(login_request_received());
+                dispatch(login_request_received(response));
             }
         });
         return;

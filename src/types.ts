@@ -41,7 +41,7 @@ export interface CommunicationDescription {
 }
 
 export type AppState = {
-    username: string;
+    username: string | null;
     logged: boolean;
     loginInProgress: boolean;
     logError: string;
@@ -75,6 +75,7 @@ export interface SUBMIT_FORM {
 
 export interface LOGIN_REQUEST_RECEIVED {
     type: 'LOGIN_REQUEST_RECEIVED';
+    reqData: string;
 }
 
 export interface GET_MARKS {

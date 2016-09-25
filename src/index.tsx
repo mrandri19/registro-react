@@ -43,7 +43,9 @@ function checkAuth(nextState: any, replace: any) {
     }
 }
 
-ReactDOM.render(
+let mountPoint = document.getElementById("root");
+
+mountPoint ? ReactDOM.render(
     <Provider store={appStore}>
         <Router history={browserHistory}>
             <Route path="/" component={App}>
@@ -67,5 +69,5 @@ ReactDOM.render(
             </Route>
         </Router>
     </Provider>,
-    document.getElementById("root")
-);
+    mountPoint
+) : console.log("Failed to mount");

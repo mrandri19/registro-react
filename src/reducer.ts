@@ -1,8 +1,8 @@
 import { merge } from "lodash";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { default as thunk } from "redux-thunk";
 
-import { AppStorage, LOGGED_KEY } from "./appStorage";
+import { AppStorage, LOGGED_KEY, USERNAME_KEY } from "./appStorage";
 import { Subject } from "./types";
 
 import { AppState,
@@ -14,13 +14,13 @@ import { AppState,
     COMMUNICATIONS_REQUEST_RECEIVED,
     COMMUNICATION_REQUEST_RECEIVED,
     FILES_REQUEST_RECEIVED,
+    LOGIN_REQUEST_RECEIVED,
     Communication,
     FileTeacher
  } from "./types";
 
 const initialState: AppState = {
-    // TODO: add api request to get username, maybe during login?
-    username: "Andrea",
+    username: AppStorage.getItem(USERNAME_KEY),
     loginInProgress: false,
     logged: false,
     logError: "",
@@ -65,7 +65,14 @@ export function reducer(state = initialState, action: AppActions): AppState {
             case "LOGIN_REQUEST_SENT":
                 return merge({}, state, {loginInProgress: true});
             case "LOGIN_REQUEST_RECEIVED":
-                return merge({}, state, { loginInProgress: false });
+                let { reqData } = action as LOGIN_REQUEST_RECEIVED;
+                try {
+                    let parsedData = JSON.parse(reqData);
+                    AppStorage.setItem(USERNAME_KEY, parsedData.name);
+                    return merge({}, state, { username: parsedData.name, loginInProgress: false });
+                } catch (e) {
+                    return merge({}, state, { loginInProgress: false });
+                }
             case "MARKS_REQUEST_SENT":
                 return merge({}, state, { marks: {reqInProgress: true}});
             case "MARKS_REQUEST_RECEIVED":
@@ -87,6 +94,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
                 }
             case "LOGOUT":
                 AppStorage.setItem(LOGGED_KEY, "false");
+                AppStorage.removeItem(USERNAME_KEY);
                 return merge({}, state, {logged: false});
             case "REMEMBER_LOGIN":
                 const { logged } = action as REMEMBER_LOGIN;
@@ -124,8 +132,10 @@ export function reducer(state = initialState, action: AppActions): AppState {
                         }
                         return merge({}, state, { communications: { descriptions: d }});
                     } else if (reqStatus === 403) {
+                        return merge({}, state, {});
                         // return merge({}, state, { communications: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
                     } else {
+                        return merge({}, state, {});
                         // TODO: implement failure
                         // return merge({}, state, { communications: {reqInProgress: false, reqError: "Error fetching data"}});
                     }
