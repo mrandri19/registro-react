@@ -78,3 +78,7 @@ svg {
     position: relative;
     top: 4px;
 }
+
+.icon-margin {
+    margin-right: 6px;
+}

@@ -17,11 +17,26 @@ const component = function(props: Props) {
             <Navbar />
             <Drawer title="Registro Elettronico">
                 <Navigation>
-                    <Link to="/">Home</Link>
-                    <Link to="/marks">Voti</Link>
-                    <Link to="/files">Files</Link>
-                    <Link to="/communications">Comunicazioni</Link>
-                    <Link to="/logout">Esci</Link>
+                    <Link to="/">
+                        <i className="material-icons icon-margin">home</i>
+                        Home
+                    </Link>
+                    <Link to="/marks">
+                        <i className="material-icons icon-margin">assessment</i>
+                        Voti
+                    </Link>
+                    <Link to="/files">
+                        <i className="material-icons icon-margin">insert_drive_file</i>
+                        Files
+                    </Link>
+                    <Link to="/communications">
+                        <i className="material-icons icon-margin">assignment</i>
+                        Comunicazioni
+                    </Link>
+                    <Link to="/logout">
+                        <i className="material-icons icon-margin">exit_to_app</i>
+                        Esci
+                    </Link>
                 </Navigation>
             </Drawer>
             <Content>
