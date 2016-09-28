@@ -40,32 +40,26 @@ export interface CommunicationDescription {
   attachment: boolean;
 }
 
+type ApiCall<T> = {
+    reqInProgress: boolean;
+    data: T | null;
+    reqError: string;
+}
+
 export type AppState = {
     username: string | null;
     logged: boolean;
     loginInProgress: boolean;
     logError: string;
-    marks: {
-        reqInProgress: boolean;
-        data: Array<Subject> | null;
-        reqError: string;
-    },
+    marks: ApiCall<Array<Subject>>,
     communications: {
         reqInProgress: boolean;
         data: Array<Communication> | null;
         reqError: string;
         descriptions: IPORCODIO;
     },
-    files: {
-        reqInProgress: boolean;
-        data: Array<FileTeacher> | null;
-        reqError: string;
-    },
-    absences: {
-        reqInProgress: boolean;
-        data: AllAbsences | null;
-        reqError: string;
-    }
+    files: ApiCall<Array<FileTeacher>>,
+    absences: ApiCall<AllAbsences>
 }
 
 export interface Absence {
@@ -187,6 +181,8 @@ export interface ABSENCES_REQUEST_RECEIVED {
 export interface ABSENCES_REQUEST_SENT {
     type: "ABSENCES_REQUEST_SENT";
 }
+
+
 
 export type AppActions = LOGIN_REQUEST_RECEIVED
                          | LOGIN_REQUEST_SENT

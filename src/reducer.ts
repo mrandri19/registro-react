@@ -56,6 +56,21 @@ export function storeFactory(reducer: Reducer) {
     return createStore(reducer, applyMiddleware(thunk));
 }
 
+function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppState, fieldToUpdate: string) {
+    if (reqStatus === 200) {
+        let parsedData: T;
+        try {
+            parsedData = JSON.parse(reqData);
+        } catch (e) {
+            return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, reqError: "Error parsing data"}});
+        }
+        return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, data: parsedData, reqError: ""}});
+    } else if (reqStatus === 403) {
+        return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
+    } else {
+        return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, reqError: "Error fetching data"}});
+    }
+}
 
 export function reducer(state = initialState, action: AppActions): AppState {
         switch (action.type) {
@@ -85,19 +100,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
             case "MARKS_REQUEST_RECEIVED":
                 {
                     const { reqStatus, reqData } = action as MARKS_REQUEST_RECEIVED;
-                    if (reqStatus === 200) {
-                        let parsedData: Array<Subject>;
-                        try {
-                            parsedData = JSON.parse(reqData);
-                        } catch (e) {
-                            return merge({}, state, { marks: {reqInProgress: false, reqError: "Error parsing data"}});
-                        }
-                        return merge({}, state, { marks: {reqInProgress: false, data: parsedData, reqError: ""}});
-                    } else if (reqStatus === 403) {
-                        return merge({}, state, { marks: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
-                    } else {
-                        return merge({}, state, { marks: {reqInProgress: false, reqError: "Error fetching data"}});
-                    }
+                    return handleApiResponse<Array<Subject>>(reqStatus, reqData, state, "marks");
                 }
             case "LOGOUT":
                 AppStorage.setItem(LOGGED_KEY, "false");
@@ -155,38 +158,14 @@ export function reducer(state = initialState, action: AppActions): AppState {
             case "FILES_REQUEST_RECEIVED":
                 {
                     const { reqStatus, reqData } = action as FILES_REQUEST_RECEIVED;
-                    if (reqStatus === 200) {
-                        let parsedData: Array<FileTeacher>;
-                        try {
-                            parsedData = JSON.parse(reqData);
-                        } catch (e) {
-                            return merge({}, state, { files: {reqInProgress: false, reqError: "Error parsing data"}});
-                        }
-                        return merge({}, state, { files: {reqInProgress: false, data: parsedData, reqError: ""}});
-                    } else if (reqStatus === 403) {
-                        return merge({}, state, { files: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
-                    } else {
-                        return merge({}, state, { files: {reqInProgress: false, reqError: "Error fetching data"}});
-                    }
+                    return handleApiResponse<Array<FileTeacher>>(reqStatus, reqData, state, "files");
                 }
             case "ABSENCES_REQUEST_SENT":
                 return merge({}, state, { absences: { reqInProgress: true }});
             case "ABSENCES_REQUEST_RECEIVED":
                 {
                     const { reqStatus, reqData } = action as ABSENCES_REQUEST_RECEIVED;
-                    if (reqStatus === 200) {
-                        let parsedData: AllAbsences;
-                        try {
-                            parsedData = JSON.parse(reqData);
-                        } catch (e) {
-                            return merge({}, state, { absences: {reqInProgress: false, reqError: "Error parsing data"}});
-                        }
-                        return merge({}, state, { absences: {reqInProgress: false, data: parsedData, reqError: ""}});
-                    } else if (reqStatus === 403) {
-                        return merge({}, state, { absences: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
-                    } else {
-                        return merge({}, state, { absences: {reqInProgress: false, reqError: "Error fetching data"}});
-                    }
+                    return handleApiResponse<Array<AllAbsences>>(reqStatus, reqData, state, "absences");
                 }
             default:
                 return state;
