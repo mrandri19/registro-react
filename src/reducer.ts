@@ -7,16 +7,8 @@ import { Subject } from "./types";
 
 import { AppState,
     AppActions,
-    MARKS_REQUEST_RECEIVED,
-    REMEMBER_LOGIN,
-    FORM_ERROR,
-    SET_LOGGED,
-    COMMUNICATIONS_REQUEST_RECEIVED,
-    COMMUNICATION_REQUEST_RECEIVED,
-    FILES_REQUEST_RECEIVED,
-    LOGIN_REQUEST_RECEIVED,
-    ABSENCES_REQUEST_RECEIVED,
     Communication,
+    COMMUNICATION_REQUEST_RECEIVED,
     FileTeacher,
     AllAbsences
  } from "./types";
@@ -75,21 +67,14 @@ function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppStat
 export function reducer(state = initialState, action: AppActions): AppState {
         switch (action.type) {
             case "SET_LOGGED":
-                {
-                    let { logged } = action as SET_LOGGED;
-                    return merge({}, state, { logged: logged });
-                }
+                return merge({}, state, { logged: action.logged });
             case "FORM_ERROR":
-                {
-                    let { error } = action as FORM_ERROR;
-                    return merge({}, state, {logError: error});
-                }
+                return merge({}, state, {logError: action.error});
             case "LOGIN_REQUEST_SENT":
                 return merge({}, state, {loginInProgress: true});
             case "LOGIN_REQUEST_RECEIVED":
-                let { reqData } = action as LOGIN_REQUEST_RECEIVED;
                 try {
-                    let parsedData = JSON.parse(reqData);
+                    let parsedData = JSON.parse(action.reqData);
                     AppStorage.setItem(USERNAME_KEY, parsedData.name);
                     return merge({}, state, { username: parsedData.name, loginInProgress: false });
                 } catch (e) {
@@ -98,36 +83,17 @@ export function reducer(state = initialState, action: AppActions): AppState {
             case "MARKS_REQUEST_SENT":
                 return merge({}, state, { marks: {reqInProgress: true}});
             case "MARKS_REQUEST_RECEIVED":
-                {
-                    const { reqStatus, reqData } = action as MARKS_REQUEST_RECEIVED;
-                    return handleApiResponse<Array<Subject>>(reqStatus, reqData, state, "marks");
-                }
+                return handleApiResponse<Array<Subject>>(action.reqStatus, action.reqData, state, "marks");
             case "LOGOUT":
                 AppStorage.setItem(LOGGED_KEY, "false");
                 AppStorage.removeItem(USERNAME_KEY);
                 return merge({}, state, {logged: false});
             case "REMEMBER_LOGIN":
-                const { logged } = action as REMEMBER_LOGIN;
-                return merge({}, state, {logged: logged});
+                return merge({}, state, {logged: action.logged});
             case "COMMUNICATIONS_REQUEST_SENT":
                 return merge({}, state, { communications: { reqInProgress: true }});
             case "COMMUNICATIONS_REQUEST_RECEIVED":
-                {
-                    const { reqStatus, reqData } = action as COMMUNICATIONS_REQUEST_RECEIVED;
-                    if (reqStatus === 200) {
-                        let parsedData: Array<Communication>;
-                        try {
-                            parsedData = JSON.parse(reqData);
-                        } catch (e) {
-                            return merge({}, state, { communications: {reqInProgress: false, reqError: "Error parsing data"}});
-                        }
-                        return merge({}, state, { communications: {reqInProgress: false, data: parsedData, reqError: ""}});
-                    } else if (reqStatus === 403) {
-                        return merge({}, state, { communications: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
-                    } else {
-                        return merge({}, state, { communications: {reqInProgress: false, reqError: "Error fetching data"}});
-                    }
-                }
+                return handleApiResponse<Array<Communication>>(action.reqStatus, action.reqData, state, "communications");
             case "COMMUNICATION_REQUEST_RECEIVED":
                 {
                     let { reqData, commID, reqStatus } = action as COMMUNICATION_REQUEST_RECEIVED;
@@ -156,17 +122,11 @@ export function reducer(state = initialState, action: AppActions): AppState {
             case "FILES_REQUEST_SENT":
                 return merge({}, state, { files: { reqInProgress: true }});
             case "FILES_REQUEST_RECEIVED":
-                {
-                    const { reqStatus, reqData } = action as FILES_REQUEST_RECEIVED;
-                    return handleApiResponse<Array<FileTeacher>>(reqStatus, reqData, state, "files");
-                }
+                return handleApiResponse<Array<FileTeacher>>(action.reqStatus, action.reqData, state, "files");
             case "ABSENCES_REQUEST_SENT":
                 return merge({}, state, { absences: { reqInProgress: true }});
             case "ABSENCES_REQUEST_RECEIVED":
-                {
-                    const { reqStatus, reqData } = action as ABSENCES_REQUEST_RECEIVED;
-                    return handleApiResponse<Array<AllAbsences>>(reqStatus, reqData, state, "absences");
-                }
+                return handleApiResponse<Array<AllAbsences>>(action.reqStatus, action.reqData, state, "absences");
             default:
                 return state;
         }
