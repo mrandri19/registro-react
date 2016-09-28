@@ -1,5 +1,21 @@
 import * as config from "./config";
 
+function GET(apiEndpoint: string, onfinish: (status: number, response: string) => void) {
+    const req = new XMLHttpRequest();
+    const url = config.api_url + apiEndpoint;
+
+    req.open("GET", url, true);
+    req.withCredentials = true;
+
+    req.onreadystatechange = () => {
+        if (req.readyState === 4) {
+            onfinish(req.status, req.response);
+        }
+    };
+
+    req.send();
+}
+
 export function login(username: string, password: string, key: ArrayBufferView, onfinish: (status: number, username: string) => void ) {
     const req = new XMLHttpRequest();
     const url = config.api_url + "/login";
@@ -16,82 +32,22 @@ export function login(username: string, password: string, key: ArrayBufferView, 
     req.send(params);
 }
 
+export function communication(commID: string, onfinish: (status: number, response: string) => void) {
+    GET(`/communication/${commID}/desc`, onfinish);
+}
+
 export function marks(onfinish: (status: number, response: string) => void) {
-    const req = new XMLHttpRequest();
-    const url = config.api_url + "/marks";
-
-    req.open("GET", url, true);
-    req.withCredentials = true;
-
-    req.onreadystatechange = () => {
-        if (req.readyState === 4) {
-            onfinish(req.status, req.response);
-        }
-    };
-
-    req.send();
+    GET("/marks", onfinish);
 }
 
 export function communications(onfinish: (status: number, response: string) => void) {
-    const req = new XMLHttpRequest();
-    const url = config.api_url + "/communications";
-
-    req.open("GET", url, true);
-    req.withCredentials = true;
-
-    req.onreadystatechange = () => {
-        if (req.readyState === 4) {
-            onfinish(req.status, req.response);
-        }
-    };
-
-    req.send();
-}
-
-export function communication(commID: string, onfinish: (status: number, response: string) => void) {
-    const req = new XMLHttpRequest();
-    const url = config.api_url + `/communication/${commID}/desc`;
-
-    req.open("GET", url, true);
-    req.withCredentials = true;
-
-    req.onreadystatechange = () => {
-        if (req.readyState === 4) {
-            onfinish(req.status, req.response);
-        }
-    };
-
-    req.send();
+    GET("/communications", onfinish);
 }
 
 export function files(onfinish: (status: number, response: string) => void) {
-    const req = new XMLHttpRequest();
-    const url = config.api_url + `/files`;
-
-    req.open("GET", url, true);
-    req.withCredentials = true;
-
-    req.onreadystatechange = () => {
-        if (req.readyState === 4) {
-            onfinish(req.status, req.response);
-        }
-    };
-
-    req.send();
+    GET("/files", onfinish);
 }
 
 export function absences(onfinish: (status: number, response: string) => void) {
-    const req = new XMLHttpRequest();
-    const url = config.api_url + `/absences`;
-
-    req.open("GET", url, true);
-    req.withCredentials = true;
-
-    req.onreadystatechange = () => {
-        if (req.readyState === 4) {
-            onfinish(req.status, req.response);
-        }
-    };
-
-    req.send();
+    GET("/absences", onfinish);
 }

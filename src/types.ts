@@ -182,8 +182,6 @@ export interface ABSENCES_REQUEST_SENT {
     type: "ABSENCES_REQUEST_SENT";
 }
 
-
-
 export type AppActions = LOGIN_REQUEST_RECEIVED
                          | LOGIN_REQUEST_SENT
                          | GET_MARKS
