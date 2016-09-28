@@ -60,7 +60,35 @@ export type AppState = {
         reqInProgress: boolean;
         data: Array<FileTeacher> | null;
         reqError: string;
+    },
+    absences: {
+        reqInProgress: boolean;
+        data: AllAbsences | null;
+        reqError: string;
     }
+}
+
+export interface Absence {
+  id: Number;
+  from: string;
+  to: string;
+  days: Number;
+  justification?: string;
+}
+
+export interface Delay {}
+
+export interface Exit {}
+
+export interface Absences {
+  absences?: Absence[];
+  delays?: Delay[];
+  exits?: Exit[];
+}
+
+export interface AllAbsences {
+  undone?: Absences;
+  done: Absences;
 }
 
 export interface IPORCODIO {
@@ -150,6 +178,16 @@ export interface MARKS_REQUEST_SENT {
     type: "MARKS_REQUEST_SENT";
 }
 
+export interface ABSENCES_REQUEST_RECEIVED {
+    type: "ABSENCES_REQUEST_RECEIVED";
+    reqStatus: number;
+    reqData: any;
+}
+
+export interface ABSENCES_REQUEST_SENT {
+    type: "ABSENCES_REQUEST_SENT";
+}
+
 export type AppActions = LOGIN_REQUEST_RECEIVED
                          | LOGIN_REQUEST_SENT
                          | GET_MARKS
@@ -164,4 +202,6 @@ export type AppActions = LOGIN_REQUEST_RECEIVED
                          | COMMUNICATION_REQUEST_RECEIVED
                          | COMMUNICATION_REQUEST_SENT
                          | FILES_REQUEST_SENT
-                         | FILES_REQUEST_RECEIVED;
+                         | FILES_REQUEST_RECEIVED
+                         | ABSENCES_REQUEST_SENT
+                         | ABSENCES_REQUEST_RECEIVED;

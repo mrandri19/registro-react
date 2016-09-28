@@ -13,6 +13,10 @@ export function Navbar() {
                         <i className="material-icons icon-margin">assessment</i>
                         Voti
                     </Link>
+                    <Link to="/absences">
+                        <i className="material-icons icon-margin">date_range</i>
+                        Assenze
+                    </Link>
                     <Link to="/logout">
                         <i className="material-icons icon-margin">exit_to_app</i>
                         Esci

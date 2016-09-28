@@ -15,8 +15,10 @@ import { AppState,
     COMMUNICATION_REQUEST_RECEIVED,
     FILES_REQUEST_RECEIVED,
     LOGIN_REQUEST_RECEIVED,
+    ABSENCES_REQUEST_RECEIVED,
     Communication,
-    FileTeacher
+    FileTeacher,
+    AllAbsences
  } from "./types";
 
 const initialState: AppState = {
@@ -36,6 +38,11 @@ const initialState: AppState = {
         descriptions: {}
     },
     files: {
+        reqInProgress: false,
+        data: null,
+        reqError: ""
+    },
+    absences: {
         reqInProgress: false,
         data: null,
         reqError: ""
@@ -160,6 +167,25 @@ export function reducer(state = initialState, action: AppActions): AppState {
                         return merge({}, state, { files: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
                     } else {
                         return merge({}, state, { files: {reqInProgress: false, reqError: "Error fetching data"}});
+                    }
+                }
+            case "ABSENCES_REQUEST_SENT":
+                return merge({}, state, { absences: { reqInProgress: true }});
+            case "ABSENCES_REQUEST_RECEIVED":
+                {
+                    const { reqStatus, reqData } = action as ABSENCES_REQUEST_RECEIVED;
+                    if (reqStatus === 200) {
+                        let parsedData: AllAbsences;
+                        try {
+                            parsedData = JSON.parse(reqData);
+                        } catch (e) {
+                            return merge({}, state, { absences: {reqInProgress: false, reqError: "Error parsing data"}});
+                        }
+                        return merge({}, state, { absences: {reqInProgress: false, data: parsedData, reqError: ""}});
+                    } else if (reqStatus === 403) {
+                        return merge({}, state, { absences: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
+                    } else {
+                        return merge({}, state, { absences: {reqInProgress: false, reqError: "Error fetching data"}});
                     }
                 }
             default:

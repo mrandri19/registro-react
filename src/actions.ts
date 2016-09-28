@@ -12,8 +12,11 @@ import {
     COMMUNICATION_REQUEST_RECEIVED,
     COMMUNICATION_REQUEST_SENT,
     FILES_REQUEST_RECEIVED,
-    FILES_REQUEST_SENT
+    FILES_REQUEST_SENT,
+    ABSENCES_REQUEST_RECEIVED,
+    ABSENCES_REQUEST_SENT
 } from "./types";
+
 import { AppStorage, LOGGED_KEY } from "./appStorage";
 
 export function login_request_received(reqData: string): LOGIN_REQUEST_RECEIVED {
@@ -157,7 +160,7 @@ export function communication_request_sent(commID: string): COMMUNICATION_REQUES
 }
 
 
-export function communication_request_received(commID: string, status: number, data: any): COMMUNICATION_REQUEST_RECEIVED {
+export function communication_request_received(commID: string, status: number, data: string): COMMUNICATION_REQUEST_RECEIVED {
     return {
         type: "COMMUNICATION_REQUEST_RECEIVED",
         commID: commID,
@@ -182,10 +185,34 @@ export function files_request_sent(): FILES_REQUEST_SENT {
     };
 }
 
-export function files_request_received(status: number, data: any): FILES_REQUEST_RECEIVED {
+export function files_request_received(status: number, data: string): FILES_REQUEST_RECEIVED {
     return {
         type: "FILES_REQUEST_RECEIVED",
         reqStatus: status,
         reqData: data
+    };
+}
+
+function absences_request_sent(): ABSENCES_REQUEST_SENT {
+    return {
+        type: "ABSENCES_REQUEST_SENT",
+    };
+}
+
+function absences_request_received(status: number, data: string): ABSENCES_REQUEST_RECEIVED {
+    return {
+        type: "ABSENCES_REQUEST_RECEIVED",
+        reqStatus: status,
+        reqData: data
+    };
+}
+
+export function get_absences(): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(absences_request_sent());
+        ApiWrapper.absences((status, response) => {
+            dispatch(absences_request_received(status, response));
+        });
+        return;
     };
 }

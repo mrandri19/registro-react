@@ -79,3 +79,19 @@ export function files(onfinish: (status: number, response: string) => void) {
 
     req.send();
 }
+
+export function absences(onfinish: (status: number, response: string) => void) {
+    const req = new XMLHttpRequest();
+    const url = config.api_url + `/absences`;
+
+    req.open("GET", url, true);
+    req.withCredentials = true;
+
+    req.onreadystatechange = () => {
+        if (req.readyState === 4) {
+            onfinish(req.status, req.response);
+        }
+    };
+
+    req.send();
+}

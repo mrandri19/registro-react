@@ -33,6 +33,10 @@ const component = function(props: Props) {
                         <i className="material-icons icon-margin">assignment</i>
                         Comunicazioni
                     </Link>
+                    <Link to="/absences">
+                        <i className="material-icons icon-margin">date_range</i>
+                        Assenze
+                    </Link>
                     <Link to="/logout">
                         <i className="material-icons icon-margin">exit_to_app</i>
                         Esci

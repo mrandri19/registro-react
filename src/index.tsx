@@ -8,6 +8,7 @@ import { Hello } from "./components/Hello";
 import { Marks } from "./components/Marks";
 import { Login } from "./components/Login";
 import { Files } from "./components/Files";
+import { Absences } from "./components/Absences";
 import { Communications } from "./components/Communications";
 import { CommunicationPage } from "./components/CommunicationPage";
 import { App } from "./components/App";
@@ -51,6 +52,8 @@ if (mountPoint) {
             <Router history={browserHistory}>
                 <Route path="/" component={App}>
                     <IndexRoute component={Hello} onEnter={checkAuth}/>
+
+                    <Route path="/absences" component={Absences} onEnter={checkAuth}></Route>
 
                     <Route path="/marks/:subject" component={SubjectPage}></Route>
                     <Route path="/marks" component={Marks} onEnter={checkAuth}></Route>
