@@ -62,21 +62,13 @@ svg {
   -o-text-overflow: ellipsis;
 }
 
-.filesList {
-    padding: 0;
-}
-
-.filesList ul {
-    padding-left: 10px;
-}
-
-.filesList li {
-    list-style-type: none;
-}
-
 .expand-icon-position {
     position: relative;
     top: 4px;
+}
+
+.noListBulletPoints {
+        list-style-type: none;
 }
 
 .icon-margin {
@@ -88,4 +80,13 @@ svg {
     .mdl-layout__drawer-button {
         line-height: 48px;
     }
+}
+
+.icon-rotated {
+    transform: rotate(180deg);
+    transition: transform 150ms ease;
+}
+
+.icon-normal {
+    transition: transform 150ms ease;
 }

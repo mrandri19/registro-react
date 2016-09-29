@@ -2,6 +2,8 @@ import * as React from "react";
 import * as types from "../types";
 import * as config from "../config";
 import { upcase_first } from "../utils/upcase_first";
+import { Card, CardTitle } from "react-mdl";
+
 
 function display_date(input: string): string {
     let date = new Date(input);
@@ -16,29 +18,40 @@ interface FileTeacherState {
     hidden: boolean;
 }
 
+function colors() {
+    let list = ["#E57373",
+    "#F06292",
+    "#BA68C8",
+    "#9575CD",
+    "#7986CB",
+    "#64B5F6",
+    "#4fC3F7",
+    "#4DD0E1",
+    "#4DB6AC",
+    "#81C784",
+    "#AED581",
+    "#DCE775",
+    "#FFF176",
+    "#FFD54F",
+    "#FFB74D",
+    "#FF8A65",
+    "#A1887F",
+    "#E0E0E0",
+    "#90A4AE"];
+    return list[Math.floor(Math.random() * list.length)];
+}
+
 export class FileTeacher extends React.Component<FileTeacherProps, FileTeacherState> {
-    constructor(props: FileTeacherProps) {
-     super(props);
-        this.state = { hidden: false };
-     }
-
-    handleClick() {
-        this.setState({ hidden: !this.state.hidden });
-    }
-
     render() {
         return (
-            <li>
-                <h4 style={{marginBottom: "0px"}} onClick={this.handleClick.bind(this)}>
+            <Card shadow={2} className="subject">
+                <CardTitle style={{backgroundColor: colors(), color: "#FFF"}}>
                     {this.props.fileTeacher.name.toLocaleLowerCase().split(" ").map(upcase_first).join(" ") }
-                    <i className="material-icons mdl-collapse__icon mdl-animation--default expand-icon-position">expand_more</i>
-                </h4>
-
-                {!this.state.hidden ? (
-                    <ul>
-                        {this.props.fileTeacher.folders.map(folder => <Folder folder={folder}/>) }
-                    </ul>) : null}
-            </li>);
+                </CardTitle>
+                <ul style={{margin: "1em", padding: "16px", paddingTop: 0}}>
+                    {this.props.fileTeacher.folders.map(folder => <Folder folder={folder}/>) }
+                </ul>
+            </Card>);
     }
 }
 
@@ -62,10 +75,10 @@ class Folder extends React.Component<FolderProps, FolderState> {
 
     render() {
         return (
-            <li>
-                <h5 onClick={this.handleClick.bind(this)}>
+            <li className="noListBulletPoints">
+                <h5 onClick={this.handleClick.bind(this)} style={{margin: 0}}>
                     {this.props.folder.name}
-                    <i className="material-icons mdl-collapse__icon mdl-animation--default expand-icon-position">expand_more</i>
+                    <i className={`material-icons mdl-collapse__icon mdl-animation--default expand-icon-position ${this.state.hidden ? "icon-rotated" : "icon-normal"}`}>expand_more</i>
                 </h5>
 
                     { !this.state.hidden ? (
