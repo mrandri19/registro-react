@@ -7,7 +7,7 @@ interface Props {
     username: string | null;
 };
 
-const component = function(props: Props) {
+const component = function (props: Props) {
     return (<div className="appPadding">
         <h3>{`Benvenuto ${props.username ? props.username.toLocaleLowerCase().split(" ").map(upcase_first).join(" ") : "null"}`}</h3>
         <p>La app e' ancora in fase beta.</p>

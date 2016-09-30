@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as types from "../types";
 
 import { get_absences } from "../actions";
-import { Spinner} from "react-mdl";
+import { Spinner } from "react-mdl";
 
 interface Props {
     onLoad: () => void;
@@ -18,9 +18,9 @@ class Component extends React.Component<Props, {}> {
     render() {
         return (<div className="appPadding">
             <h3>Assenze</h3>
-            { this.props.reqError ? <p>{this.props.reqError}</p> : null }
-            { this.props.reqInProgress ? <Spinner /> : null }
-            { this.props.data ? (
+            {this.props.reqError ? <p>{this.props.reqError}</p> : null}
+            {this.props.reqInProgress ? <Spinner /> : null}
+            {this.props.data ? (
                 <p>Assenze</p>
             ) : null}
         </div>);

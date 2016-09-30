@@ -5,13 +5,14 @@ import { default as thunk } from "redux-thunk";
 import { AppStorage, LOGGED_KEY, USERNAME_KEY } from "./appStorage";
 import { Subject } from "./types";
 
-import { AppState,
+import {
+    AppState,
     AppActions,
     Communication,
     COMMUNICATION_REQUEST_RECEIVED,
     FileTeacher,
     AllAbsences
- } from "./types";
+} from "./types";
 
 const initialState: AppState = {
     username: AppStorage.getItem(USERNAME_KEY),
@@ -54,80 +55,80 @@ function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppStat
         try {
             parsedData = JSON.parse(reqData);
         } catch (e) {
-            return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, reqError: "Error parsing data"}});
+            return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, reqError: "Error parsing data" } });
         }
-        return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, data: parsedData, reqError: ""}});
+        return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, data: parsedData, reqError: "" } });
     } else if (reqStatus === 403) {
-        return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
+        return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, reqError: "You need to login again" }, logged: false });
     } else {
-        return merge({}, state, { [fieldToUpdate]: {reqInProgress: false, reqError: "Error fetching data"}});
+        return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, reqError: "Error fetching data" } });
     }
 }
 
 export function reducer(state = initialState, action: AppActions): AppState {
-        switch (action.type) {
-            case "SET_LOGGED":
-                return merge({}, state, { logged: action.logged });
-            case "FORM_ERROR":
-                return merge({}, state, {logError: action.error});
-            case "LOGIN_REQUEST_SENT":
-                return merge({}, state, {loginInProgress: true});
-            case "LOGIN_REQUEST_RECEIVED":
-                try {
-                    let parsedData = JSON.parse(action.reqData);
-                    AppStorage.setItem(USERNAME_KEY, parsedData.name);
-                    return merge({}, state, { username: parsedData.name, loginInProgress: false });
-                } catch (e) {
-                    return merge({}, state, { loginInProgress: false });
-                }
-            case "MARKS_REQUEST_SENT":
-                return merge({}, state, { marks: {reqInProgress: true}});
-            case "MARKS_REQUEST_RECEIVED":
-                return handleApiResponse<Array<Subject>>(action.reqStatus, action.reqData, state, "marks");
-            case "LOGOUT":
-                AppStorage.setItem(LOGGED_KEY, "false");
-                AppStorage.removeItem(USERNAME_KEY);
-                return merge({}, state, {logged: false});
-            case "REMEMBER_LOGIN":
-                return merge({}, state, {logged: action.logged});
-            case "COMMUNICATIONS_REQUEST_SENT":
-                return merge({}, state, { communications: { reqInProgress: true }});
-            case "COMMUNICATIONS_REQUEST_RECEIVED":
-                return handleApiResponse<Array<Communication>>(action.reqStatus, action.reqData, state, "communications");
-            case "COMMUNICATION_REQUEST_RECEIVED":
-                {
-                    let { reqData, commID, reqStatus } = action as COMMUNICATION_REQUEST_RECEIVED;
-                    if (reqStatus === 200) {
-                        let parsedData: Communication;
-                        let d: any = {};
-                        try {
-                            parsedData = JSON.parse(reqData);
-                            d[commID] = parsedData;
-                        } catch (e) {
-                            console.log("Failed to download", commID);
-                        }
-                        return merge({}, state, { communications: { descriptions: d }});
-                    } else if (reqStatus === 403) {
-                        return merge({}, state, {});
-                        // return merge({}, state, { communications: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
-                    } else {
-                        return merge({}, state, {});
-                        // TODO: implement failure
-                        // return merge({}, state, { communications: {reqInProgress: false, reqError: "Error fetching data"}});
+    switch (action.type) {
+        case "SET_LOGGED":
+            return merge({}, state, { logged: action.logged });
+        case "FORM_ERROR":
+            return merge({}, state, { logError: action.error });
+        case "LOGIN_REQUEST_SENT":
+            return merge({}, state, { loginInProgress: true });
+        case "LOGIN_REQUEST_RECEIVED":
+            try {
+                let parsedData = JSON.parse(action.reqData);
+                AppStorage.setItem(USERNAME_KEY, parsedData.name);
+                return merge({}, state, { username: parsedData.name, loginInProgress: false });
+            } catch (e) {
+                return merge({}, state, { loginInProgress: false });
+            }
+        case "MARKS_REQUEST_SENT":
+            return merge({}, state, { marks: { reqInProgress: true } });
+        case "MARKS_REQUEST_RECEIVED":
+            return handleApiResponse<Array<Subject>>(action.reqStatus, action.reqData, state, "marks");
+        case "LOGOUT":
+            AppStorage.setItem(LOGGED_KEY, "false");
+            AppStorage.removeItem(USERNAME_KEY);
+            return merge({}, state, { logged: false });
+        case "REMEMBER_LOGIN":
+            return merge({}, state, { logged: action.logged });
+        case "COMMUNICATIONS_REQUEST_SENT":
+            return merge({}, state, { communications: { reqInProgress: true } });
+        case "COMMUNICATIONS_REQUEST_RECEIVED":
+            return handleApiResponse<Array<Communication>>(action.reqStatus, action.reqData, state, "communications");
+        case "COMMUNICATION_REQUEST_RECEIVED":
+            {
+                let { reqData, commID, reqStatus } = action as COMMUNICATION_REQUEST_RECEIVED;
+                if (reqStatus === 200) {
+                    let parsedData: Communication;
+                    let d: any = {};
+                    try {
+                        parsedData = JSON.parse(reqData);
+                        d[commID] = parsedData;
+                    } catch (e) {
+                        console.log("Failed to download", commID);
                     }
+                    return merge({}, state, { communications: { descriptions: d } });
+                } else if (reqStatus === 403) {
+                    return merge({}, state, {});
+                    // return merge({}, state, { communications: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
+                } else {
+                    return merge({}, state, {});
+                    // TODO: implement failure
+                    // return merge({}, state, { communications: {reqInProgress: false, reqError: "Error fetching data"}});
                 }
-            case "COMMUNICATION_REQUEST_SENT":
-                // TODO: implement spinner
-                return state;
-            case "FILES_REQUEST_SENT":
-                return merge({}, state, { files: { reqInProgress: true }});
-            case "FILES_REQUEST_RECEIVED":
-                return handleApiResponse<Array<FileTeacher>>(action.reqStatus, action.reqData, state, "files");
-            case "ABSENCES_REQUEST_SENT":
-                return merge({}, state, { absences: { reqInProgress: true }});
-            case "ABSENCES_REQUEST_RECEIVED":
-                return handleApiResponse<Array<AllAbsences>>(action.reqStatus, action.reqData, state, "absences");
-            default:
-                return state;
-        }
-    };
+            }
+        case "COMMUNICATION_REQUEST_SENT":
+            // TODO: implement spinner
+            return state;
+        case "FILES_REQUEST_SENT":
+            return merge({}, state, { files: { reqInProgress: true } });
+        case "FILES_REQUEST_RECEIVED":
+            return handleApiResponse<Array<FileTeacher>>(action.reqStatus, action.reqData, state, "files");
+        case "ABSENCES_REQUEST_SENT":
+            return merge({}, state, { absences: { reqInProgress: true } });
+        case "ABSENCES_REQUEST_RECEIVED":
+            return handleApiResponse<Array<AllAbsences>>(action.reqStatus, action.reqData, state, "absences");
+        default:
+            return state;
+    }
+};

@@ -26,9 +26,9 @@ class Component extends React.Component<Props, {}> {
         }
         return (
             <div className="subjectPage">
-                    <h3>{subject ? upcase_first(subject.name) : null}</h3>
-                    { this.props.reqInProgress ? <Spinner /> : null }
-                    {subject ? <Subject data={subject}/> : null}
+                <h3>{subject ? upcase_first(subject.name) : null}</h3>
+                {this.props.reqInProgress ? <Spinner /> : null}
+                {subject ? <Subject data={subject} /> : null}
             </div>
         );
     }

@@ -22,15 +22,15 @@ class Component extends React.Component<Props, {}> {
                 <h3>Comunicazioni</h3>
 
 
-                { this.props.reqError ? <p>{this.props.reqError}</p> : null }
-                { this.props.reqInProgress ? <Spinner /> : null }
-                { this.props.data ? (
+                {this.props.reqError ? <p>{this.props.reqError}</p> : null}
+                {this.props.reqInProgress ? <Spinner /> : null}
+                {this.props.data ? (
                     <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp dottedTable">
                         <thead>
                             <tr>
                                 <th
                                     className="mdl-data-table__cell--non-numeric"
-                                >Title</th>
+                                    >Title</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,11 +41,11 @@ class Component extends React.Component<Props, {}> {
                                             {comm.title}
                                         </td>
                                     </tr>
-                                    );
+                                );
                             })}
                         </tbody>
                     </table>
-                    ) : null}
+                ) : null}
             </div>
         );
     }

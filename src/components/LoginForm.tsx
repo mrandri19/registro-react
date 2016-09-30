@@ -22,40 +22,40 @@ class Component extends React.Component<Props, {}> {
     }
     render() {
         return (
-        <CardText>
-            { this.props.loginInProgress ? <Spinner /> : null }
-            <form action="#" onSubmit={this.props.handleSubmit.bind(this)}>
-                <p className="loginFormErrors" >{this.props.logError}</p>
+            <CardText>
+                {this.props.loginInProgress ? <Spinner /> : null}
+                <form action="#" onSubmit={this.props.handleSubmit.bind(this)}>
+                    <p className="loginFormErrors" >{this.props.logError}</p>
 
-                <Textfield
-                    floatingLabel
-                    required={true}
-                    label="Username"
-                    type="text"
-                    id="username"
-                />
+                    <Textfield
+                        floatingLabel
+                        required={true}
+                        label="Username"
+                        type="text"
+                        id="username"
+                        />
 
-                <Textfield
-                    floatingLabel
-                    required={true}
-                    label="Password"
-                    type="password"
-                    id="password"
-                />
-                <button
-                    className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-                    type="submit"
-                    value="Login">
-                    Log in
+                    <Textfield
+                        floatingLabel
+                        required={true}
+                        label="Password"
+                        type="password"
+                        id="password"
+                        />
+                    <button
+                        className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                        type="submit"
+                        value="Login">
+                        Log in
                 </button>
-            </form>
-        </CardText>);
+                </form>
+            </CardText>);
     }
 }
 
 function mapDispatchToProps(dispatch: any) {
     return {
-        handleSubmit: function(e: Event) {
+        handleSubmit: function (e: Event) {
             e.preventDefault();
             const username = (document.getElementById("username") as HTMLInputElement).value;
             const password = (document.getElementById("password") as HTMLInputElement).value;

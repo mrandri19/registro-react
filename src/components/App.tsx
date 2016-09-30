@@ -11,7 +11,7 @@ interface Props {
     children: any;
 }
 
-const component = function(props: Props) {
+const component = function (props: Props) {
     return (
         <Layout fixedHeader>
             <Navbar />
@@ -47,7 +47,7 @@ const component = function(props: Props) {
                 {props.children}
             </Content>
         </Layout>
-        );
+    );
 };
 
 function mapDispatchToProps(dispatch: any) {

@@ -25,14 +25,14 @@ export function Subject(props: Props) {
     let firstSemesterMean = calc_marks_mean(props.data.marks.filter(sub => sub.q === "q1"));
     let secondSemesterMean = calc_marks_mean(props.data.marks.filter(sub => sub.q === "q3"));
 
-    return(
+    return (
         <div>
             <p>Media primo quadrimestre: <span><b>{firstSemesterMean.toFixed(2)}</b></span></p>
             <p>Media secondo quadrimestre: <span><b>{secondSemesterMean.toFixed(2)}</b></span></p>
             <DataTable
                 shadow={0}
-                rows = {marks}
-            >
+                rows={marks}
+                >
                 <TableHeader name="mark">Voto</TableHeader>
                 <TableHeader name="date">Data</TableHeader>
                 <TableHeader name="q">Quadrimestre</TableHeader>

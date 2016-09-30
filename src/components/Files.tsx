@@ -19,9 +19,9 @@ class Component extends React.Component<Props, {}> {
     render() {
         return (<div className="appPadding">
             <h3>Files</h3>
-            { this.props.reqError ? <p>{this.props.reqError}</p> : null }
-            { this.props.reqInProgress ? <Spinner /> : null }
-            { this.props.data ? (
+            {this.props.reqError ? <p>{this.props.reqError}</p> : null}
+            {this.props.reqInProgress ? <Spinner /> : null}
+            {this.props.data ? (
                 <div>
                     {this.props.data.map(fileTeacher => <FileTeacher fileTeacher={fileTeacher} key={fileTeacher.name} />)}
                 </div>) : null}

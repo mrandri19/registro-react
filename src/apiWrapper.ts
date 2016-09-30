@@ -16,7 +16,7 @@ function GET(apiEndpoint: string, onfinish: (status: number, response: string) =
     req.send();
 }
 
-export function login(username: string, password: string, key: ArrayBufferView, onfinish: (status: number, username: string) => void ) {
+export function login(username: string, password: string, key: ArrayBufferView, onfinish: (status: number, username: string) => void) {
     const req = new XMLHttpRequest();
     const url = config.api_url + "/login";
     const params = `login=${username}&password=${password}&key=${key}`;

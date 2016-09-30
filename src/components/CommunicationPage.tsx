@@ -18,15 +18,15 @@ class Component extends React.Component<Props, {}> {
     render() {
         let comm = this.props.data[this.props.params.id];
         // TODO: implement spinner
-        return(
+        return (
             <div className="appPadding">
-                { (comm === undefined) ? <Spinner /> :
+                {(comm === undefined) ? <Spinner /> :
                     <div>
                         <h3>{comm.longTitle}</h3>
                         <p>{comm.desc}</p>
-                        { comm.attachment ?
-                        <a href={config.api_url + `/communication/${this.props.params.id}/download`}>
-                            Allegato
+                        {comm.attachment ?
+                            <a href={config.api_url + `/communication/${this.props.params.id}/download`}>
+                                Allegato
                         </a> : null}
                     </div>
                 }
@@ -35,7 +35,7 @@ class Component extends React.Component<Props, {}> {
     }
     componentDidMount() {
         if (this.props.data[this.props.params.id] === undefined) {
-        return this.props.onLoad(this.props.params.id);
+            return this.props.onLoad(this.props.params.id);
         }
     }
 }
