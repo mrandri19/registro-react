@@ -45,7 +45,7 @@ type Reducer = (state: AppState, action: AppActions) => AppState;
 
 export function storeFactory(reducer: Reducer) {
     // return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
-    return createStore(reducer, applyMiddleware(thunk));
+    return createStore<AppState>(reducer, applyMiddleware(thunk));
 }
 
 function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppState, fieldToUpdate: string) {
