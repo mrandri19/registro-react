@@ -90,3 +90,19 @@ svg {
 .icon-normal {
     transition: transform 150ms ease;
 }
+
+.transparentSelection::selection {
+    background: transparent;
+}
+
+.transparentSelection::-moz-selection {
+    background: transparent;
+}
+
+.transparentSelection i::selection  {
+    background: transparent;
+}
+
+.transparentSelection i::-moz-selection {
+    background: transparent;
+}

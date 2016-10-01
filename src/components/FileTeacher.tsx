@@ -49,7 +49,7 @@ export class FileTeacher extends React.Component<FileTeacherProps, FileTeacherSt
                     {this.props.fileTeacher.name.toLocaleLowerCase().split(" ").map(upcase_first).join(" ")}
                 </CardTitle>
                 <ul style={{ margin: "1em", padding: "16px", paddingTop: 0 }}>
-                    {this.props.fileTeacher.folders.map(folder => <Folder folder={folder} />)}
+                    {this.props.fileTeacher.folders.map(folder => <Folder key={folder.name + this.props.fileTeacher.name} folder={folder} />)}
                 </ul>
             </Card>);
     }
@@ -76,7 +76,7 @@ class Folder extends React.Component<FolderProps, FolderState> {
     render() {
         return (
             <li className="noListBulletPoints">
-                <h5 onClick={this.handleClick.bind(this)} style={{ margin: 0 }}>
+                <h5 onClick={this.handleClick.bind(this)} style={{ margin: 0 }} className="transparentSelection">
                     {this.props.folder.name}
                     <i className={`material-icons mdl-collapse__icon mdl-animation--default expand-icon-position ${this.state.hidden ? "icon-rotated" : "icon-normal"}`}>expand_more</i>
                 </h5>
