@@ -86,7 +86,7 @@ class Folder extends React.Component<FolderProps, FolderState> {
                         {this.props.folder.elements.map(file => {
                             return (
                                 <li key={file.id} style={{ marginTop: "10px", marginBottom: "10px" }}>
-                                    <a href={`${config.api_url}/file/${file.id}/${file.cksum}/download`}>{file.name}</a > <span>{display_date(file.date)}</span>
+                                    <a href={`${config.api_url}/file/${file.id}/${file.cksum}/download`}>{file.name || "Senza Nome"}</a > <span>{display_date(file.date)}</span>
                                 </li>
                             );
                         })}

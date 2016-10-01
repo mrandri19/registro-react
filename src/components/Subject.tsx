@@ -5,6 +5,7 @@ import { merge } from "lodash";
 
 import { Subject } from "../types";
 import { calc_marks_mean } from "../utils/calc_marks_mean";
+import * as config from "../config";
 
 interface Props {
     data: Subject;
@@ -25,10 +26,13 @@ export function Subject(props: Props) {
     let firstSemesterMean = calc_marks_mean(props.data.marks.filter(sub => sub.q === "q1"));
     let secondSemesterMean = calc_marks_mean(props.data.marks.filter(sub => sub.q === "q3"));
 
+    let year = (new Date()).getFullYear();
     return (
+
         <div>
-            <p>Media primo quadrimestre: <span><b>{firstSemesterMean.toFixed(2)}</b></span></p>
-            <p>Media secondo quadrimestre: <span><b>{secondSemesterMean.toFixed(2)}</b></span></p>
+            {(year === config.school_start_year) ?
+                <p>Media primo quadrimestre: <span><b>{firstSemesterMean.toFixed(2)}</b></span></p> :
+                <p>Media secondo quadrimestre: <span><b>{secondSemesterMean.toFixed(2)}</b></span></p>}
             <DataTable
                 shadow={0}
                 rows={marks}
