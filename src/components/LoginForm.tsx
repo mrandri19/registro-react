@@ -25,6 +25,7 @@ class Component extends React.Component<Props, {}> {
             <CardText>
                 {this.props.loginInProgress ? <Spinner /> : null}
                 <form action="#" onSubmit={this.props.handleSubmit.bind(this)}>
+                    <p>Username e password sono gli stessi di Spaggiari, non e' necessario registrarsi.</p>
                     <p className="loginFormErrors" >{this.props.logError}</p>
 
                     <Textfield
