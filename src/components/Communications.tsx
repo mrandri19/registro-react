@@ -5,6 +5,7 @@ import { Spinner } from "react-mdl";
 import { AppState, Communication } from "../types";
 import { get_communications } from "../actions";
 import { withRouter } from "react-router";
+import { display_date } from "../utils/display_date";
 
 
 interface Props {
@@ -38,7 +39,7 @@ class Component extends React.Component<Props, {}> {
                                 return (
                                     <tr key={comm.id}>
                                         <td onClick={this.handleClick.bind(this)(comm.id)} className="mdl-data-table__cell--non-numeric">
-                                            {comm.title}
+                                            <span>{comm.title}</span><span style={{float: "right"}}>{display_date(comm.date)}</span>
                                         </td>
                                     </tr>
                                 );

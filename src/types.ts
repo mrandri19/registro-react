@@ -11,7 +11,7 @@ export interface SET_LOGGED {
 export interface Communication {
   title: string;
   type: string;
-  date: Date;
+  date: string;
   id: number;
 }
 

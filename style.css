@@ -1,7 +1,7 @@
 .appPadding {
     margin: auto 1em;
     margin-top: 1em;
-    margin-bottom: 1em;    
+    margin-bottom: 1em;
 }
 
 .subject {
@@ -51,7 +51,7 @@ svg {
 
 .mdl-data-table {
     table-layout:fixed;
-    width:100%; 
+    width:100%;
 }
 
 .dottedTable td, th {

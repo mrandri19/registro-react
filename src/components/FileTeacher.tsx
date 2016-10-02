@@ -2,13 +2,8 @@ import * as React from "react";
 import * as types from "../types";
 import * as config from "../config";
 import { upcase_first } from "../utils/upcase_first";
+import { display_date } from "../utils/display_date";
 import { Card, CardTitle } from "react-mdl";
-
-
-function display_date(input: string): string {
-    let date = new Date(input);
-    return `${date.getDay()}/${date.getDate()}/${date.getMonth()}`;
-}
 
 interface FileTeacherProps {
     fileTeacher: types.FileTeacher;
@@ -31,12 +26,9 @@ function colors() {
         "#81C784",
         "#AED581",
         "#DCE775",
-        "#FFF176",
         "#FFD54F",
         "#FFB74D",
         "#FF8A65",
-        "#A1887F",
-        "#E0E0E0",
         "#90A4AE"];
     return list[Math.floor(Math.random() * list.length)];
 }
@@ -44,7 +36,7 @@ function colors() {
 export class FileTeacher extends React.Component<FileTeacherProps, FileTeacherState> {
     render() {
         return (
-            <Card shadow={2} className="subject">
+            <Card shadow={2} className="subject" style={{ marginBottom: "1em" }}>
                 <CardTitle style={{ backgroundColor: colors(), color: "#FFF" }}>
                     {this.props.fileTeacher.name.toLocaleLowerCase().split(" ").map(upcase_first).join(" ")}
                 </CardTitle>
