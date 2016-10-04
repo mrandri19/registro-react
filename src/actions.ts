@@ -17,7 +17,7 @@ import {
     ABSENCES_REQUEST_SENT
 } from "./types";
 
-import { AppStorage, LOGGED_KEY } from "./appStorage";
+import { AppStorage, LOGGED_KEY, SECRET_KEY_KEY } from "./appStorage";
 
 export function login_request_received(reqData: string): LOGIN_REQUEST_RECEIVED {
     return {
@@ -41,7 +41,14 @@ function set_logged(logged: boolean): SET_LOGGED {
 
 export function submit_form(username: string, password: string): (dispatch: any) => void {
     return dispatch => {
-        const key = window.crypto.getRandomValues(new Uint32Array(1));
+        let key: any;
+        let tryGetKey = AppStorage.getItem(SECRET_KEY_KEY);
+        if (tryGetKey === null) {
+            key = window.crypto.getRandomValues(new Uint32Array(1));
+            AppStorage.setItem(SECRET_KEY_KEY, key);
+        } else {
+            key = tryGetKey;
+        }
 
         if (username === "" || password === "") {
             dispatch(form_error("Inserisci username/password per favore"));

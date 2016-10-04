@@ -15,3 +15,4 @@ if (typeof localStorage === "object") {
 export const AppStorage = window.localStorage;
 export const LOGGED_KEY = "logged";
 export const USERNAME_KEY = "username";
+export const SECRET_KEY_KEY = "secret_key";
