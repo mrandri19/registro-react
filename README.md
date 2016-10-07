@@ -8,5 +8,4 @@
 To develop it `webpack-dev-server` is recomended
 
 ## Deployment
-1. Run `npm run build-prod`
-2. Run `./deploy.sh`
+1. Run `./deploy.sh`
