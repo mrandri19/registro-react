@@ -39,6 +39,7 @@ export function Subject(props: Props) {
                 >
                 <TableHeader name="mark">Voto</TableHeader>
                 <TableHeader name="date">Data</TableHeader>
+                <TableHeader name="type">Tipo</TableHeader>
                 <TableHeader name="q">Quadrimestre</TableHeader>
             </DataTable>
         </div>

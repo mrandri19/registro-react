@@ -10,6 +10,12 @@
     width: 100%;
 }
 
+.fileTeacher {
+    min-height: 4em;
+    max-width: 500px;
+    width: 100%;
+}
+
 .cardPadding {
     min-height: 6em;
     max-width: 500px;

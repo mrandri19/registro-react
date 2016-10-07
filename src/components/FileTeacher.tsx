@@ -3,7 +3,7 @@ import * as types from "../types";
 import * as config from "../config";
 import { upcase_first } from "../utils/upcase_first";
 import { display_date } from "../utils/display_date";
-import { Card, CardTitle } from "react-mdl";
+import { Card, CardTitle, Cell } from "react-mdl";
 
 interface FileTeacherProps {
     fileTeacher: types.FileTeacher;
@@ -36,14 +36,16 @@ function colors() {
 export class FileTeacher extends React.Component<FileTeacherProps, FileTeacherState> {
     render() {
         return (
-            <Card shadow={2} className="subject" style={{ marginBottom: "1em" }}>
-                <CardTitle style={{ backgroundColor: colors(), color: "#FFF" }}>
-                    {this.props.fileTeacher.name.toLocaleLowerCase().split(" ").map(upcase_first).join(" ")}
-                </CardTitle>
-                <ul style={{ margin: "1em", padding: "16px", paddingTop: 0 }}>
-                    {this.props.fileTeacher.folders.map(folder => <Folder key={folder.name + this.props.fileTeacher.name} folder={folder} />)}
-                </ul>
-            </Card>);
+            <Cell col={3} phone={12} tablet={6}>
+                <Card shadow={2} className="fileTeacher" style={{ marginBottom: "1em" }}>
+                    <CardTitle style={{ backgroundColor: colors(), color: "#FFF" }}>
+                        {this.props.fileTeacher.name.toLocaleLowerCase().split(" ").map(upcase_first).join(" ")}
+                    </CardTitle>
+                    <ul style={{ margin: "1em", padding: "16px", paddingTop: 0 }}>
+                        {this.props.fileTeacher.folders.map(folder => <Folder key={folder.name + this.props.fileTeacher.name} folder={folder} />)}
+                    </ul>
+                </Card>
+            </Cell>);
     }
 }
 

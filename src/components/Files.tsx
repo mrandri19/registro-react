@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as types from "../types";
 
 import { get_files } from "../actions";
-import { Spinner, } from "react-mdl";
+import { Spinner, Grid } from "react-mdl";
 import { FileTeacher } from "./FileTeacher";
 
 interface Props {
@@ -18,13 +18,14 @@ interface Props {
 class Component extends React.Component<Props, {}> {
     render() {
         return (<div className="appPadding">
-            <h3>Files</h3>
+            <h3 style={{marginBottom: 0}}>Files</h3>
             {this.props.reqError ? <p>{this.props.reqError}</p> : null}
             {this.props.reqInProgress ? <Spinner /> : null}
             {this.props.data ? (
-                <div>
+                <Grid>
                     {this.props.data.map(fileTeacher => <FileTeacher fileTeacher={fileTeacher} key={fileTeacher.name} />)}
-                </div>) : null}
+                </Grid>
+            ) : null}
         </div>);
     }
     componentDidMount() {
