@@ -9,10 +9,10 @@ export interface SET_LOGGED {
 }
 
 export interface Communication {
-  title: string;
-  type: string;
-  date: string;
-  id: number;
+    title: string;
+    type: string;
+    date: string;
+    id: number;
 }
 
 export interface LOGIN_REQUEST_SENT {
@@ -35,9 +35,9 @@ export type Mark = {
 
 
 export interface CommunicationDescription {
-  longTitle: string;
-  desc: string;
-  attachment: boolean;
+    longTitle: string;
+    desc: string;
+    attachment: boolean;
 }
 
 type ApiCall<T> = {
@@ -63,26 +63,31 @@ export type AppState = {
 }
 
 export interface Absence {
-  id: Number;
-  from: string;
-  to: string;
-  days: Number;
-  justification?: string;
+    id: number;
+    from: string;
+    to: string;
+    days: Number;
+    justification?: string;
 }
 
-export interface Delay {}
+export interface Delay {
+    id: number;
+    day: string;
+    hours: string;
+    justification?: string;
+};
 
-export interface Exit {}
+export interface Exit { }
 
 export interface Absences {
-  absences?: Absence[];
-  delays?: Delay[];
-  exits?: Exit[];
+    absences?: Absence[];
+    delays?: Delay[];
+    exits?: Exit[];
 }
 
 export interface AllAbsences {
-  undone?: Absences;
-  done: Absences;
+    undone?: Absences;
+    done: Absences;
 }
 
 export interface IPORCODIO {
@@ -142,20 +147,20 @@ export interface COMMUNICATION_REQUEST_SENT {
 }
 
 export interface FileTeacher {
-  name: string;
-  folders: Folder[];
+    name: string;
+    folders: Folder[];
 }
 export interface Folder {
-  name: string;
-  last: string;
-  elements: File[];
+    name: string;
+    last: string;
+    elements: File[];
 }
 export interface File {
-  id: string;
-  name: string;
-  type: string;
-  date: string;
-  cksum: string;
+    id: string;
+    name: string;
+    type: string;
+    date: string;
+    cksum: string;
 }
 
 export interface FILES_REQUEST_RECEIVED {
@@ -183,19 +188,19 @@ export interface ABSENCES_REQUEST_SENT {
 }
 
 export type AppActions = LOGIN_REQUEST_RECEIVED
-                         | LOGIN_REQUEST_SENT
-                         | GET_MARKS
-                         | MARKS_REQUEST_SENT
-                         | MARKS_REQUEST_RECEIVED
-                         | LOGOUT
-                         | REMEMBER_LOGIN
-                         | FORM_ERROR
-                         | SET_LOGGED
-                         | COMMUNICATIONS_REQUEST_SENT
-                         | COMMUNICATIONS_REQUEST_RECEIVED
-                         | COMMUNICATION_REQUEST_RECEIVED
-                         | COMMUNICATION_REQUEST_SENT
-                         | FILES_REQUEST_SENT
-                         | FILES_REQUEST_RECEIVED
-                         | ABSENCES_REQUEST_SENT
-                         | ABSENCES_REQUEST_RECEIVED;
+    | LOGIN_REQUEST_SENT
+    | GET_MARKS
+    | MARKS_REQUEST_SENT
+    | MARKS_REQUEST_RECEIVED
+    | LOGOUT
+    | REMEMBER_LOGIN
+    | FORM_ERROR
+    | SET_LOGGED
+    | COMMUNICATIONS_REQUEST_SENT
+    | COMMUNICATIONS_REQUEST_RECEIVED
+    | COMMUNICATION_REQUEST_RECEIVED
+    | COMMUNICATION_REQUEST_SENT
+    | FILES_REQUEST_SENT
+    | FILES_REQUEST_RECEIVED
+    | ABSENCES_REQUEST_SENT
+    | ABSENCES_REQUEST_RECEIVED;
