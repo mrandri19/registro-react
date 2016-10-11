@@ -14,26 +14,55 @@ interface Props {
     reqError: string;
 };
 
-function Absence(params: {data: types.Absence}) {
+function Absence(props: {data: types.Absence}) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
                 <CardTitle>Assenza</CardTitle>
                 <CardText>
-                    <p>{"Numero: " + params.data.id}</p>
-                    <p>{"Giorni: " + params.data.days}</p>
-                    <p>{"Dal: " + params.data.from}</p>
-                    <p>{"Al: " + params.data.to}</p>
-                    <p>{params.data.justification}</p>
+                    <p>{"Numero: " + props.data.id}</p>
+                    <p>{"Giorni: " + props.data.days}</p>
+                    <p>{"Dal: " + props.data.from}</p>
+                    <p>{"Al: " + props.data.to}</p>
+                    <p>{props.data.justification}</p>
                 </CardText>
             </Card>
         </Cell>
     );
 }
 
+function Delay(props: {data: types.Delay}) {
+    return (
+        <Cell col={3} phone={12} tablet={4}>
+            <Card className="cardPadding" shadow={3}>
+                <CardTitle>Ritardo</CardTitle>
+                <CardText>
+                    <p>{"Numero: " + props.data.id}</p>
+                    <p>{"Giorno: " + props.data.day}</p>
+                    <p>{"Ore: " + props.data.hours}</p>
+                    <p>{props.data.justification}</p>
+                </CardText>
+            </Card>
+        </Cell>
+    );
+}
+
+function Exit(props: {data: types.Exit}) {
+    return (
+        <Cell col={3} phone={12} tablet={4}>
+            <Card className="cardPadding" shadow={3}>
+                <CardTitle>Uscita</CardTitle>
+                <CardText>
+                    <p>WIP</p>
+                </CardText>
+            </Card>
+        </Cell>
+    );
+}
 
 class Component extends React.Component<Props, {}> {
     render() {
+        console.log(this.props.data);
         return (<div className="appPadding">
             <h3>Assenze</h3>
             {this.props.reqError ? <p>{this.props.reqError}</p> : null}
@@ -44,6 +73,33 @@ class Component extends React.Component<Props, {}> {
                     <Grid>
                         {this.props.data.done.absences ? this.props.data.done.absences.map(
                             (absence) => <Absence data={absence} />
+                        ) : null}
+                        {this.props.data.done.delays ? this.props.data.done.delays.map(
+                            (delay) => <Delay data={delay} />
+                        ) : null}
+                        {this.props.data.done.exits ? this.props.data.done.exits.map(
+                            (exit) => <Exit data={exit} />
+                        ) : null}
+                    </Grid>
+                    <h4>Non giustificate</h4>
+                    <Grid>
+                        {this.props.data.undone ?
+                            (this.props.data.undone.absences?
+                                this.props.data.undone.absences.map(
+                                    (absence) => <Absence data={absence} />
+                            ): null
+                        ) : null}
+                        {this.props.data.undone ?
+                            (this.props.data.undone.delays?
+                                this.props.data.undone.delays.map(
+                                    (delay) => <Delay data={delay} />
+                            ): null
+                        ) : null}
+                        {this.props.data.undone ?
+                            (this.props.data.undone.exits?
+                                this.props.data.undone.exits.map(
+                                    (exit) => <Exit data={exit} />
+                            ): null
                         ) : null}
                     </Grid>
                 </div>

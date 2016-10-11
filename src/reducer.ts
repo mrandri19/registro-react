@@ -88,7 +88,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case "LOGOUT":
             AppStorage.setItem(LOGGED_KEY, "false");
             AppStorage.removeItem(USERNAME_KEY);
-            return merge({}, state, { logged: false });
+            return merge({}, state, { initialState });
         case "REMEMBER_LOGIN":
             return merge({}, state, { logged: action.logged });
         case "COMMUNICATIONS_REQUEST_SENT":
