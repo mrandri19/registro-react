@@ -26,7 +26,7 @@ class Component extends React.Component<Props, {}> {
                         <circle cx="50" cy="50" r="40" fill="transparent" />
                         <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke="transparent" />
                         <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke={color} strokeDasharray="251.2" strokeDashoffset={to_svg_degrees(mark_degrees)} />
-                        <text x="35" y="50" fill="black" fontSize="20">{this.props.mean.toFixed(2)}</text>
+                        <text x="32" y="56" fill="black" fontSize="20">{this.props.mean.toFixed(2)}</text>
                     </svg>
                 </CardTitle>
             </Card>
