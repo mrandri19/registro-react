@@ -6,7 +6,7 @@ import { AppState, Communication } from "../types";
 import { get_communications } from "../actions";
 import { withRouter } from "react-router";
 import { display_date } from "../utils/display_date";
-
+import * as fuzzy from "fuzzy";
 
 interface Props {
     router?: any;
@@ -29,6 +29,24 @@ class Component extends React.Component<Props, State> {
     }
 
     render() {
+        let communicationElements: JSX.Element[] | null;
+        communicationElements = null;
+        if (this.props.data) {
+            let options = {
+                extract: (comm: Communication) => comm.title
+            };
+            let res = fuzzy.filter(this.state.searchTerm, this.props.data, options);
+            let matchedCommunications = res.map(function (el) { return el.original; });
+            communicationElements = matchedCommunications.map(comm => {
+                return (
+                    <tr key={comm.id}>
+                        <td onClick={this.handleClick.bind(this)(comm.id)} className="mdl-data-table__cell--non-numeric">
+                            <span>{comm.title}</span><span style={{ float: "right" }}>{display_date(comm.date)}</span>
+                        </td>
+                    </tr>
+                );
+            });
+        }
         return (
             <div className="appPadding">
                 <h3>Comunicazioni</h3>
@@ -59,17 +77,9 @@ class Component extends React.Component<Props, State> {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.data
-                                    .filter(comm => comm.title.toLowerCase().lastIndexOf(this.state.searchTerm, 0) === 0)
-                                    .map(comm => {
-                                        return (
-                                            <tr key={comm.id}>
-                                                <td onClick={this.handleClick.bind(this)(comm.id)} className="mdl-data-table__cell--non-numeric">
-                                                    <span>{comm.title}</span><span style={{ float: "right" }}>{display_date(comm.date)}</span>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
+                                {
+                                    communicationElements
+                                }
                             </tbody>
                         </table></div>
                 ) : null}
