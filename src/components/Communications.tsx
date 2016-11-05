@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { Spinner } from "react-mdl";
+import { Spinner, Textfield } from "react-mdl";
 import { AppState, Communication } from "../types";
 import { get_communications } from "../actions";
 import { withRouter } from "react-router";
@@ -16,7 +16,18 @@ interface Props {
     reqError: string;
 }
 
-class Component extends React.Component<Props, {}> {
+interface State {
+    searchTerm: string;
+}
+
+class Component extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = {
+            searchTerm: ""
+        };
+    }
+
     render() {
         return (
             <div className="appPadding">
@@ -26,26 +37,41 @@ class Component extends React.Component<Props, {}> {
                 {this.props.reqError ? <p>{this.props.reqError}</p> : null}
                 {this.props.reqInProgress ? <Spinner /> : null}
                 {this.props.data ? (
-                    <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp dottedTable">
-                        <thead>
-                            <tr>
-                                <th
-                                    className="mdl-data-table__cell--non-numeric"
-                                    >Title</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.data.map(comm => {
-                                return (
-                                    <tr key={comm.id}>
-                                        <td onClick={this.handleClick.bind(this)(comm.id)} className="mdl-data-table__cell--non-numeric">
-                                            <span>{comm.title}</span><span style={{float: "right"}}>{display_date(comm.date)}</span>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    <div>
+                        <Textfield
+                            ref="a"
+                            label="daw"
+                            expandable
+                            expandableIcon="search"
+                            onChange={(e) => {
+                                const val = (e.target as any).value;
+                                this.setState({
+                                    searchTerm: val
+                                });
+                            } }
+                            />
+                        <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp dottedTable">
+                            <thead>
+                                <tr>
+                                    <th
+                                        className="mdl-data-table__cell--non-numeric"
+                                        >Titolo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.props.data
+                                    .filter(comm => comm.title.toLowerCase().lastIndexOf(this.state.searchTerm, 0) === 0)
+                                    .map(comm => {
+                                        return (
+                                            <tr key={comm.id}>
+                                                <td onClick={this.handleClick.bind(this)(comm.id)} className="mdl-data-table__cell--non-numeric">
+                                                    <span>{comm.title}</span><span style={{ float: "right" }}>{display_date(comm.date)}</span>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                            </tbody>
+                        </table></div>
                 ) : null}
             </div>
         );
