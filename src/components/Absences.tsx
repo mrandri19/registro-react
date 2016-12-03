@@ -14,7 +14,7 @@ interface Props {
     reqError: string;
 };
 
-function Absence(props: {data: types.Absence}) {
+function Absence(props: { data: types.Absence }) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
@@ -31,7 +31,7 @@ function Absence(props: {data: types.Absence}) {
     );
 }
 
-function Delay(props: {data: types.Delay}) {
+function Delay(props: { data: types.Delay }) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
@@ -47,7 +47,7 @@ function Delay(props: {data: types.Delay}) {
     );
 }
 
-function Exit(props: {data: types.Exit}) {
+function Exit(props: { data: types.Exit }) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
@@ -62,7 +62,6 @@ function Exit(props: {data: types.Exit}) {
 
 class Component extends React.Component<Props, {}> {
     render() {
-        console.log(this.props.data);
         return (<div className="appPadding">
             <h3>Assenze</h3>
             {this.props.reqError ? <p>{this.props.reqError}</p> : null}
@@ -84,23 +83,23 @@ class Component extends React.Component<Props, {}> {
                     <h4>Non giustificate</h4>
                     <Grid>
                         {this.props.data.undone ?
-                            (this.props.data.undone.absences?
+                            (this.props.data.undone.absences ?
                                 this.props.data.undone.absences.map(
                                     (absence) => <Absence data={absence} />
-                            ): null
-                        ) : null}
+                                ) : null
+                            ) : null}
                         {this.props.data.undone ?
-                            (this.props.data.undone.delays?
+                            (this.props.data.undone.delays ?
                                 this.props.data.undone.delays.map(
                                     (delay) => <Delay data={delay} />
-                            ): null
-                        ) : null}
+                                ) : null
+                            ) : null}
                         {this.props.data.undone ?
-                            (this.props.data.undone.exits?
+                            (this.props.data.undone.exits ?
                                 this.props.data.undone.exits.map(
                                     (exit) => <Exit data={exit} />
-                            ): null
-                        ) : null}
+                                ) : null
+                            ) : null}
                     </Grid>
                 </div>
             ) : null}

@@ -29,14 +29,14 @@ if (AppStorage.getItem(LOGGED_KEY) == null) {
 }
 
 function logout(nextState: any, replace: any) {
-    const state  = appStore.getState() as AppState;
+    const state = appStore.getState() as AppState;
     if (state.logged) {
         appStore.dispatch(actions.logout());
     }
 }
 
 function checkAuth(nextState: any, replace: any) {
-    const state  = appStore.getState() as AppState;
+    const state = appStore.getState() as AppState;
     if (!state.logged) {
         replace({
             pathname: "login",
@@ -51,7 +51,7 @@ if (mountPoint) {
         <Provider store={appStore}>
             <Router history={browserHistory}>
                 <Route path="/" component={App}>
-                    <IndexRoute component={Hello} onEnter={checkAuth}/>
+                    <IndexRoute component={Hello} onEnter={checkAuth} />
 
                     <Route path="/absences" component={Absences} onEnter={checkAuth}></Route>
 
@@ -66,10 +66,7 @@ if (mountPoint) {
                     <Route path="login" component={Login}></Route>
                     <Route path="logout" component={Login} onEnter={logout}></Route>
 
-                    <Redirect from="index.html" to="/"/>
-                    <Redirect from="index" to="/"/>
-
-                    <Redirect from="*" to="/"/>
+                    <Redirect from="*" to="/" />
                 </Route>
             </Router>
         </Provider>,
@@ -82,6 +79,6 @@ if (mountPoint) {
 
 // Close drawer on click
 document.querySelector(".mdl-layout__drawer").addEventListener("click", function () {
-  document.querySelector(".mdl-layout__obfuscator").classList.remove("is-visible");
-  this.classList.remove("is-visible");
+    document.querySelector(".mdl-layout__obfuscator").classList.remove("is-visible");
+    this.classList.remove("is-visible");
 }, false);

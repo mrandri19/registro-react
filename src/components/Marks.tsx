@@ -1,15 +1,16 @@
 import * as React from "react";
-
-import * as types from "../types";
-import { connect } from "react-redux";
-import { get_marks } from "../actions";
 import { Spinner, Grid, Cell } from "react-mdl";
+import { connect } from "react-redux";
 
+import * as config from "../config";
+import * as types from "../types";
+
+import { BasicRoute } from "./BasicRouteHOC";
+import { get_marks } from "../actions";
 import { SubjectCard } from "./SubjectCard";
 import { calc_marks_mean } from "../utils/calc_marks_mean";
-import * as config from "../config";
 
-interface Props {
+interface Props extends types.OnLogoutRedirectComponent {
     onLoad: () => void;
     reqInProgress: boolean;
     data?: Array<types.Subject>;
@@ -71,8 +72,9 @@ function mapStateToProps(state: types.AppState): any {
     return {
         reqInProgress: state.marks.reqInProgress,
         data: state.marks.data,
-        reqError: state.marks.reqError
+        reqError: state.marks.reqError,
+        logged: state.logged
     };
 };
 
-export const Marks = connect(mapStateToProps, mapDispatchToProps)(Component);
+export const Marks = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

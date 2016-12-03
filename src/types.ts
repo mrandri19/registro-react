@@ -1,7 +1,7 @@
 export type Subject = {
     name: string,
     marks: Array<Mark>
-}
+};
 
 export interface SET_LOGGED {
     type: "SET_LOGGED";
@@ -31,7 +31,7 @@ export type Mark = {
     ns: boolean,
     q: "q1" | "q3",
     type: string
-}
+};
 
 
 export interface CommunicationDescription {
@@ -44,6 +44,11 @@ type ApiCall<T> = {
     reqInProgress: boolean;
     data: T | null;
     reqError: string;
+};
+
+export interface OnLogoutRedirectComponent {
+    router: any;
+    logged: boolean;
 }
 
 export type AppState = {
@@ -60,7 +65,7 @@ export type AppState = {
     },
     files: ApiCall<Array<FileTeacher>>,
     absences: ApiCall<AllAbsences>
-}
+};
 
 export interface Absence {
     id: number;
@@ -95,38 +100,38 @@ export interface IPORCODIO {
 }
 
 export interface SUBMIT_FORM {
-    type: 'SUBMIT_FORM';
+    type: "SUBMIT_FORM";
     username: string;
     password: string;
 }
 
 export interface LOGIN_REQUEST_RECEIVED {
-    type: 'LOGIN_REQUEST_RECEIVED';
+    type: "LOGIN_REQUEST_RECEIVED";
     reqData: string;
 }
 
 export interface GET_MARKS {
-    type: 'GET_MARKS';
+    type: "GET_MARKS";
 }
 
 export interface COMMUNICATIONS_REQUEST_RECEIVED {
-    type: 'COMMUNICATIONS_REQUEST_RECEIVED';
+    type: "COMMUNICATIONS_REQUEST_RECEIVED";
     reqStatus: number;
     reqData: string;
 }
 
 export interface MARKS_REQUEST_RECEIVED {
-    type: 'MARKS_REQUEST_RECEIVED';
+    type: "MARKS_REQUEST_RECEIVED";
     reqStatus: number;
     reqData: string;
 }
 
 export interface LOGOUT {
-    type: 'LOGOUT';
+    type: "LOGOUT";
 }
 
 export interface REMEMBER_LOGIN {
-    type: 'REMEMBER_LOGIN';
+    type: "REMEMBER_LOGIN";
     logged: boolean;
 }
 
