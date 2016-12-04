@@ -6,7 +6,7 @@ import * as types from "../types";
 export function BasicRoute(Base: React.ComponentClass<types.OnLogoutRedirectComponent>): any {
     class Component extends Base {
         componentWillUpdate() {
-            if (this.props.logged) {
+            if (!this.props.logged) {
                 this.props.router.push("/login");
             }
         }
