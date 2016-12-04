@@ -16,6 +16,6 @@ app.get('*', function (req, res) {
 });
 
 const PORT = 8080;
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log('Production Express server running at localhost:' + PORT);
 });
