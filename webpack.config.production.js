@@ -29,7 +29,7 @@ module.exports = {
         collapseWhitespace: true,
         removeComments: true
       },
-      siteUrl: "https://app.daniele.ml/",
+      siteUrl: "/",
       hash: true,
       filename: "index.html",
       template: 'src/index.ejs',
@@ -37,16 +37,16 @@ module.exports = {
       environment: (process.env.NODE_ENV || "development")
     }),
     new CopyWebpackPlugin([
-        {from: "node_modules/react-mdl/extra/material.min.css"},
-        {from: "style.css"},
-        {from: "src/sw.js"},
-        {from: "manifest.json"},
-        {from: "node_modules/react/dist/react.js"},
-        {from: "node_modules/react/dist/react.min.js"},
-        {from: "node_modules/react-dom/dist/react-dom.js"},
-        {from: "node_modules/react-dom/dist/react-dom.min.js"},
-        {from: "node_modules/react-mdl/extra/material.min.js"},
-      ])
+      { from: "node_modules/react-mdl/extra/material.min.css" },
+      { from: "style.css" },
+      { from: "src/sw.js" },
+      { from: "manifest.json" },
+      { from: "node_modules/react/dist/react.js" },
+      { from: "node_modules/react/dist/react.min.js" },
+      { from: "node_modules/react-dom/dist/react-dom.js" },
+      { from: "node_modules/react-dom/dist/react-dom.min.js" },
+      { from: "node_modules/react-mdl/extra/material.min.js" },
+    ])
   ],
 
   module: {
