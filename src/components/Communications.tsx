@@ -1,15 +1,16 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import { BasicRoute } from "./BasicRouteHOC";
+import * as types from "../types";
+
 import { Spinner, Textfield } from "react-mdl";
 import { AppState, Communication } from "../types";
 import { get_communications } from "../actions";
-import { withRouter } from "react-router";
 import { display_date } from "../utils/display_date";
 import * as fuzzy from "fuzzy";
 
-interface Props {
-    router?: any;
+interface Props extends types.OnLogoutRedirectComponent {
     data: Array<Communication>;
     onLoad: () => void;
     reqInProgress: boolean;
@@ -116,8 +117,9 @@ function mapStateToProps(state: AppState) {
     return {
         reqInProgress: state.communications.reqInProgress,
         data: state.communications.data,
-        reqError: state.communications.reqError
+        reqError: state.communications.reqError,
+        logged: state.logged
     };
 }
 
-export const Communications = connect(mapStateToProps, mapDispatchToProps)(withRouter(Component));
+export const Communications = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

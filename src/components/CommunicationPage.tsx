@@ -1,14 +1,16 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
 import { Spinner } from "react-mdl";
+
+import { BasicRoute } from "./BasicRouteHOC";
+import * as types from "../types";
 
 import { AppState, IPORCODIO } from "../types";
 import { get_communication } from "../actions";
 import * as config from "../config";
 
 
-interface Props {
+interface Props extends types.OnLogoutRedirectComponent {
     params: any;
     data: IPORCODIO;
     onLoad: (commID: string) => void;
@@ -50,8 +52,9 @@ function mapDispatchToProps(dispatch: any) {
 
 function mapStateToProps(state: AppState) {
     return {
-        data: state.communications.descriptions
+        data: state.communications.descriptions,
+        logged: state.logged
     };
 }
 
-export const CommunicationPage = connect(mapStateToProps, mapDispatchToProps)(withRouter(Component));
+export const CommunicationPage = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Spinner } from "react-mdl";
 
+import { BasicRoute } from "./BasicRouteHOC";
 
 import { Subject } from "./Subject";
 import * as types from "../types";
@@ -9,7 +10,7 @@ import { upcase_first } from "../utils/upcase_first";
 import { get_marks } from "../actions";
 
 
-interface Props {
+interface Props extends types.OnLogoutRedirectComponent {
     data: Array<types.Subject>;
     params?: any;
     reqInProgress: boolean;
@@ -52,8 +53,9 @@ function mapDispatchToProps(dispatch: any) {
 function mapStateToProps(state: types.AppState) {
     return {
         reqInProgress: state.marks.reqInProgress,
-        data: state.marks.data
+        data: state.marks.data,
+        logged: state.logged
     };
 }
 
-export const SubjectPage = connect(mapStateToProps, mapDispatchToProps)(Component);
+export const SubjectPage = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

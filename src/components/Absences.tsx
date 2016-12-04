@@ -3,11 +3,13 @@ import { AppState } from "../types";
 import { connect } from "react-redux";
 import { Card, CardTitle, CardText, Grid, Cell } from "react-mdl";
 
+import { BasicRoute } from "./BasicRouteHOC";
+
 import * as types from "../types";
 import { get_absences } from "../actions";
 import { Spinner } from "react-mdl";
 
-interface Props {
+interface Props extends types.OnLogoutRedirectComponent {
     onLoad: () => void;
     data: types.AllAbsences;
     reqInProgress: boolean;
@@ -125,8 +127,9 @@ function mapStateToProps(state: AppState): any {
     return {
         reqInProgress: state.absences.reqInProgress,
         data: state.absences.data,
-        reqError: state.absences.reqError
+        reqError: state.absences.reqError,
+        logged: state.logged
     };
 };
 
-export const Absences = connect(mapStateToProps, mapDispatchToProps)(Component);
+export const Absences = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

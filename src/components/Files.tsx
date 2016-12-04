@@ -2,12 +2,13 @@ import * as React from "react";
 import { AppState } from "../types";
 import { connect } from "react-redux";
 import * as types from "../types";
+import { BasicRoute } from "./BasicRouteHOC";
 
 import { get_files } from "../actions";
 import { Spinner, Grid } from "react-mdl";
 import { FileTeacher } from "./FileTeacher";
 
-interface Props {
+interface Props extends types.OnLogoutRedirectComponent {
     onLoad: () => void;
     data: types.FileTeacher[];
     reqInProgress: boolean;
@@ -18,7 +19,7 @@ interface Props {
 class Component extends React.Component<Props, {}> {
     render() {
         return (<div className="appPadding">
-            <h3 style={{marginBottom: 0}}>Files</h3>
+            <h3 style={{ marginBottom: 0 }}>Files</h3>
             {this.props.reqError ? <p>{this.props.reqError}</p> : null}
             {this.props.reqInProgress ? <Spinner /> : null}
             {this.props.data ? (
@@ -48,8 +49,9 @@ function mapStateToProps(state: AppState): any {
     return {
         reqInProgress: state.files.reqInProgress,
         data: state.files.data,
-        reqError: state.files.reqError
+        reqError: state.files.reqError,
+        logged: state.logged
     };
 };
 
-export const Files = connect(mapStateToProps, mapDispatchToProps)(Component);
+export const Files = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));
