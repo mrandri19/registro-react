@@ -28,6 +28,7 @@ webpack:
   script:
     - npm run build-prod
   artifacts:
+    name: "${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}"
     paths:
       - node_modules/
       - dist/
