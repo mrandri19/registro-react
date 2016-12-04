@@ -13,6 +13,13 @@
   "author": "Andrea Cognolato <andrecogno@hotmail.it> (https://github.com/mrandri19)",
   "license": "ISC",
   "dependencies": {
+    "@types/lodash": "^4.14.41",
+    "@types/react": "^0.14.52",
+    "@types/react-dom": "^0.14.19",
+    "@types/react-mdl": "^1.7.18",
+    "@types/react-redux": "^4.4.35",
+    "@types/react-router": "^2.0.41",
+    "@types/redux-thunk": "^2.1.32",
     "express": "^4.14.0",
     "fuzzy": "^0.1.3",
     "lodash": "^4.13.1",
