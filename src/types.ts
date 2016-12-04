@@ -27,7 +27,7 @@ export interface FORM_ERROR {
 export type Mark = {
     date: string,
     desc: string,
-    mark: number,
+    mark: string,
     ns: boolean,
     q: "q1" | "q3",
     type: string
