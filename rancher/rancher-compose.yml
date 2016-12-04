@@ -1,0 +1,4 @@
+version: '2'
+services:
+  registro-react:
+    scale: 1

@@ -1,0 +1,6 @@
+version: '2'
+services:
+  registro-react:
+    image: registry.git.daniele.ml/mrandri19/registro-react:master
+    labels:
+      io.rancher.container.pull_image: always

@@ -1,0 +1,73 @@
+image: alpine:latest
+
+variables:
+  DOCKER_DRIVER: overlay
+  DOCKER_IMAGE: registry.git.daniele.ml:4567/mrandri19/registro-react:master
+  RANCHER_URL: https://rancher.daniele.ml/v2-beta/schemas
+  RANCHER_ENVIRONMENT: 1a5
+
+stages:
+  - build
+  - push
+  - deploy
+
+.node_image: &node_image
+  image: danielemonteleone/node-alpine:latest
+
+.npm_cache: &npm_cache
+  cache:
+    paths:
+      - node_modules
+
+webpack:
+  stage: build
+  <<: *node_image
+  <<: *npm_cache
+  before_script:
+    - npm install
+  script:
+    - npm run build-prod
+  artifacts:
+    name: "${CI_BUILD_NAME}_${CI_BUILD_REF_NAME}"
+    paths:
+      - node_modules/
+      - dist/
+    expire_in: 1d
+
+.docker: &docker
+  services:
+    - docker:dind
+  image: "docker:latest"
+  before_script:
+    - docker info
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.git.daniele.ml:4567
+
+docker:
+  stage: push
+  dependencies:
+    - webpack
+  <<: *docker
+  script:
+    - docker build -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE
+
+deploy_staging:
+  stage: deploy
+  environment: staging
+  image: registry.git.daniele.ml:4567/docker-images/rancher-alpine:v0.4.1
+  dependencies: []
+  script:
+    - rancher up -p -d --force-upgrade -c --batch-size 1 --rancher-file rancher/rancher-compose.yml --file rancher/docker-compose.yml --stack registro-react-staging
+  only:
+    - master
+
+deploy_production:
+  stage: deploy
+  environment: production
+  image: registry.git.daniele.ml:4567/docker-images/rancher-alpine:v0.4.1
+  dependencies: []
+  script:
+    - rancher up -p -d --force-upgrade -c --batch-size 1 --rancher-file rancher/rancher-compose.yml --file rancher/docker-compose.yml --stack registro-react
+  only:
+    - master
+  when: manual

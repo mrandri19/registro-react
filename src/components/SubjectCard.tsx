@@ -25,7 +25,7 @@ class Component extends React.Component<Props, {}> {
                     <svg preserveAspectRatio="xMinYMin" width="64" height="64" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="40" fill="transparent" />
                         <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke="transparent" />
-                        <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke={color} strokeDasharray="251.2" strokeDashoffset={to_svg_degrees(mark_degrees)} />
+                        <circle cx="50" cy="50" r="40" fill="transparent" strokeWidth="20" stroke={color} strokeDasharray="251.2" style={{ strokeDashoffset: to_svg_degrees(mark_degrees) }} />
                         <text x="32" y="56" fill="black" fontSize="20">{this.props.mean.toFixed(2)}</text>
                     </svg>
                 </CardTitle>

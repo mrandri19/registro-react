@@ -11,8 +11,7 @@
         "noImplicitReturns": true,
         "noUnusedLocals": true
     },
-    "files": [
-        "./typings/index.d.ts",
-        "./src/index.tsx"
+    "exclude": [
+        "node_modules"
     ]
 }
