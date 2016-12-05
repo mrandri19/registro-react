@@ -29,7 +29,7 @@ module.exports = {
         collapseWhitespace: true,
         removeComments: true
       },
-      siteUrl: "/",
+      siteUrl: "https://app.daniele.ml/",
       hash: true,
       filename: "index.html",
       template: 'src/index.ejs',
