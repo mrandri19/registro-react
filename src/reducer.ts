@@ -1,5 +1,5 @@
 import { merge } from "lodash";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { default as thunk } from "redux-thunk";
 
 import { AppStorage, LOGGED_KEY, USERNAME_KEY } from "./appStorage";
@@ -105,7 +105,6 @@ export function reducer(state = initialState, action: AppActions): AppState {
                         parsedData = JSON.parse(reqData);
                         d[commID] = parsedData;
                     } catch (e) {
-                        console.log("Failed to download", commID);
                     }
                     return merge({}, state, { communications: { descriptions: d } });
                 } else if (reqStatus === 403) {
