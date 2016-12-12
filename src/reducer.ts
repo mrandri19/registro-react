@@ -126,7 +126,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case "ABSENCES_REQUEST_SENT":
             return merge({}, state, { absences: { reqInProgress: true } });
         case "ABSENCES_REQUEST_RECEIVED":
-            return handleApiResponse<Array<AllAbsences>>(action.reqStatus, action.reqData, state, "absences");
+            return handleApiResponse<AllAbsences>(action.reqStatus, action.reqData, state, "absences");
         default:
             return state;
     }
