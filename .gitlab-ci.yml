@@ -54,7 +54,7 @@ docker:
 deploy_staging:
   stage: deploy
   environment: staging
-  image: registry.git.daniele.ml:4567/docker-images/rancher-alpine:v0.4.1
+  image: registry.git.daniele.ml/docker-images/rancher-alpine:v0.4.1
   dependencies: []
   script:
     - rancher up -p -d --force-upgrade -c --batch-size 1 --rancher-file rancher/rancher-compose.yml --file rancher/docker-compose.yml --stack registro-react-staging
@@ -64,7 +64,7 @@ deploy_staging:
 deploy_production:
   stage: deploy
   environment: production
-  image: registry.git.daniele.ml:4567/docker-images/rancher-alpine:v0.4.1
+  image: registry.git.daniele.ml/docker-images/rancher-alpine:v0.4.1
   dependencies: []
   script:
     - rancher up -p -d --force-upgrade -c --batch-size 1 --rancher-file rancher/rancher-compose.yml --file rancher/docker-compose.yml --stack registro-react
