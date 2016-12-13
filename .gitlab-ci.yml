@@ -2,7 +2,7 @@ image: alpine:latest
 
 variables:
   DOCKER_DRIVER: overlay
-  DOCKER_IMAGE: registry.git.daniele.ml:4567/mrandri19/registro-react:master
+  DOCKER_IMAGE: registry.git.daniele.ml/mrandri19/registro-react:master
   RANCHER_URL: https://rancher.daniele.ml/v2-beta/schemas
   RANCHER_ENVIRONMENT: 1a5
 
@@ -40,7 +40,7 @@ webpack:
   image: "docker:latest"
   before_script:
     - docker info
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.git.daniele.ml:4567
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.git.daniele.ml
 
 docker:
   stage: push
