@@ -32,7 +32,7 @@ class Component extends React.Component<Props, {}> {
         </p>
 
 
-            <p>Segnalaci i bug all'indirizzo: <a href="mailto:bugreport@registro.ml">bugreport@registro.ml</a></p>
+            <p>Segnalaci i bug all'indirizzo: <a href="mailto:bugreport@registroelettronico.ml">bugreport@registroelettronico.ml</a></p>
         </div>);
     }
 }
