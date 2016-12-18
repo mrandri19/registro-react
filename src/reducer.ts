@@ -11,7 +11,7 @@ import {
     Communication,
     COMMUNICATION_REQUEST_RECEIVED,
     FileTeacher,
-    AllAbsences
+    Absences
 } from "./types";
 
 const initialState: AppState = {
@@ -126,7 +126,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case "ABSENCES_REQUEST_SENT":
             return merge({}, state, { absences: { reqInProgress: true } });
         case "ABSENCES_REQUEST_RECEIVED":
-            return handleApiResponse<AllAbsences>(action.reqStatus, action.reqData, state, "absences");
+            return handleApiResponse<Absences>(action.reqStatus, action.reqData, state, "absences");
         default:
             return state;
     }

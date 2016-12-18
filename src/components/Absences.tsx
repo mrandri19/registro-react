@@ -11,7 +11,7 @@ import { Spinner } from "react-mdl";
 
 interface Props extends types.OnLogoutRedirectComponent {
     onLoad: () => void;
-    data: types.AllAbsences;
+    data: types.Absences;
     reqInProgress: boolean;
     reqError: string;
 };
@@ -70,37 +70,25 @@ class Component extends React.Component<Props, {}> {
             {this.props.reqInProgress ? <Spinner /> : null}
             {this.props.data ? (
                 <div>
-                    <h4>Giustificate</h4>
-                    <Grid>
-                        {this.props.data.done.absences ? this.props.data.done.absences.map(
-                            (absence) => <Absence data={absence} />
-                        ) : null}
-                        {this.props.data.done.delays ? this.props.data.done.delays.map(
-                            (delay) => <Delay data={delay} />
-                        ) : null}
-                        {this.props.data.done.exits ? this.props.data.done.exits.map(
-                            (exit) => <Exit data={exit} />
-                        ) : null}
-                    </Grid>
                     <h4>Non giustificate</h4>
                     <Grid>
-                        {this.props.data.undone ?
-                            (this.props.data.undone.absences ?
-                                this.props.data.undone.absences.map(
-                                    (absence) => <Absence data={absence} />
-                                ) : null
+                        {this.props.data.absences ? this.props.data.absences.filter(a => !a.done).map(
+                            (absence) => <Absence key={absence.id} data={absence} />
+                        ) : null}
+                        {this.props.data.delays ? this.props.data.delays.filter(a => !a.done).map(
+                            (delay) => <Delay key={delay.id} data={delay} />
+                        ) : null}
+
+                    </Grid>
+                    <h4>Giustificate</h4>
+                    <Grid>
+                        {this.props.data.absences ?
+                            this.props.data.absences.filter(a => a.done).map(
+                                (absence) => <Absence key={absence.id} data={absence} />
                             ) : null}
-                        {this.props.data.undone ?
-                            (this.props.data.undone.delays ?
-                                this.props.data.undone.delays.map(
-                                    (delay) => <Delay data={delay} />
-                                ) : null
-                            ) : null}
-                        {this.props.data.undone ?
-                            (this.props.data.undone.exits ?
-                                this.props.data.undone.exits.map(
-                                    (exit) => <Exit data={exit} />
-                                ) : null
+                        {this.props.data.delays ?
+                            this.props.data.delays.filter(a => a.done).map(
+                                (delay) => <Delay key={delay.id} data={delay} />
                             ) : null}
                     </Grid>
                 </div>

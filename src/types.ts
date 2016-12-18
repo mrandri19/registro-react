@@ -64,7 +64,7 @@ export type AppState = {
         descriptions: IPORCODIO;
     },
     files: ApiCall<Array<FileTeacher>>,
-    absences: ApiCall<AllAbsences>
+    absences: ApiCall<Absences>
 };
 
 export interface Absence {
@@ -73,11 +73,13 @@ export interface Absence {
     to: string;
     days: Number;
     justification?: string;
+    done: boolean;
 }
 
 export interface Delay {
     id: number;
     day: string;
+    done: boolean;
     hours: string;
     justification?: string;
 };
@@ -88,11 +90,6 @@ export interface Absences {
     absences?: Absence[];
     delays?: Delay[];
     exits?: Exit[];
-}
-
-export interface AllAbsences {
-    undone?: Absences;
-    done: Absences;
 }
 
 export interface IPORCODIO {
