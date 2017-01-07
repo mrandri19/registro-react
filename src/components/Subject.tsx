@@ -20,6 +20,9 @@ export function Subject(props: Props) {
     let marks = props.data.marks.map(sub => {
         let newSub: any = merge({}, sub);
         let pre = (newSub.q === "q1");
+        const date = new Date(sub.date);
+        const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
+        newSub.date = `${date.getDay()} ${months[date.getMonth()]} ${date.getFullYear()}`;
         newSub.q = (pre ? "Primo" : "Secondo");
         return newSub;
     });
@@ -32,7 +35,7 @@ export function Subject(props: Props) {
         <div>
             {(year === config.school_start_year) ?
                 <p>Media primo quadrimestre: <span><b>{firstSemesterMean.toFixed(2)}</b></span></p> :
-                <p>Media secondo quadrimestre: <span><b>{secondSemesterMean.toFixed(2)}</b></span></p>}
+                <p>Media secondo quadrimestre: <span><b>{isNaN(secondSemesterMean) ? "Non hai voti nel secondo quadrimestre" : secondSemesterMean.toFixed(2)}</b></span></p>}
             <DataTable
                 shadow={0}
                 rows={marks}
