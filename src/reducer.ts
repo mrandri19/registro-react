@@ -1,5 +1,5 @@
 import { merge } from "lodash";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { default as thunk } from "redux-thunk";
 
 import { AppStorage, LOGGED_KEY, USERNAME_KEY } from "./appStorage";
@@ -53,8 +53,8 @@ const initialState: AppState = {
 type Reducer = (state: AppState, action: AppActions) => AppState;
 
 export function storeFactory(reducer: Reducer) {
-    return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
-    // return createStore<AppState>(reducer, applyMiddleware(thunk));
+    // return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
+    return createStore<AppState>(reducer, applyMiddleware(thunk));
 }
 
 function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppState, fieldToUpdate: string) {
