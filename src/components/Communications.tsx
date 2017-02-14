@@ -5,7 +5,7 @@ import { Link } from "react-router"
 import { BasicRoute } from "./BasicRouteHOC";
 import * as types from "../types";
 
-import { Spinner, Textfield, List, ListItem, ListItemContent, ListItemAction } from "react-mdl";
+import { Spinner, Textfield, List, ListItem, ListItemContent } from "react-mdl";
 import { AppState, Communication } from "../types";
 import { get_communications } from "../actions";
 import { display_date } from "../utils/display_date";
