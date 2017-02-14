@@ -51,3 +51,11 @@ export function files(onfinish: (status: number, response: string) => void) {
 export function absences(onfinish: (status: number, response: string) => void) {
     GET("/absences", onfinish);
 }
+
+export function subjectTeachers(onfinish: (status: number, response: string) => void) {
+    GET("/subjects", onfinish);
+}
+
+export function lesson(subjectId: string, teacherCodes: number[], onfinish: (status: number, response: string) => void) {
+    GET(`/subject/${subjectId}/lessons?teacherCode=${teacherCodes.join(',')}`, onfinish);
+}

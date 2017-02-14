@@ -21,7 +21,7 @@ class Component extends React.Component<Props, {}> {
     render() {
         return (
             <div className="subjects">
-                <h3 style={{ marginLeft: "1em" }}>Voti</h3>
+                <h3 style={{ marginBottom: "0px", marginLeft: "0.5em" }}>Voti</h3>
                 {this.props.reqError ? <div className="appPadding"><p>{this.props.reqError}</p></div> : null}
                 {this.props.reqInProgress ? <div className="appPadding"><Spinner /></div> : null}
                 <Grid>

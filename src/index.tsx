@@ -11,6 +11,8 @@ import { Files } from "./components/Files";
 import { Absences } from "./components/Absences";
 import { Communications } from "./components/Communications";
 import { CommunicationPage } from "./components/CommunicationPage";
+import { LessonPage } from "./components/LessonPage";
+import { Lessons } from "./components/Lessons";
 import { App } from "./components/App";
 import { SubjectPage } from "./components/SubjectPage";
 import { storeFactory, reducer } from "./reducer";
@@ -62,6 +64,9 @@ if (mountPoint) {
                     <Route path="/communications" component={Communications} onEnter={checkAuth}></Route>
 
                     <Route path="/files" component={Files} onEnter={checkAuth}></Route>
+
+                    <Route path="/lessons" component={LessonPage} onEnter={checkAuth}></Route>
+                    <Route path="/subjectLessons/:id" component={Lessons} onEnter={checkAuth}></Route>
 
                     <Route path="login" component={Login}></Route>
                     <Route path="logout" component={Login} onEnter={logout}></Route>

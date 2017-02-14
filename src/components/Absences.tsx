@@ -9,6 +9,8 @@ import * as types from "../types";
 import { get_absences } from "../actions";
 import { Spinner } from "react-mdl";
 
+import { display_date } from "../utils/display_date"
+
 interface Props extends types.OnLogoutRedirectComponent {
     onLoad: () => void;
     data: types.Absences;
@@ -20,12 +22,12 @@ function Absence(props: { data: types.Absence }) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
-                <CardTitle>Assenza</CardTitle>
+                <CardTitle style={{ backgroundColor: "#CE93D8" }}>Assenza</CardTitle>
                 <CardText>
                     <p>{"Numero: " + props.data.id}</p>
                     <p>{"Giorni: " + props.data.days}</p>
-                    <p>{"Dal: " + props.data.from}</p>
-                    <p>{"Al: " + props.data.to}</p>
+                    <p>{"Dal: " + display_date(props.data.from)}</p>
+                    <p>{"Al: " + display_date(props.data.to)}</p>
                     <p>{props.data.justification}</p>
                 </CardText>
             </Card>
@@ -37,11 +39,11 @@ function Delay(props: { data: types.Delay }) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
-                <CardTitle>Ritardo</CardTitle>
+                <CardTitle style={{ backgroundColor: "#F48FB1" }}>Ritardo</CardTitle>
                 <CardText>
                     <p>{"Numero: " + props.data.id}</p>
-                    <p>{"Giorno: " + props.data.day}</p>
-                    <p>{"Ore: " + props.data.hours}</p>
+                    <p>{"Giorno: " + display_date(props.data.day)}</p>
+                    <p>{"Ore: " + props.data.hour}</p>
                     <p>{props.data.justification}</p>
                 </CardText>
             </Card>
@@ -49,7 +51,7 @@ function Delay(props: { data: types.Delay }) {
     );
 }
 
-function Exit(props: { data: types.Exit }) {
+/*function Exit(props: { data: types.Exit }) {
     return (
         <Cell col={3} phone={12} tablet={4}>
             <Card className="cardPadding" shadow={3}>
@@ -60,7 +62,7 @@ function Exit(props: { data: types.Exit }) {
             </Card>
         </Cell>
     );
-}
+}*/
 
 class Component extends React.Component<Props, {}> {
     render() {

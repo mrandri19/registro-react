@@ -1,7 +1,26 @@
 .appPadding {
-    margin: auto 1em;
+    margin: auto 0.5em;
     margin-top: 1em;
     margin-bottom: 1em;
+}
+
+@media (max-width: 479px) {
+    .mdl-cell--12-col,
+    .mdl-cell--12-col-phone.mdl-cell--12-col-phone {
+        width: calc(100%);
+    }
+    .appPadding .mdl-cell {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .appPadding {
+        margin: auto 1em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
 }
 
 .subject {
@@ -47,7 +66,7 @@
     color: red;
 }
 
-.subject > .mdl-card__title {
+.subject>.mdl-card__title {
     display: block;
 }
 
@@ -55,23 +74,23 @@ svg {
     float: right;
 }
 
-
 .subjectPage {
     margin: auto 1em;
     margin-bottom: 1em;
 }
 
 .mdl-data-table {
-    table-layout:fixed;
-    width:100%;
+    table-layout: fixed;
+    width: 100%;
 }
 
-.dottedTable td, th {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
+.dottedTable td,
+th {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
 }
 
 .expand-icon-position {
@@ -80,13 +99,12 @@ svg {
 }
 
 .noListBulletPoints {
-        list-style-type: none;
+    list-style-type: none;
 }
 
 .icon-margin {
     margin-right: 6px;
 }
-
 
 @media screen and (min-width: 1025px) {
     .mdl-layout__drawer-button {
@@ -111,7 +129,7 @@ svg {
     background: transparent;
 }
 
-.transparentSelection i::selection  {
+.transparentSelection i::selection {
     background: transparent;
 }
 

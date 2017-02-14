@@ -33,12 +33,12 @@ class Component extends React.Component<Props, State> {
         let communicationElements: JSX.Element[] | null;
         communicationElements = null;
         if (this.props.data) {
-            let options = {
-                extract: (comm: Communication) => comm.title
+            let options: fuzzy.FilterOptions<Communication> = {
+                extract: (comm: Communication) => comm.title,
             };
             let res = fuzzy.filter(this.state.searchTerm, this.props.data, options);
-            let matchedCommunications = res.map(function (el) { return el.original; });
-            communicationElements = matchedCommunications.map(comm => {
+            communicationElements = res.map(matchResult => {
+                const comm = matchResult.original;
                 return (
                     <tr key={comm.id}>
                         <td onClick={this.handleClick.bind(this)(comm.id)} className="mdl-data-table__cell--non-numeric">
@@ -50,18 +50,14 @@ class Component extends React.Component<Props, State> {
         }
         return (
             <div className="appPadding">
-                <h3>Comunicazioni</h3>
-
-
+                <h3 style={{ marginBottom: "0px" }}>Comunicazioni</h3>
                 {this.props.reqError ? <p>{this.props.reqError}</p> : null}
                 {this.props.reqInProgress ? <Spinner /> : null}
                 {this.props.data ? (
                     <div>
                         <Textfield
-                            ref="a"
-                            label="daw"
-                            expandable
-                            expandableIcon="search"
+                            floatingLabel
+                            label="Cerca nelle comunicazioni"
                             onChange={(e) => {
                                 const val = (e.target as any).value;
                                 this.setState({

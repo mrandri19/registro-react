@@ -14,7 +14,11 @@ import {
     FILES_REQUEST_RECEIVED,
     FILES_REQUEST_SENT,
     ABSENCES_REQUEST_RECEIVED,
-    ABSENCES_REQUEST_SENT
+    ABSENCES_REQUEST_SENT,
+    SUBJECT_TEACHERS_REQUEST_SENT,
+    SUBJECT_TEACHERS_REQUEST_RECEIVED,
+    LESSONS_REQUEST_RECEIVED,
+    LESSONS_REQUEST_SENT
 } from "./types";
 
 import { AppStorage, LOGGED_KEY, SECRET_KEY_KEY } from "./appStorage";
@@ -222,4 +226,54 @@ export function get_absences(): (dispatch: any) => void {
         });
         return;
     };
+}
+
+function subjectTeachers_request_sent(): SUBJECT_TEACHERS_REQUEST_SENT {
+    return {
+        type: "SUBJECT_TEACHERS_REQUEST_SENT"
+    }
+}
+
+function subjectTeachers_request_received(status: number, data: string): SUBJECT_TEACHERS_REQUEST_RECEIVED {
+    return {
+        type: "SUBJECT_TEACHERS_REQUEST_RECEIVED",
+        reqStatus: status,
+        reqData: data
+    }
+}
+
+
+export function get_subjectTeachers(): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(subjectTeachers_request_sent());
+        ApiWrapper.subjectTeachers((status, response) => {
+            dispatch(subjectTeachers_request_received(status, response))
+        });
+        return;
+    }
+}
+
+export function get_lesson(subjectId: string, teacherCodes: number[]): (dispatch: any) => void {
+    return dispatch => {
+        dispatch(lesson_request_sent(subjectId));
+        ApiWrapper.lesson(subjectId, teacherCodes, (status, response) => {
+            dispatch(lesson_request_received(status, response, subjectId))
+        });
+        return;
+    }
+}
+
+export function lesson_request_sent(id: string): LESSONS_REQUEST_SENT {
+    return {
+        type: "LESSONS_REQUEST_SENT",
+        subjectId: id
+    }
+}
+export function lesson_request_received(status: number, data: string, id: string): LESSONS_REQUEST_RECEIVED {
+    return {
+        type: "LESSONS_REQUEST_RECEIVED",
+        reqStatus: status,
+        reqData: data,
+        subjectId: id
+    }
 }

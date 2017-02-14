@@ -1,11 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router";
 import { Layout, Drawer, Navigation, Content } from "react-mdl";
 
-import { AppState } from "../types";
-
-import { Navbar } from "./Navbar";
+import { Header } from "./Header";
 
 interface Props {
     children: any;
@@ -13,8 +10,8 @@ interface Props {
 
 const component = function (props: Props) {
     return (
-        <Layout fixedHeader>
-            <Navbar />
+        <Layout fixedDrawer>
+            <Header />
             <Drawer title="Registro Elettronico">
                 <Navigation>
                     <Link to="/">
@@ -37,6 +34,10 @@ const component = function (props: Props) {
                         <i className="material-icons icon-margin">date_range</i>
                         Assenze
                     </Link>
+                    <Link to="/lessons">
+                        <i className="material-icons icon-margin">class</i>
+                        Lezioni
+                    </Link>
                     <Link to="/logout">
                         <i className="material-icons icon-margin">exit_to_app</i>
                         Esci
@@ -50,12 +51,4 @@ const component = function (props: Props) {
     );
 };
 
-function mapDispatchToProps(dispatch: any) {
-    return {};
-}
-
-function mapStateToProps(state: AppState) {
-    return {};
-}
-
-export const App = connect(mapStateToProps, mapDispatchToProps)(component);
+export const App = component;

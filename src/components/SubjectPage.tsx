@@ -12,7 +12,7 @@ import { get_marks } from "../actions";
 
 interface Props extends types.OnLogoutRedirectComponent {
     data: Array<types.Subject>;
-    params?: any;
+    params: any;
     reqInProgress: boolean;
     onLoad: () => void;
 }

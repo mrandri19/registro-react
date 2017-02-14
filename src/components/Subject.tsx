@@ -5,6 +5,7 @@ import { merge } from "lodash";
 
 import { Subject } from "../types";
 import { calc_marks_mean } from "../utils/calc_marks_mean";
+import { display_date } from "../utils/display_date";
 import * as config from "../config";
 
 interface Props {
@@ -20,9 +21,7 @@ export function Subject(props: Props) {
     let marks = props.data.marks.map(sub => {
         let newSub: any = merge({}, sub);
         let pre = (newSub.q === "q1");
-        const date = new Date(sub.date);
-        const months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"]
-        newSub.date = `${date.getDay()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        newSub.date = display_date(sub.date)
         newSub.q = (pre ? "Primo" : "Secondo");
         return newSub;
     });

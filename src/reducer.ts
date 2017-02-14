@@ -1,5 +1,5 @@
 import { merge } from "lodash";
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { default as thunk } from "redux-thunk";
 
 import { AppStorage, LOGGED_KEY, USERNAME_KEY } from "./appStorage";
@@ -11,7 +11,9 @@ import {
     Communication,
     COMMUNICATION_REQUEST_RECEIVED,
     FileTeacher,
-    Absences
+    Absences,
+    SubjectTeacher,
+    Lesson
 } from "./types";
 
 const initialState: AppState = {
@@ -39,14 +41,20 @@ const initialState: AppState = {
         reqInProgress: false,
         data: null,
         reqError: ""
-    }
+    },
+    subjectTeachers: {
+        reqInProgress: false,
+        data: null,
+        reqError: ""
+    },
+    lessons: {}
 };
 
 type Reducer = (state: AppState, action: AppActions) => AppState;
 
 export function storeFactory(reducer: Reducer) {
-    // return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
-    return createStore<AppState>(reducer, applyMiddleware(thunk));
+    return createStore(reducer, compose(applyMiddleware(thunk), (window as any).devToolsExtension && (window as any).devToolsExtension()));
+    // return createStore<AppState>(reducer, applyMiddleware(thunk));
 }
 
 function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppState, fieldToUpdate: string) {
@@ -58,7 +66,7 @@ function handleApiResponse<T>(reqStatus: number, reqData: string, state: AppStat
             return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, reqError: "Error parsing data" } });
         }
         return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, data: parsedData, reqError: "" } });
-    } else if (reqStatus === 403) {
+    } else if (reqStatus === 403 || reqStatus === 401) {
         return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, reqError: "You need to login again" }, logged: false });
     } else {
         return merge({}, state, { [fieldToUpdate]: { reqInProgress: false, reqError: "Error fetching data" } });
@@ -107,7 +115,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
                     } catch (e) {
                     }
                     return merge({}, state, { communications: { descriptions: d } });
-                } else if (reqStatus === 403) {
+                } else if (reqStatus === 403 || reqStatus === 401) {
                     return merge({}, state, {});
                     // return merge({}, state, { communications: {reqInProgress: false, reqError: "You need to login again"}, logged: false});
                 } else {
@@ -127,6 +135,54 @@ export function reducer(state = initialState, action: AppActions): AppState {
             return merge({}, state, { absences: { reqInProgress: true } });
         case "ABSENCES_REQUEST_RECEIVED":
             return handleApiResponse<Absences>(action.reqStatus, action.reqData, state, "absences");
+        case "SUBJECT_TEACHERS_REQUEST_SENT":
+            return { ...state, subjectTeachers: { reqInProgress: true, data: null, reqError: "" } }
+        case "SUBJECT_TEACHERS_REQUEST_RECEIVED":
+            return handleApiResponse<SubjectTeacher>(action.reqStatus, action.reqData, state, "subjectTeachers");
+        case "LESSONS_REQUEST_SENT":
+            {
+                let newState = { ...state };
+                newState.lessons[action.subjectId] = {
+                    reqInProgress: true,
+                    data: null,
+                    reqError: ""
+                };
+                return merge({}, state, newState);
+            }
+        case "LESSONS_REQUEST_RECEIVED":
+            {
+                let newState = { ...state };
+                const { reqData, reqStatus, subjectId } = action;
+                if (reqStatus === 200) {
+                    try {
+                        const parsed: Array<Lesson> = JSON.parse(reqData)
+                        newState.lessons[subjectId] = {
+                            reqInProgress: false,
+                            data: parsed,
+                            reqError: ""
+                        }
+                    } catch (e) {
+                        newState.lessons[subjectId] = {
+                            reqInProgress: false,
+                            data: null,
+                            reqError: "Error parsing data"
+                        }
+                    }
+                } else if (reqStatus === 403 || reqStatus === 401) {
+                    newState.lessons[subjectId] = {
+                        reqInProgress: false,
+                        data: null,
+                        reqError: "You need to login again"
+                    }
+                } else {
+                    newState.lessons[subjectId] = {
+                        reqInProgress: false,
+                        data: null,
+                        reqError: "Error fetching data"
+                    }
+                }
+                return merge({}, state, newState);
+            }
         default:
             return state;
     }

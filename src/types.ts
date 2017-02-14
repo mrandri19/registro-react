@@ -40,7 +40,7 @@ export interface CommunicationDescription {
     attachment: boolean;
 }
 
-type ApiCall<T> = {
+export type ApiCall<T> = {
     reqInProgress: boolean;
     data: T | null;
     reqError: string;
@@ -61,11 +61,25 @@ export type AppState = {
         reqInProgress: boolean;
         data: Array<Communication> | null;
         reqError: string;
-        descriptions: IPORCODIO;
-    },
-    files: ApiCall<Array<FileTeacher>>,
-    absences: ApiCall<Absences>
+        descriptions: { [key: string]: CommunicationDescription }
+    };
+    files: ApiCall<Array<FileTeacher>>;
+    absences: ApiCall<Absences>;
+    subjectTeachers: ApiCall<Array<SubjectTeacher>>,
+    lessons: { [key: string]: ApiCall<Array<Lesson>> }
 };
+
+export type SubjectTeacher = {
+    name: string;
+    code: string;
+    teacherCodes: Array<number>;
+}
+
+export type Lesson = {
+    teacher: string;
+    date: string;
+    content: string;
+}
 
 export interface Absence {
     id: number;
@@ -80,7 +94,7 @@ export interface Delay {
     id: number;
     day: string;
     done: boolean;
-    hours: string;
+    hour: string;
     justification?: string;
 };
 
@@ -90,10 +104,6 @@ export interface Absences {
     absences?: Absence[];
     delays?: Delay[];
     exits?: Exit[];
-}
-
-export interface IPORCODIO {
-    [key: string]: CommunicationDescription;
 }
 
 export interface SUBMIT_FORM {
@@ -189,6 +199,28 @@ export interface ABSENCES_REQUEST_SENT {
     type: "ABSENCES_REQUEST_SENT";
 }
 
+export interface SUBJECT_TEACHERS_REQUEST_SENT {
+    type: "SUBJECT_TEACHERS_REQUEST_SENT"
+}
+
+export interface SUBJECT_TEACHERS_REQUEST_RECEIVED {
+    type: "SUBJECT_TEACHERS_REQUEST_RECEIVED",
+    reqStatus: number,
+    reqData: string
+}
+
+export interface LESSONS_REQUEST_SENT {
+    type: "LESSONS_REQUEST_SENT";
+    subjectId: string
+}
+
+export interface LESSONS_REQUEST_RECEIVED {
+    subjectId: string;
+    type: "LESSONS_REQUEST_RECEIVED",
+    reqStatus: number,
+    reqData: string
+}
+
 export type AppActions = LOGIN_REQUEST_RECEIVED
     | LOGIN_REQUEST_SENT
     | GET_MARKS
@@ -205,4 +237,8 @@ export type AppActions = LOGIN_REQUEST_RECEIVED
     | FILES_REQUEST_SENT
     | FILES_REQUEST_RECEIVED
     | ABSENCES_REQUEST_SENT
-    | ABSENCES_REQUEST_RECEIVED;
+    | ABSENCES_REQUEST_RECEIVED
+    | SUBJECT_TEACHERS_REQUEST_RECEIVED
+    | SUBJECT_TEACHERS_REQUEST_SENT
+    | LESSONS_REQUEST_RECEIVED
+    | LESSONS_REQUEST_SENT;

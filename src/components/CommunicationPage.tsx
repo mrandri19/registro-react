@@ -5,14 +5,14 @@ import { Spinner } from "react-mdl";
 import { BasicRoute } from "./BasicRouteHOC";
 import * as types from "../types";
 
-import { AppState, IPORCODIO } from "../types";
+import { AppState } from "../types";
 import { get_communication } from "../actions";
 import * as config from "../config";
 
 
 interface Props extends types.OnLogoutRedirectComponent {
     params: any;
-    data: IPORCODIO;
+    data: { [key: string]: types.CommunicationDescription };
     onLoad: (commID: string) => void;
 }
 
