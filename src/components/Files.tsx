@@ -19,7 +19,7 @@ interface Props extends types.OnLogoutRedirectComponent {
 class Component extends React.Component<Props, {}> {
     render() {
         return (<div className="appPadding">
-            <h3 style={{ marginBottom: 0 }}>Files</h3>
+            <h3>Files</h3>
             {this.props.reqError ? <p>{this.props.reqError}</p> : null}
             {this.props.reqInProgress ? <Spinner /> : null}
             {this.props.data ? (

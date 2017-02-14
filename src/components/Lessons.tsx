@@ -1,12 +1,14 @@
-import { connect } from "react-redux";
 import * as React from "react";
+import { connect } from "react-redux";
+import { Spinner, List, ListItem, ListItemContent, ListItemAction } from "react-mdl"
+
+import * as _ from "lodash";
+
 import { BasicRoute } from "./BasicRouteHOC";
 import * as types from "../types";
 import { get_lesson } from "../actions";
-import { Spinner, DataTable, TableHeader } from "react-mdl";
-import { display_date } from "../utils/display_date";
-
-import * as _ from "lodash";
+import { upcase_first_in_sentence } from "../utils/upcase_first_in_sentence"
+import { display_date } from "../utils/display_date"
 
 interface Props extends types.OnLogoutRedirectComponent {
     onLoad: (subjectId: string, teacherCodes: number[]) => void;
@@ -22,28 +24,33 @@ class Component extends React.Component<Props, {}> {
             .filter(s => s.code == params.id)
             .map(s => s.name) : null;
 
-        const data = lessons[params.id] || {}
-        return (
-            <div className="appPadding">
-                <h3>{name}</h3>
-                {data.reqError ? <p>{data.reqError}</p> : null}
-                {data.reqInProgress ? <Spinner /> : null}
-                {data.data ? (
-                    <DataTable
-                        className="dottedTable"
-                        shadow={0}
-                        rows={data.data.map(l => {
-                            return {
-                                ...l,
-                                date: display_date(l.date)
-                            };
-                        })}>
-                        <TableHeader name="content">Contenuto</TableHeader>
-                        <TableHeader numeric name="date">Data</TableHeader>
-                    </DataTable>
-                ) : null}
-            </div>
-        )
+        const data = lessons[params.id] || null
+        if (name && data) {
+            return (
+                <div className="appPadding">
+                    <h3>{upcase_first_in_sentence(name[0])}</h3>
+                    {data.reqError ? <p>{data.reqError}</p> : null}
+                    {data.reqInProgress ? <Spinner /> : null}
+                    {data.data ? (
+                        <List>
+                            {data.data.map(lesson =>
+                                <ListItem key={lesson.date} twoLine>
+                                    <ListItemContent subtitle={lesson.teacher}>
+                                        {lesson.content}
+                                    </ListItemContent>
+                                    <ListItemAction>
+                                        <span>
+                                            {display_date(lesson.date)}
+                                        </span>
+                                    </ListItemAction>
+                                </ListItem>
+                            )}
+                        </List>
+                    ) : null}
+                </div>
+            )
+        }
+        return null;
     }
     componentDidMount() {
         if (!_.isEmpty(this.props.lessons[this.props.params.id])) {

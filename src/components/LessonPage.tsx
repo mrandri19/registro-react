@@ -6,6 +6,7 @@ import { Spinner, List, ListItem } from "react-mdl";
 import * as types from "../types";
 import { BasicRoute } from "./BasicRouteHOC";
 import { get_subjectTeachers } from "../actions";
+import { upcase_first_in_sentence } from "../utils/upcase_first_in_sentence"
 
 
 interface Props extends types.OnLogoutRedirectComponent {
@@ -24,13 +25,17 @@ class Component extends React.Component<Props, {}> {
                 {this.props.reqInProgress ? <div className="appPadding"><Spinner /></div> : null}
                 <List>
                     {this.props.data ? (
-                        this.props.data.map(subjectTeacher => (
-                            <ListItem key={subjectTeacher.name}>
-                                <Link to={`/subjectLessons/${subjectTeacher.code}`}>
-                                    {subjectTeacher.name}
-                                </Link>
-                            </ListItem>
-                        ))
+                        this.props.data.map(subjectTeacher => {
+
+                            return (
+                                <ListItem key={subjectTeacher.name}>
+                                    <Link to={`/subjectLessons/${subjectTeacher.code}`}>
+                                        {upcase_first_in_sentence(subjectTeacher.name)}
+                                    </Link>
+                                </ListItem>
+                            )
+                        }
+                        )
                     ) : null}
                 </List>
             </div>

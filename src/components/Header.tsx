@@ -4,7 +4,7 @@ import { Header as Mdl_header, Navigation } from "react-mdl";
 
 export function Header() {
     return (
-        <Mdl_header title="Registro Elettronico" scroll>
+        <Mdl_header title="Registro Elettronico">
             <Navigation className="mdl-layout--large-screen-only">
                 <Link to="/">
                     <i className="material-icons icon-margin">home</i>

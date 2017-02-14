@@ -10,7 +10,7 @@ interface Props {
 
 const component = function (props: Props) {
     return (
-        <Layout fixedDrawer>
+        <Layout fixedDrawer fixedHeader>
             <Header />
             <Drawer title="Registro Elettronico">
                 <Navigation>
