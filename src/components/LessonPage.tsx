@@ -6,7 +6,7 @@ import { Spinner, List, ListItem } from "react-mdl";
 import * as types from "../types";
 import { BasicRoute } from "./BasicRouteHOC";
 import { get_subjectTeachers } from "../actions";
-import { upcase_first_in_sentence } from "../utils/upcase_first_in_sentence"
+import { upcase_first_in_sentence } from "../utils/upcase_first_in_sentence";
 
 
 interface Props extends types.OnLogoutRedirectComponent {
@@ -33,13 +33,13 @@ class Component extends React.Component<Props, {}> {
                                         {upcase_first_in_sentence(subjectTeacher.name)}
                                     </Link>
                                 </ListItem>
-                            )
+                            );
                         }
                         )
                     ) : null}
                 </List>
             </div>
-        )
+        );
     }
     componentDidMount() {
         if (this.props.data != null) {

@@ -83,11 +83,11 @@ if (mountPoint) {
 
 
 // Close drawer on click
-const drawer = document.querySelector(".mdl-layout__drawer")
+const drawer = document.querySelector(".mdl-layout__drawer");
 
 if (drawer != null) {
     drawer.addEventListener("click", function () {
-        const obfuscator = document.querySelector(".mdl-layout__obfuscator")
+        const obfuscator = document.querySelector(".mdl-layout__obfuscator");
         if (obfuscator != null) {
             obfuscator.classList.remove("is-visible");
             this.classList.remove("is-visible");

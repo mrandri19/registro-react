@@ -4,9 +4,8 @@
         "no-console": [
             true, "log"
         ],
-        "use-strict": [true, "check-module"],
         "eofline": true,
-        "no-unused-variable": [true, "react", {"ignore-pattern": "^_"}],
+        "no-unused-variable": [true, "react", { "ignore-pattern": "^_" }],
         "class-name": false,
         "comment-format": [
             true,

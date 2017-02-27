@@ -136,7 +136,7 @@ export function reducer(state = initialState, action: AppActions): AppState {
         case "ABSENCES_REQUEST_RECEIVED":
             return handleApiResponse<Absences>(action.reqStatus, action.reqData, state, "absences");
         case "SUBJECT_TEACHERS_REQUEST_SENT":
-            return { ...state, subjectTeachers: { reqInProgress: true, data: null, reqError: "" } }
+            return { ...state, subjectTeachers: { reqInProgress: true, data: null, reqError: "" } };
         case "SUBJECT_TEACHERS_REQUEST_RECEIVED":
             return handleApiResponse<SubjectTeacher>(action.reqStatus, action.reqData, state, "subjectTeachers");
         case "LESSONS_REQUEST_SENT":
@@ -155,31 +155,31 @@ export function reducer(state = initialState, action: AppActions): AppState {
                 const { reqData, reqStatus, subjectId } = action;
                 if (reqStatus === 200) {
                     try {
-                        const parsed: Array<Lesson> = JSON.parse(reqData)
+                        const parsed: Array<Lesson> = JSON.parse(reqData);
                         newState.lessons[subjectId] = {
                             reqInProgress: false,
                             data: parsed,
                             reqError: ""
-                        }
+                        };
                     } catch (e) {
                         newState.lessons[subjectId] = {
                             reqInProgress: false,
                             data: null,
                             reqError: "Error parsing data"
-                        }
+                        };
                     }
                 } else if (reqStatus === 403 || reqStatus === 401) {
                     newState.lessons[subjectId] = {
                         reqInProgress: false,
                         data: null,
                         reqError: "You need to login again"
-                    }
+                    };
                 } else {
                     newState.lessons[subjectId] = {
                         reqInProgress: false,
                         data: null,
                         reqError: "Error fetching data"
-                    }
+                    };
                 }
                 return merge({}, state, newState);
             }

@@ -231,7 +231,7 @@ export function get_absences(): (dispatch: any) => void {
 function subjectTeachers_request_sent(): SUBJECT_TEACHERS_REQUEST_SENT {
     return {
         type: "SUBJECT_TEACHERS_REQUEST_SENT"
-    }
+    };
 }
 
 function subjectTeachers_request_received(status: number, data: string): SUBJECT_TEACHERS_REQUEST_RECEIVED {
@@ -239,7 +239,7 @@ function subjectTeachers_request_received(status: number, data: string): SUBJECT
         type: "SUBJECT_TEACHERS_REQUEST_RECEIVED",
         reqStatus: status,
         reqData: data
-    }
+    };
 }
 
 
@@ -247,27 +247,27 @@ export function get_subjectTeachers(): (dispatch: any) => void {
     return dispatch => {
         dispatch(subjectTeachers_request_sent());
         ApiWrapper.subjectTeachers((status, response) => {
-            dispatch(subjectTeachers_request_received(status, response))
+            dispatch(subjectTeachers_request_received(status, response));
         });
         return;
-    }
+    };
 }
 
 export function get_lesson(subjectId: string, teacherCodes: number[]): (dispatch: any) => void {
     return dispatch => {
         dispatch(lesson_request_sent(subjectId));
         ApiWrapper.lesson(subjectId, teacherCodes, (status, response) => {
-            dispatch(lesson_request_received(status, response, subjectId))
+            dispatch(lesson_request_received(status, response, subjectId));
         });
         return;
-    }
+    };
 }
 
 export function lesson_request_sent(id: string): LESSONS_REQUEST_SENT {
     return {
         type: "LESSONS_REQUEST_SENT",
         subjectId: id
-    }
+    };
 }
 export function lesson_request_received(status: number, data: string, id: string): LESSONS_REQUEST_RECEIVED {
     return {
@@ -275,5 +275,5 @@ export function lesson_request_received(status: number, data: string, id: string
         reqStatus: status,
         reqData: data,
         subjectId: id
-    }
+    };
 }

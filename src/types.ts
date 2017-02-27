@@ -73,13 +73,13 @@ export type SubjectTeacher = {
     name: string;
     code: string;
     teacherCodes: Array<number>;
-}
+};
 
 export type Lesson = {
     teacher: string;
     date: string;
     content: string;
-}
+};
 
 export interface Absence {
     id: number;
@@ -200,25 +200,25 @@ export interface ABSENCES_REQUEST_SENT {
 }
 
 export interface SUBJECT_TEACHERS_REQUEST_SENT {
-    type: "SUBJECT_TEACHERS_REQUEST_SENT"
+    type: "SUBJECT_TEACHERS_REQUEST_SENT";
 }
 
 export interface SUBJECT_TEACHERS_REQUEST_RECEIVED {
-    type: "SUBJECT_TEACHERS_REQUEST_RECEIVED",
-    reqStatus: number,
-    reqData: string
+    type: "SUBJECT_TEACHERS_REQUEST_RECEIVED";
+    reqStatus: number;
+    reqData: string;
 }
 
 export interface LESSONS_REQUEST_SENT {
     type: "LESSONS_REQUEST_SENT";
-    subjectId: string
+    subjectId: string;
 }
 
 export interface LESSONS_REQUEST_RECEIVED {
     subjectId: string;
-    type: "LESSONS_REQUEST_RECEIVED",
-    reqStatus: number,
-    reqData: string
+    type: "LESSONS_REQUEST_RECEIVED";
+    reqStatus: number;
+    reqData: string;
 }
 
 export type AppActions = LOGIN_REQUEST_RECEIVED

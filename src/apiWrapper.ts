@@ -57,5 +57,5 @@ export function subjectTeachers(onfinish: (status: number, response: string) => 
 }
 
 export function lesson(subjectId: string, teacherCodes: number[], onfinish: (status: number, response: string) => void) {
-    GET(`/subject/${subjectId}/lessons?teacherCode=${teacherCodes.join(',')}`, onfinish);
+    GET(`/subject/${subjectId}/lessons?teacherCode=${teacherCodes.join(",")}`, onfinish);
 }

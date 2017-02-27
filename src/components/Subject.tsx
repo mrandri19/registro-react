@@ -21,7 +21,7 @@ export function Subject(props: Props) {
     let marks = props.data.marks.map(sub => {
         let newSub: any = merge({}, sub);
         let pre = (newSub.q === "q1");
-        newSub.date = display_date(sub.date)
+        newSub.date = display_date(sub.date);
         newSub.q = (pre ? "Primo" : "Secondo");
         return newSub;
     });

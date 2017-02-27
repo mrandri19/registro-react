@@ -9,7 +9,7 @@ import * as types from "../types";
 import { get_absences } from "../actions";
 import { Spinner } from "react-mdl";
 
-import { display_date } from "../utils/display_date"
+import { display_date } from "../utils/display_date";
 
 interface Props extends types.OnLogoutRedirectComponent {
     onLoad: () => void;
