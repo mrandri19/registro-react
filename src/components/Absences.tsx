@@ -16,7 +16,7 @@ interface Props extends types.OnLogoutRedirectComponent {
     data: types.Absences;
     reqInProgress: boolean;
     reqError: string;
-};
+}
 
 function Absence(props: { data: types.Absence }) {
     return (
@@ -103,7 +103,7 @@ class Component extends React.Component<Props, {}> {
         }
         this.props.onLoad();
     }
-};
+}
 
 function mapDispatchToProps(dispatch: any) {
     return {
@@ -120,6 +120,6 @@ function mapStateToProps(state: AppState): any {
         reqError: state.absences.reqError,
         logged: state.logged
     };
-};
+}
 
 export const Absences = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

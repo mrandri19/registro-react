@@ -71,7 +71,7 @@ export type AppState = {
 
 export type SubjectTeacher = {
     name: string;
-    code: string;
+    code: number;
     teacherCodes: Array<number>;
 };
 
@@ -96,7 +96,7 @@ export interface Delay {
     done: boolean;
     hour: string;
     justification?: string;
-};
+}
 
 export interface Exit { }
 

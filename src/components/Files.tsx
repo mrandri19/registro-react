@@ -13,7 +13,7 @@ interface Props extends types.OnLogoutRedirectComponent {
     data: types.FileTeacher[];
     reqInProgress: boolean;
     reqError: string;
-};
+}
 
 
 class Component extends React.Component<Props, {}> {
@@ -35,7 +35,7 @@ class Component extends React.Component<Props, {}> {
         }
         this.props.onLoad();
     }
-};
+}
 
 function mapDispatchToProps(dispatch: any) {
     return {
@@ -52,6 +52,6 @@ function mapStateToProps(state: AppState): any {
         reqError: state.files.reqError,
         logged: state.logged
     };
-};
+}
 
 export const Files = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

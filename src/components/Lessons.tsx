@@ -15,13 +15,13 @@ interface Props extends types.OnLogoutRedirectComponent {
     lessons: { [key: string]: types.ApiCall<Array<types.Lesson>> };
     params: { id: string };
     subjectTeachers: types.SubjectTeacher[] | null;
-};
+}
 
 class Component extends React.Component<Props, {}> {
     render() {
-        const {subjectTeachers, params, lessons} = this.props;
+        const { subjectTeachers, params, lessons } = this.props;
         const name = subjectTeachers ? subjectTeachers
-            .filter(s => s.code === params.id)
+            .filter(s => s.code.toString() === params.id)
             .map(s => s.name) : null;
 
         const data = lessons[params.id] || null;
@@ -56,10 +56,12 @@ class Component extends React.Component<Props, {}> {
         if (!_.isEmpty(this.props.lessons[this.props.params.id])) {
             return;
         }
+
         if (this.props.subjectTeachers) {
             const teacherCodes = this.props.subjectTeachers
-                .filter(s => s.code === this.props.params.id)
+                .filter(s => s.code.toString() === this.props.params.id)
                 .map(s => s.teacherCodes)[0];
+
             this.props.onLoad(this.props.params.id, teacherCodes);
         } else { this.props.router.push("/lessons"); }
     }
@@ -81,6 +83,6 @@ function mapStateToProps(state: types.AppState): any {
         logged: state.logged,
         subjectTeachers: state.subjectTeachers.data,
     };
-};
+}
 
 export const Lessons = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

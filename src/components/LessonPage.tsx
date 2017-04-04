@@ -14,7 +14,7 @@ interface Props extends types.OnLogoutRedirectComponent {
     reqInProgress: boolean;
     data?: Array<types.SubjectTeacher>;
     reqError: string;
-};
+}
 
 class Component extends React.Component<Props, {}> {
     render() {
@@ -66,6 +66,6 @@ function mapStateToProps(state: types.AppState): any {
         reqError: state.subjectTeachers.reqError,
         logged: state.logged
     };
-};
+}
 
 export const LessonPage = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));

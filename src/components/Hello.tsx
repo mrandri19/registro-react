@@ -7,7 +7,7 @@ import { BasicRoute } from "./BasicRouteHOC";
 
 interface Props extends types.OnLogoutRedirectComponent {
     username: string | null;
-};
+}
 
 class Component extends React.Component<Props, {}> {
     render() {
@@ -48,6 +48,6 @@ function mapStateToProps(state: AppState): {} {
         username: state.username,
         logged: state.logged
     };
-};
+}
 
 export const Hello = connect(mapStateToProps, mapDispatchToProps)(BasicRoute(Component));
