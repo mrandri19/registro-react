@@ -19,16 +19,25 @@ interface Props extends types.OnLogoutRedirectComponent {
 
 class Component extends React.Component<Props, {}> {
     render() {
+        const year = (new Date()).getFullYear();
         return (
             <div className="subjects">
-                <h3 style={{ marginBottom: "0px", marginLeft: "0.5em" }}>Voti</h3>
-                {this.props.reqError ? <div className="appPadding"><p>{this.props.reqError}</p></div> : null}
-                {this.props.reqInProgress ? <div className="appPadding"><Spinner /></div> : null}
+                <div className="appPadding">
+                    <h3>Voti</h3>
+                    {this.props.data ? <h4>{"Media: "}
+                        {
+                            (this.props.data
+                                .map(sub => (year === config.school_start_year) ? calc_marks_mean(sub.marks.filter(sub => sub.q === "q1")) : calc_marks_mean(sub.marks.filter(sub => sub.q === "q3"))).reduce((a, b) => a + b) / this.props.data.length).toFixed(2)
+                        }
+                    </h4> : null
+                    }
+                    {this.props.reqError ? <div><p>{this.props.reqError}</p></div> : null}
+                    {this.props.reqInProgress ? <div><Spinner /></div> : null}
+                </div>
                 <Grid>
                     {this.props.data ? this.props.data.map(sub => {
 
                         let mean: number;
-                        let year = (new Date()).getFullYear();
                         if (year === config.school_start_year) {
                             mean = calc_marks_mean(sub.marks.filter(sub => sub.q === "q1"));
                         } else {
@@ -40,7 +49,7 @@ class Component extends React.Component<Props, {}> {
                                 <SubjectCard
                                     name={sub.name}
                                     mean={mean}
-                                    />
+                                />
                             </Cell>
                         );
                     }) : null}
