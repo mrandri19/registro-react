@@ -1,11 +1,10 @@
 # Readme
 ## Building
-1. `npm i`
-2. `typings i`
-8. `npm run build-dev`
+`yarn`
 
 ## Developing
-To develop it `webpack-dev-server` is recomended
+To develop it `webpack-dev-server` is recomended.
+`yarn run server-dev`
 
 ## Deployment
 1. Run `./deploy.sh`
